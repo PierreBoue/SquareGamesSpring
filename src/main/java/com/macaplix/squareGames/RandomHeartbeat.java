@@ -7,6 +7,6 @@ public class RandomHeartbeat implements HeartbeatSensor {
 
     @Override
     public int get() {
-        return (int) Math.round(Math.random() * 100);
+        return (int) Math.round(Math.random() * 130) + 50;
     }
 }

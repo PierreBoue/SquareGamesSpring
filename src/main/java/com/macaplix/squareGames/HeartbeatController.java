@@ -11,6 +11,6 @@ public class HeartbeatController {
     @GetMapping("/heartbeat")
     int getHeartbeat()
     {
-        return 12;
+        return heartbeatSensor.get();
     }
 }
