@@ -18,6 +18,6 @@ public class GameCatalogDummyImpl implements GameCatalog {
     public Collection<String> getGameIdentifiers()
     {
         //return List.of(ticTacToeGameFactory.getId());
-        return List.of(ticTacToeGameFactory.getId(), (new TaquinGameFactory()).getId(), (new ConnectFourGameFactory()).getId());
+        return List.of(ticTacToeGameFactory.getGameId(), (new TaquinGameFactory()).getGameId(), (new ConnectFourGameFactory()).getGameId());
     }
 }
