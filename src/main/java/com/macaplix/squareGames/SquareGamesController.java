@@ -28,17 +28,6 @@ public class SquareGamesController {
         {
             games[i++] = gameService.getGameDescription(set.getKey());
         }
-/*
-        activeGames.forEach((key, value)-> {
-            games[i++] = gameService.getGameDescription(key);
-        });
-        // new GameDescription(key, value.getFactoryId(), value.getBoardSize(), value.getPlayerIds().size()) );
-        for (String key: activeGames.keySet())
-        {
-            Game game = activeGames.get(key);
-            games[i]= new GameDescription(key, game.getFactoryId(), game.getBoardSize(), game.getPlayerIds().size());
-        }
-*/
         return games;
 
     }

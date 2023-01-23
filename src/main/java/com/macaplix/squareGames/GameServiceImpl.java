@@ -19,7 +19,7 @@ public class GameServiceImpl implements GameService
     public GameServiceImpl() {
         activeGames = new HashMap<String, Game>();
     }
-
+    @Override
     public GameParamsAnswer createGame( GameParams params)
     {
         //Game game;
@@ -55,25 +55,14 @@ public class GameServiceImpl implements GameService
     {
         return activeGames.get(gameid);
     }
+    @Override
     public GameDescription getGameDescription( String gameid)
     {
         Game game = getGame(gameid);
         return new GameDescription(gameid, game.getFactoryId(), game.getBoardSize(), game.getPlayerIds().size());
     }
 
-/*
-    @Override
-    public GameDescription[] getAllGameDescription() {
-        GameDescription[] games = new GameDescription[activeGames.size()];
-        int i=0;
-        for (String key: activeGames.keySet())
-        {
-            Game game = activeGames.get(key);
-            games[i]= new GameDescription(key, game.getFactoryId(), game.getBoardSize(), game.getPlayerIds().size());
-        }
-        return games;
-    }
-*/
+
 
     @Override
     public HashMap<String, Game> getAllGames()
