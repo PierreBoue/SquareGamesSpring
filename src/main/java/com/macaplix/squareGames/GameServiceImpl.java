@@ -16,7 +16,7 @@ public class GameServiceImpl implements GameService
 {
     //private Game activeGame;
     @Autowired
-    public TicTacToePlugin plugin;
+    public TicTacToePlugin ticTacToePluginPlugin;
     private HashMap<String, Game> activeGames;
 
     public GameServiceImpl()
@@ -29,15 +29,14 @@ public class GameServiceImpl implements GameService
     public GameParamsAnswer createGame( GameParams params)
     {
         GameParamsAnswer aparam;
-       // GamePlugin plugin=null;
+       GamePlugin plugin=null;
         switch (params.gameIndex())
         {
             case 0:
-                //plugin = new TicTacToePlugin();
+                plugin = ticTacToePluginPlugin;
                 break;
             case 1:
-                //factory = new TaquinGameFactory();
-                //plugin = new
+                //plugin =
                 break;
             case 2:
                 //factory = new ConnectFourGameFactory();

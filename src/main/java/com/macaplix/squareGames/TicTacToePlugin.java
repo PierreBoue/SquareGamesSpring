@@ -25,14 +25,12 @@ public class TicTacToePlugin implements GamePlugin
     private int defaultPlayerCount;
     @Value("${game.tictactoe.default-board-size}")
     private int defaultBoardSize;
-    @Value("${toto}")
-    private String toto;
     private TicTacToeGameFactory factory = new TicTacToeGameFactory();
 
     @Override
     public String getName(Locale locale)
     {
-        return messageSource.getMessage("game.tictatoe.name", null, Locale.FRENCH);// messageSource.translate( locale, factory.getGameId());
+        return messageSource.getMessage("game.tictatoe.name", null, Locale.FRENCH);
     }
 
     @Override
@@ -42,10 +40,10 @@ public class TicTacToePlugin implements GamePlugin
     }
     private int getDefaultPlayerCount()
     {
-        return  factory.getPlayerCountRange().min();
+        return  defaultPlayerCount;
     }
     private int getDefaultBoardSize()
     {
-        return factory.getBoardSizeRange( defaultPlayerCount).min();
+        return defaultBoardSize;
     }
 }
