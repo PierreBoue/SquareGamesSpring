@@ -42,7 +42,7 @@ public class GameServiceImpl implements GameService
                 //factory = new ConnectFourGameFactory();
                 break;
             default:
-                return new GameParamsAnswer(params, null,"gameIndex out of range", false,"");
+                return new GameParamsAnswer(params, null,"gameIndex out of range", false,"", null);
         }
         if ( plugin == null)
             return null;
@@ -50,7 +50,7 @@ public class GameServiceImpl implements GameService
         String uuid = UUID.randomUUID().toString();
         activeGames.put(uuid, activeGame);
         // System.out.println( activeGames );
-        return new GameParamsAnswer(params, uuid, "ok", true, plugin.getName(Locale.getDefault()));
+        return new GameParamsAnswer(params, uuid, "ok", true, plugin.getName(Locale.getDefault()), activeGame.getBoard());
     }
 /*
     @Override
@@ -94,7 +94,7 @@ public class GameServiceImpl implements GameService
     public GameDescription getGameDescription( String gameid)
     {
         Game game = getGame(gameid);
-        return new GameDescription(gameid, game.getFactoryId(), game.getBoardSize(), game.getPlayerIds().size());
+        return new GameDescription(gameid, game.getFactoryId(), game.getBoardSize(), game.getPlayerIds().size(), game.getBoard());
     }
 
 

@@ -39,8 +39,14 @@ public class SquareGamesController {
     }
 
     @GetMapping("/games/{gameid}/tokens/{tokenid}")
-    private String gameUpdate(@PathVariable(value = "gameid") int gameid, @PathVariable(value = "tokenid") int tokenid)
+    private String getTokenInfo(@PathVariable(value = "gameid") int gameid, @PathVariable(value = "tokenid") int tokenid)
     {
         return "gameid = " + gameid + " token = " + tokenid;
     }
+    @PostMapping("/games/{gameid}/tokens/{tokenid}")
+    private String moveToken(@PathVariable(value = "gameid") int gameid, @PathVariable(value = "tokenid") int tokenid)
+    {
+        return "gameid = " + gameid + " token = " + tokenid;
+    }
+
 }
