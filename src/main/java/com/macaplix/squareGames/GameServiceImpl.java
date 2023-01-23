@@ -8,10 +8,18 @@ import fr.le_campus_numerique.square_games.engine.taquin.TaquinGameFactory;
 import fr.le_campus_numerique.square_games.engine.tictactoe.TicTacToeGameFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.*;
+
 @Service
 public class GameServiceImpl implements GameService
 {
-    private Game activeGame;
+    //private Game activeGame;
+    private HashMap<String, Game> activeGames;
+
+    public GameServiceImpl() {
+        activeGames = new HashMap<String, Game>();
+    }
+
     public GameParamsAnswer createGame( GameParams params)
     {
         //Game game;
@@ -30,20 +38,50 @@ public class GameServiceImpl implements GameService
                 factory = new ConnectFourGameFactory();
                 break;
             default:
-                return new GameParamsAnswer(params,"gameIndex out of range", false,"");
+                return new GameParamsAnswer(params, null,"gameIndex out of range", false,"");
         }
         String checkAnswer = checkPlayerCount(factory, params.playerCount());
-        if ( ! checkAnswer.isBlank()) return new GameParamsAnswer( params, "playerCount should be between " + factory.getPlayerCountRange().min() + " and " + factory.getPlayerCountRange().max(), false, "");
+        if ( ! checkAnswer.isBlank()) return new GameParamsAnswer( params, null, "playerCount should be between " + factory.getPlayerCountRange().min() + " and " + factory.getPlayerCountRange().max(), false, "");
         checkAnswer = checkBoardSize(factory, params.boardSize(), params.playerCount());
-        if ( ! checkAnswer.isBlank()) return new GameParamsAnswer( params, "board size should be between " + factory.getBoardSizeRange(params.playerCount()).min() +" and " +factory.getBoardSizeRange(params.playerCount()).max(), false, "");
-        activeGame = factory.createGame(params.playerCount(), params.boardSize());
-        return new GameParamsAnswer(params, "ok", true, factory.getGameId());
+        if ( ! checkAnswer.isBlank()) return new GameParamsAnswer( params, null, "board size should be between " + factory.getBoardSizeRange(params.playerCount()).min() +" and " +factory.getBoardSizeRange(params.playerCount()).max(), false, "");
+        Game activeGame = factory.createGame(params.playerCount(), params.boardSize());
+        String uuid = UUID.randomUUID().toString();
+        activeGames.put(uuid, activeGame);
+       // System.out.println( activeGames );
+        return new GameParamsAnswer(params, uuid, "ok", true, factory.getGameId());
     }
-    public Game getGame()
+
+    private Game getGame( String gameid)
     {
-        return activeGame;
+        return activeGames.get(gameid);
     }
-    private String checkPlayerCount( GameFactory factory, int playerCount )
+    public GameDescription getGameDescription( String gameid)
+    {
+        Game game = getGame(gameid);
+        return new GameDescription(gameid, game.getFactoryId(), game.getBoardSize(), game.getPlayerIds().size());
+    }
+
+/*
+    @Override
+    public GameDescription[] getAllGameDescription() {
+        GameDescription[] games = new GameDescription[activeGames.size()];
+        int i=0;
+        for (String key: activeGames.keySet())
+        {
+            Game game = activeGames.get(key);
+            games[i]= new GameDescription(key, game.getFactoryId(), game.getBoardSize(), game.getPlayerIds().size());
+        }
+        return games;
+    }
+*/
+
+    @Override
+    public HashMap<String, Game> getAllGames()
+    {
+        return activeGames;
+    }
+
+    private String checkPlayerCount(GameFactory factory, int playerCount )
     {
         IntRange range = factory.getPlayerCountRange();
         if ( !range.contains(playerCount)) return "playerCount should be between " + range.min() + " and " + range.max();
