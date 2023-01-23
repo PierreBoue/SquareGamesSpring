@@ -6,6 +6,7 @@ import fr.le_campus_numerique.square_games.engine.IntRange;
 import fr.le_campus_numerique.square_games.engine.connectfour.ConnectFourGameFactory;
 import fr.le_campus_numerique.square_games.engine.taquin.TaquinGameFactory;
 import fr.le_campus_numerique.square_games.engine.tictactoe.TicTacToeGameFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -14,11 +15,45 @@ import java.util.*;
 public class GameServiceImpl implements GameService
 {
     //private Game activeGame;
+    @Autowired
+    public TicTacToePlugin plugin;
     private HashMap<String, Game> activeGames;
 
-    public GameServiceImpl() {
+    public GameServiceImpl()
+    {
         activeGames = new HashMap<String, Game>();
+
     }
+
+    @Override
+    public GameParamsAnswer createGame( GameParams params)
+    {
+        GameParamsAnswer aparam;
+       // GamePlugin plugin=null;
+        switch (params.gameIndex())
+        {
+            case 0:
+                //plugin = new TicTacToePlugin();
+                break;
+            case 1:
+                //factory = new TaquinGameFactory();
+                //plugin = new
+                break;
+            case 2:
+                //factory = new ConnectFourGameFactory();
+                break;
+            default:
+                return new GameParamsAnswer(params, null,"gameIndex out of range", false,"");
+        }
+        if ( plugin == null)
+            return null;
+        Game activeGame = plugin.getGame();
+        String uuid = UUID.randomUUID().toString();
+        activeGames.put(uuid, activeGame);
+        // System.out.println( activeGames );
+        return new GameParamsAnswer(params, uuid, "ok", true, plugin.getName(Locale.getDefault()));
+    }
+/*
     @Override
     public GameParamsAnswer createGame( GameParams params)
     {
@@ -50,6 +85,7 @@ public class GameServiceImpl implements GameService
        // System.out.println( activeGames );
         return new GameParamsAnswer(params, uuid, "ok", true, factory.getGameId());
     }
+*/
 
     private Game getGame( String gameid)
     {
