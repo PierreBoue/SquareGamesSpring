@@ -20,7 +20,6 @@ public class TicTacToePlugin implements GamePlugin
 
     @Autowired
     private MessageSource messageSource;
-
     @Value("${game.titactoe.default-player-count}")
     private int defaultPlayerCount;
     @Value("${game.tictactoe.default-board-size}")

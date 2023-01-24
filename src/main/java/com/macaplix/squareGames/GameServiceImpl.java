@@ -1,8 +1,6 @@
 package com.macaplix.squareGames;
 
-import fr.le_campus_numerique.square_games.engine.Game;
-import fr.le_campus_numerique.square_games.engine.GameFactory;
-import fr.le_campus_numerique.square_games.engine.IntRange;
+import fr.le_campus_numerique.square_games.engine.*;
 import fr.le_campus_numerique.square_games.engine.connectfour.ConnectFourGameFactory;
 import fr.le_campus_numerique.square_games.engine.taquin.TaquinGameFactory;
 import fr.le_campus_numerique.square_games.engine.tictactoe.TicTacToeGameFactory;
@@ -96,7 +94,29 @@ public class GameServiceImpl implements GameService
         Game game = getGame(gameid);
         return new GameDescription(gameid, game.getFactoryId(), game.getBoardSize(), game.getPlayerIds().size(), game.getBoard());
     }
-
+    @Override
+    public TokenInfo getTokenInfo( String gameid, CellPosition position)
+    {
+        Game game = activeGames.get( gameid);
+        if ( game == null ) return new TokenInfo(gameid, position,"no game", false, false);
+        Token t = game.getBoard().get(position);
+        boolean onBoard = false;
+        if ( t== null)
+        {
+            onBoard = false;
+            t = game.getRemainingTokens().iterator().next();
+        } else onBoard = true;
+        String name = ( t== null)?"null":t.getName();
+        boolean canMove = ( t== null)?false:t.canMove();
+        return new TokenInfo( gameid, position, name, canMove, onBoard );
+    }
+    @Override
+    public MovedTokenResult moveToken(String gameid, CellPosition oldpos, CellPosition newpos)
+    {
+        Game game = activeGames.get(gameid);
+        //game.getBoard().computeIfAbsent()
+        return null;//new MovedTokenResult( gameid, 0, );
+    }
 
 
     @Override

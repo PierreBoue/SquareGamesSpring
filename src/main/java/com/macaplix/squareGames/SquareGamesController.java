@@ -1,5 +1,6 @@
 package com.macaplix.squareGames;
 
+import fr.le_campus_numerique.square_games.engine.CellPosition;
 import fr.le_campus_numerique.square_games.engine.Game;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -34,19 +35,22 @@ public class SquareGamesController {
     @GetMapping("/games/{gameid}")
     private GameDescription getGame(@PathVariable(value = "gameid") String gameid)
     {
+        String val ="1";
+
         //Game game = gameService.getGame( gameid );
         return gameService.getGameDescription(gameid);
     }
 
-    @GetMapping("/games/{gameid}/tokens/{tokenid}")
-    private String getTokenInfo(@PathVariable(value = "gameid") int gameid, @PathVariable(value = "tokenid") int tokenid)
+    @GetMapping("/games/{gameid}/tokens")
+    private TokenInfo getTokenInfo(@PathVariable(value = "gameid") String gameid, @RequestParam int x, @RequestParam int y)
     {
-        return "gameid = " + gameid + " token = " + tokenid;
+       return gameService.getTokenInfo(gameid, new CellPosition(x, y));
+        // return "gameid = " + gameid + " token = x: " + x + " y: " + y;
     }
     @PostMapping("/games/{gameid}/tokens/{tokenid}")
-    private String moveToken(@PathVariable(value = "gameid") int gameid, @PathVariable(value = "tokenid") int tokenid)
+    private MovedTokenResult moveToken(@PathVariable(value = "gameid") String gameid, @PathVariable(value = "tokenid") int tokenid, @RequestBody MoveTokenParam moveTokenParam)
     {
-        return "gameid = " + gameid + " token = " + tokenid;
+        return gameService.moveToken(gameid, new CellPosition( 10,  2 ), new  CellPosition(moveTokenParam.xdest(), moveTokenParam.ydest()));
     }
 
 }
