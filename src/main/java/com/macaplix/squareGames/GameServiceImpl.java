@@ -14,7 +14,11 @@ public class GameServiceImpl implements GameService
 {
     //private Game activeGame;
     @Autowired
-    public TicTacToePlugin ticTacToePluginPlugin;
+    private TicTacToePlugin ticTacToePlugin;
+    @Autowired
+    private TaquinPlugin taquinPlugin;
+    @Autowired
+    private ConnectfourPlugin connectfourPlugin;
     private HashMap<String, Game> activeGames;
 
     public GameServiceImpl()
@@ -31,24 +35,29 @@ public class GameServiceImpl implements GameService
         switch (params.gameIndex())
         {
             case 0:
-                plugin = ticTacToePluginPlugin;
+                plugin = ticTacToePlugin;
                 break;
             case 1:
-                //plugin =
+                plugin = taquinPlugin;
                 break;
             case 2:
-                //factory = new ConnectFourGameFactory();
+                plugin = connectfourPlugin;
                 break;
             default:
-                return new GameParamsAnswer(params, null,"gameIndex out of range", false,"", null);
+                return new GameParamsAnswer(params.gameIndex(), params.playerCount(), params.boardSize(), null,"gameIndex out of range", false,"");
         }
         if ( plugin == null)
             return null;
-        Game activeGame = plugin.getGame();
+        GameParamsAnswer answer = plugin.checkParams( params);
+        if ( ! answer.isOk())
+        {
+            return answer;
+        }
+        Game activeGame = plugin.createGame( answer );
         String uuid = UUID.randomUUID().toString();
         activeGames.put(uuid, activeGame);
         // System.out.println( activeGames );
-        return new GameParamsAnswer(params, uuid, "ok", true, plugin.getName(Locale.getDefault()), activeGame.getBoard());
+        return new GameParamsAnswer(answer.gameIndex(), answer.playerCount(), answer.boardSize(), uuid, "ok", true, plugin.getName(Locale.getDefault()));
     }
 /*
     @Override
@@ -101,13 +110,13 @@ public class GameServiceImpl implements GameService
         if ( game == null ) return new TokenInfo(gameid, position,"no game", false, false);
         Token t = game.getBoard().get(position);
         boolean onBoard = false;
+        boolean canMove = ( t== null)?false:t.canMove();
         if ( t== null)
         {
             onBoard = false;
             t = game.getRemainingTokens().iterator().next();
         } else onBoard = true;
         String name = ( t== null)?"null":t.getName();
-        boolean canMove = ( t== null)?false:t.canMove();
         return new TokenInfo( gameid, position, name, canMove, onBoard );
     }
     @Override

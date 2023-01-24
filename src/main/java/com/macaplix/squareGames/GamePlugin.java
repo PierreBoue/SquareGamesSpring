@@ -9,7 +9,8 @@ public interface GamePlugin
     //public int defaultPlayerCount=0;
     //public int defaultBoradSize = 0;
     public String getName(Locale locale);
-    public Game getGame();
+    public GameParamsAnswer checkParams( GameParams params);
+    public Game createGame( GameParamsAnswer params);
    // public int defaultPlayerCount();
   //  public int defaultBoardSize();
 

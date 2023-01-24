@@ -13,8 +13,9 @@ public class SquareGamesController {
     @Autowired
     private GameService gameService;
     @PostMapping( "/games")
-    private GameParamsAnswer gameCreate(@RequestBody GameParams params)
+    private GameParamsAnswer gameCreate(@RequestBody( required= false) GameParams params)
     {
+        if (  params == null ) params = new GameParams(0,0,0);
         //System.out.println(body);
         return gameService.createGame( params );
     }
@@ -22,7 +23,7 @@ public class SquareGamesController {
     private GameDescription[] getGames()
     {
         HashMap<String,Game> activeGames = gameService.getAllGames();
-        System.out.println(activeGames);
+        //System.out.println(activeGames);
         GameDescription[] games = new GameDescription[activeGames.size()];
         int i=0;
         for (Map.Entry<String,Game> set: activeGames.entrySet())
