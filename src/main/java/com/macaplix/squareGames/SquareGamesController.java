@@ -1,5 +1,9 @@
 package com.macaplix.squareGames;
 
+import com.macaplix.squareGames.dto.*;
+import com.macaplix.squareGames.service.GameCatalog;
+import com.macaplix.squareGames.service.GameCatalogDummyImpl;
+import com.macaplix.squareGames.service.GameService;
 import fr.le_campus_numerique.square_games.engine.CellPosition;
 import fr.le_campus_numerique.square_games.engine.Game;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +14,7 @@ import java.util.Map;
 
 @RestController
 public class SquareGamesController {
+   // private  final int dummyInt=-1;
     @Autowired
     private GameService gameService;
     @PostMapping( "/games")
@@ -33,6 +38,13 @@ public class SquareGamesController {
         return games;
 
     }
+    @GetMapping("/games/types")
+    private GameTypeInfo[] getGameTypes( )
+    {
+        GameCatalog catalog = new GameCatalogDummyImpl();
+        return catalog.getGameTypes( gameService);
+    }
+
     @GetMapping("/games/{gameid}")
     private GameDescription getGame(@PathVariable(value = "gameid") String gameid)
     {
@@ -43,15 +55,15 @@ public class SquareGamesController {
     }
 
     @GetMapping("/games/{gameid}/tokens")
-    private TokenInfo getTokenInfo(@PathVariable(value = "gameid") String gameid, @RequestParam int x, @RequestParam int y)
+    private TokenInfo[] getTokenInfo(@PathVariable(value = "gameid") String gameid, @RequestParam( required = false, defaultValue = "-1" ) int x, @RequestParam( required = false, defaultValue = "-1") int y)
     {
-       return gameService.getTokenInfo(gameid, new CellPosition(x, y));
-        // return "gameid = " + gameid + " token = x: " + x + " y: " + y;
+      if ((x < 0) && ( y <0 )) return gameService.getTokenList(gameid);
+       return new TokenInfo[] {gameService.getTokenInfo(gameid, new CellPosition(x, y))};
     }
     @PostMapping("/games/{gameid}/tokens/{tokenid}")
     private MovedTokenResult moveToken(@PathVariable(value = "gameid") String gameid, @PathVariable(value = "tokenid") int tokenid, @RequestBody MoveTokenParam moveTokenParam)
     {
-        return gameService.moveToken(gameid, new CellPosition( 10,  2 ), new  CellPosition(moveTokenParam.xdest(), moveTokenParam.ydest()));
+        return gameService.moveToken(gameid,tokenid, new  CellPosition(moveTokenParam.xdest(), moveTokenParam.ydest()));
     }
 
 }

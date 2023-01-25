@@ -1,4 +1,4 @@
-package com.macaplix.squareGames;
+package com.macaplix.squareGames.dto;
 
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import fr.le_campus_numerique.square_games.engine.CellPosition;
