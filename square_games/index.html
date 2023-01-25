@@ -1,9 +1,9 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
       <script>
        // The variable that makes Ajax possible!
-        var ajaxRequest; 
+        var ajaxRequest = null; 
           //Browser Support Code
         function ajaxFunction()
         {
@@ -39,19 +39,22 @@
              }
             }
          }
-         function init()
+         function initContent()
           {
             var url ="http://127.0.0.1:8080/games";
+              
+              alert("init");
+              if ( ajaxRequest == null ) alert("pas d'ajax !!!");
             ajaxRequest.open("GET", url, true);
             ajaxRequest.send( null );
           }
           function createGame()
           {
-
+              console.log("init");
           }
       </script>
   </head>
-  <body onload="init();">
+  <body onload="initContent();">
     <h1 align="center">Square Games</h1><form target="" method="get" id="createform" name="createform" action="">
       <table width="80%" align="center" cellpadding="10">
           <tr>
@@ -70,7 +73,7 @@
                   
                   <input type="number" min="0" max="100" id="boardSize" name="boardSize" value="0">
                   <label for="boardSize">board size</label><br/>
-                  <button  type="button" onclick="createGame()" style="" value="">.créer&nbsp;le&nbsp;jeux</button>
+                  <button  type="button" onclick="createGame()" style="" value="">créer&nbsp;le&nbsp;jeux</button>
               </td>
           </tr>
       </table>
