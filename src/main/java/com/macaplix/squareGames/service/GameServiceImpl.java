@@ -83,8 +83,6 @@ public class GameServiceImpl implements GameService
         Game activeGame = plugin.createGame( answer );
         String uuid = UUID.randomUUID().toString();
         activeGames.put(uuid, activeGame);
-        // System.out.println( activeGames );
-        //System.out.println(Locale.getDefault());
         Locale curLocale = Locale.getDefault();
         Locale.setDefault(Locale.ENGLISH);
         return new GameParamsAnswer(answer.gameIndex(), answer.playerCount(), answer.boardSize(), uuid, "ok", true, plugin.getName(curLocale));
