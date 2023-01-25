@@ -15,4 +15,15 @@ public class TaquinPlugin extends GamePluginBase {
     {
         factory = new TaquinGameFactory();
     }
+    @Override
+    public int getDefaultPlayerCount()
+    {
+        return defaultPlayerCount;
+    }
+    @Override
+    public int getDefaultBoardSize()
+    {
+        return defaultBoardSize;
+    }
+
 }

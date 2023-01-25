@@ -14,4 +14,15 @@ public class ConnectfourPlugin extends GamePluginBase {
     {
         factory = new ConnectFourGameFactory();
     }
+    @Override
+    public int getDefaultPlayerCount()
+    {
+        return defaultPlayerCount;
+    }
+    @Override
+    public int getDefaultBoardSize()
+    {
+        return defaultBoardSize;
+    }
+
 }

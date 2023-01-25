@@ -25,4 +25,15 @@ public class TicTacToePlugin extends GamePluginBase
     {
         factory = new TicTacToeGameFactory();
     }
+    @Override
+    public int getDefaultPlayerCount()
+    {
+        return defaultPlayerCount;
+    }
+    @Override
+    public int getDefaultBoardSize()
+    {
+        return defaultBoardSize;
+    }
+
 }

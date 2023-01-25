@@ -35,7 +35,7 @@ public abstract class GamePluginBase implements GamePlugin {
         int playerCount =  params.playerCount();
         if ( playerCount == 0 )
         {
-            playerCount = defaultPlayerCount;
+            playerCount = getDefaultPlayerCount();
         } else {
             checkAnswer = checkPlayerCount( playerCount);
         }
@@ -43,7 +43,7 @@ public abstract class GamePluginBase implements GamePlugin {
         int boardSize = params.boardSize();
         if ( boardSize == 0)
         {
-            boardSize = defaultBoardSize;
+            boardSize = getDefaultBoardSize();
         } else {
             checkAnswer = checkBoardSize(boardSize, playerCount);
         }
@@ -56,6 +56,17 @@ public abstract class GamePluginBase implements GamePlugin {
     {
         return factory.createGame( params.playerCount(),params.boardSize());
     }
+    @Override
+    public int getDefaultPlayerCount()
+    {
+        return 0;
+    }
+    @Override
+    public int getDefaultBoardSize()
+    {
+        return 0;
+    }
+
     private String checkPlayerCount( int playerCount )
     {
         IntRange range = factory.getPlayerCountRange();
