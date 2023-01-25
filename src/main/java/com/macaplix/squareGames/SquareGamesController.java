@@ -14,9 +14,15 @@ import java.util.Map;
 
 @RestController
 public class SquareGamesController {
-   // private  final int dummyInt=-1;
     @Autowired
     private GameService gameService;
+
+    /**
+     *
+     * @param params GameParams DTO to hold game creation data
+     * @return GameParamsAnswer DTO to hold creation result
+     */
+
     @PostMapping( "/games")
     private GameParamsAnswer gameCreate(@RequestBody( required= false) GameParams params)
     {
@@ -24,6 +30,11 @@ public class SquareGamesController {
         //System.out.println(body);
         return gameService.createGame( params );
     }
+
+    /**
+     * get the list of the created games
+     * @return
+     */
     @GetMapping("/games")
     private GameDescription[] getGames()
     {
@@ -38,6 +49,11 @@ public class SquareGamesController {
         return games;
 
     }
+
+    /**
+     *
+     * @return every available game types
+     */
     @GetMapping("/games/types")
     private GameTypeInfo[] getGameTypes( )
     {
@@ -45,6 +61,11 @@ public class SquareGamesController {
         return catalog.getGameTypes( gameService);
     }
 
+    /**
+     *
+     * @param gameid UUID as returned by /games
+     * @return the game description and state
+     */
     @GetMapping("/games/{gameid}")
     private GameDescription getGame(@PathVariable(value = "gameid") String gameid)
     {
@@ -54,12 +75,28 @@ public class SquareGamesController {
         return gameService.getGameDescription(gameid);
     }
 
+    /**
+     *
+     * @param gameid game UUID
+     * @param x optional
+     * @param y optional
+     * @return the game token list
+     * if x and y are omitted it returns all the tokens of the game, otherwise the token at position x, y on the board
+     */
     @GetMapping("/games/{gameid}/tokens")
     private TokenInfo[] getTokenInfo(@PathVariable(value = "gameid") String gameid, @RequestParam( required = false, defaultValue = "-1" ) int x, @RequestParam( required = false, defaultValue = "-1") int y)
     {
       if ((x < 0) && ( y <0 )) return gameService.getTokenList(gameid);
        return new TokenInfo[] {gameService.getTokenInfo(gameid, new CellPosition(x, y))};
     }
+
+    /**
+     * moves a token
+     * @param gameid game UUID
+     * @param tokenid token index as returned in the token list from above endpoint
+     * @param moveTokenParam coordinates of the new token position
+     * @return MovedTokenResult which encapsulate a boolean "success" and an error message in case of failure
+     */
     @PostMapping("/games/{gameid}/tokens/{tokenid}")
     private MovedTokenResult moveToken(@PathVariable(value = "gameid") String gameid, @PathVariable(value = "tokenid") int tokenid, @RequestBody MoveTokenParam moveTokenParam)
     {

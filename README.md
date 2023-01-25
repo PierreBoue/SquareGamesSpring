@@ -8,3 +8,4 @@ ressources :
 - [https://spring.io/guides/gs/spring-boot](https://spring.io/guides/gs/spring-boot)
 - [https://www.postman.com/](https://www.postman.com/)    
 
+![diagram](RESTAPI.jpg)
