@@ -1,0 +1,25 @@
+@charset "UTF-8";
+/* CSS Document */
+
+#boarddesk
+{
+    width: 200px;
+    height: 200px;
+    margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.boarddiv
+{
+    width: 200px;
+    height: 200px;
+    background-color: #D1D1D1;
+}
+.boardtable
+{
+    border-color: black;
+    border-style: solid;
+    border-width: 2px;
+    table-layout: fixed;
+}

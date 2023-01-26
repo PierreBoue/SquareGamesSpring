@@ -1,0 +1,20 @@
+// JavaScript Document
+
+function displayBoard( size )
+{
+    var htmlout = " <table width='100%' align='center' cellpadding='5' class='boardtable'>\n";
+    for ( let y = 0; y < size; y++)
+    {
+       htmlout += "     <tr>\n";
+        for ( let x =0; x < size; x++)
+        {
+            htmlout += "     <td align='center' id='bc" + x + "-" + y + "' onclick='selectCell( this );'>\n";
+            htmlout += "      &nbsp;\n";
+            htmlout += "     </td>\n";
+        }
+       htmlout += "     </tr>\n";
+    }
+    htmlout += "   </table>\n";
+    document.getElementById("boarddiv").innerHTML = htmlout;
+        
+}
