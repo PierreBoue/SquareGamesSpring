@@ -1,5 +1,6 @@
 package com.macaplix.squareGames;
 
+import com.macaplix.squareGames.dao.GameDAO;
 import com.macaplix.squareGames.dao.MySQLconnector;
 import com.macaplix.squareGames.dto.*;
 import com.macaplix.squareGames.service.GameCatalog;
@@ -17,6 +18,8 @@ import java.util.Map;
 public class SquareGamesController {
     @Autowired
     private GameService gameService;
+    @Autowired
+    private GameDAO gameDAO;
     SquareGamesController()
     {
         MySQLconnector.getInstance();
@@ -32,7 +35,10 @@ public class SquareGamesController {
     {
         if (  params == null ) params = new GameParams(0,0,0);
         //System.out.println(body);
-        return gameService.createGame( params );
+        GameParamsAnswer rez = gameService.createGame( params );
+        //int sqlid, String gameKey, int gameType, int currentPlayerID, String gameStatus, int boardSize, Date creationDate, Duration duration, boolean success, String errorMessage
+        gameDAO.saveGame( new GameSaveDTO(0,rez.gameUUID(), rez.gameIndex(), 0, "SETUP", rez.boardSize(), null, null, true, ""));
+        return rez;
     }
 
     /**

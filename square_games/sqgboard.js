@@ -2,7 +2,7 @@
 
 function displayBoard( size )
 {
-    var htmlout = " <table border='2' align='center' cellpadding='5' class='boardtable'>\n";
+    var htmlout = " <table border='2' align='center' cellpadding='5' class='table border border-0'>\n";
     for ( let y = 0; y < size; y++)
     {
        htmlout += "     <tr>\n";

@@ -27,6 +27,26 @@ public class MySQLconnector {
         }
         return INSTANCE;
     }
+    public ResultSet selectStatment( String query )
+    {
+        Statement stmt= null;
+        try {
+            stmt = mysqlConnection.createStatement();
+        } catch (SQLException e) {
+            System.err.println("statment creation failed: " + e.toString());
+            return null;
+        }
+        ResultSet ret=null;
+        try
+        {
+            ret =stmt.executeQuery(query);
+        } catch (SQLException e) {
+            System.err.println("executing query " + query + " failed: " +e.toString());
+            return null;
+            //throw new RuntimeException(e);
+        }
+        return ret;
+    }
     public int insertStatment( String query)
     {
         Statement stmt= null;

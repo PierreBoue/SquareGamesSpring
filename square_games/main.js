@@ -33,6 +33,7 @@ function ajaxFunction()
   {
      if (ajaxRequest.status == 200)
      {
+
       document.getElementById("gametype").value = ajaxRequest.responseText;
      }
   }
