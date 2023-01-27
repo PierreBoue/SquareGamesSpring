@@ -2,9 +2,10 @@ package com.macaplix.squareGames;
 
 import com.macaplix.squareGames.dao.GameDAO;
 import com.macaplix.squareGames.dao.MySQLconnector;
+import com.macaplix.squareGames.dao.TokenDAO;
 import com.macaplix.squareGames.dto.*;
 import com.macaplix.squareGames.service.GameCatalog;
-import com.macaplix.squareGames.service.GameCatalogDummyImpl;
+import com.macaplix.squareGames.service.GameCatalogImpl;
 import com.macaplix.squareGames.service.GameService;
 import fr.le_campus_numerique.square_games.engine.CellPosition;
 import fr.le_campus_numerique.square_games.engine.Game;
@@ -20,6 +21,10 @@ public class SquareGamesController {
     private GameService gameService;
     @Autowired
     private GameDAO gameDAO;
+/*
+    @Autowired
+    private TokenDAO tokenDAO;
+*/
     SquareGamesController()
     {
         MySQLconnector.getInstance();
@@ -38,6 +43,7 @@ public class SquareGamesController {
         GameParamsAnswer rez = gameService.createGame( params );
         //int sqlid, String gameKey, int gameType, int currentPlayerID, String gameStatus, int boardSize, Date creationDate, Duration duration, boolean success, String errorMessage
         gameDAO.saveGame( new GameSaveDTO(0,rez.gameUUID(), rez.gameIndex(), 0, "SETUP", rez.boardSize(), null, null, true, ""));
+        gameService.saveTokens(rez.gameUUID());
         return rez;
     }
 
@@ -67,7 +73,7 @@ public class SquareGamesController {
     @GetMapping("/games/types")
     private GameTypeInfo[] getGameTypes( )
     {
-        GameCatalog catalog = new GameCatalogDummyImpl();
+        GameCatalog catalog = new GameCatalogImpl();
         return catalog.getGameTypes( gameService);
     }
 

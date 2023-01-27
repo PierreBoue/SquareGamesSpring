@@ -2,7 +2,6 @@ package com.macaplix.squareGames.service;
 
 import com.macaplix.squareGames.dto.GameTypeInfo;
 import com.macaplix.squareGames.plugin.GamePlugin;
-import fr.le_campus_numerique.square_games.engine.Game;
 import fr.le_campus_numerique.square_games.engine.GameFactory;
 import fr.le_campus_numerique.square_games.engine.connectfour.ConnectFourGameFactory;
 import fr.le_campus_numerique.square_games.engine.taquin.TaquinGameFactory;
@@ -14,11 +13,11 @@ import java.util.List;
 import java.util.Locale;
 
 @Service
-public class GameCatalogDummyImpl implements GameCatalog {
+public class GameCatalogImpl implements GameCatalog {
     private TicTacToeGameFactory ticTacToeGameFactory;
     private TaquinGameFactory taquinGameFactory;
     private ConnectFourGameFactory connectFourGameFactory;
-    public GameCatalogDummyImpl()
+    public GameCatalogImpl()
     {
         ticTacToeGameFactory = new TicTacToeGameFactory();
         taquinGameFactory = new TaquinGameFactory();
@@ -39,7 +38,7 @@ public class GameCatalogDummyImpl implements GameCatalog {
         for (GameFactory factory:factories)
         {
             GamePlugin plugin = gameService.pluginForGame(factory.getGameId());
-            types[index] = new GameTypeInfo(index, factory.getGameId(), plugin.getName(Locale.getDefault()), plugin.getDefaultPlayerCount(), plugin.getDefaultBoardSize());
+            types[index] = new GameTypeInfo(index, factory.getGameId(), plugin.getName(Locale.getDefault()), plugin.getDefaultPlayerCount(), plugin.getMinPlayerCount(), plugin.getMaxPlayerCount(), plugin.getDefaultBoardSize(), plugin.getMinBoardSize(), plugin.getMaxBoardSize());
             index++;
         }
         return types;

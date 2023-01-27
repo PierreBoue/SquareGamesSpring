@@ -65,23 +65,6 @@ public class MySQLconnector {
             return 0;
             //throw new RuntimeException(e);
         }
-        /*
-        while(true) {
-            try {
-                if (!rs.next()) break;
-            } catch (SQLException e) {
-                System.err.println("result iteration failed: " + e.toString());
-                return 0;
-                //throw new RuntimeException(e);
-            }
-            try {
-                System.out.println(rs.getInt(1)+"  "+rs.getString(2)+"  "+rs.getString(3));
-            } catch (SQLException e) {
-                System.err.println("result set reading failed: " + e.toString());
-                //throw new RuntimeException(e);
-            }
-        }
-        */
         return ret;
     }
     boolean closeConnection()

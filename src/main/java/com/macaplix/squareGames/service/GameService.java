@@ -4,8 +4,10 @@ import com.macaplix.squareGames.dto.*;
 import com.macaplix.squareGames.plugin.GamePlugin;
 import fr.le_campus_numerique.square_games.engine.CellPosition;
 import fr.le_campus_numerique.square_games.engine.Game;
+import fr.le_campus_numerique.square_games.engine.Token;
 
 import java.util.HashMap;
+import java.util.List;
 
 
 public interface GameService
@@ -48,6 +50,8 @@ public interface GameService
      */
     public MovedTokenResult moveToken(String gameid, int tokenIndex, CellPosition newpos);
 
+    public void saveTokens( String gameid);
+    public List<Token> readTokens(int gamid );
     /**
      * accessor to games instance list
      * @return a HashMap indexed by UUID

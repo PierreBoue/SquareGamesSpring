@@ -56,11 +56,33 @@ public abstract class GamePluginBase implements GamePlugin {
     {
         return 0;
     }
+    public int getMinPlayerCount()
+    {
+        IntRange r = factory.getPlayerCountRange();
+        return r.min();
+    }
+    public int getMaxPlayerCount()
+    {
+        return factory.getPlayerCountRange().max();
+    }
+
+
+    public int getMinBoardSize()
+    {
+        return factory.getBoardSizeRange( getDefaultPlayerCount()).min();
+    }
+    public int getMaxBoardSize()
+    {
+        return factory.getBoardSizeRange( getDefaultPlayerCount()).max();
+    }
+
     @Override
     public int getDefaultBoardSize()
     {
         return 0;
     }
+
+
 
     private String checkPlayerCount( int playerCount )
     {

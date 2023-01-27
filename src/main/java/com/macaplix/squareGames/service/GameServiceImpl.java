@@ -1,6 +1,8 @@
 package com.macaplix.squareGames.service;
 
+import com.macaplix.squareGames.dao.TokenDAO;
 import com.macaplix.squareGames.dto.*;
+import com.macaplix.squareGames.entities.TokenEntity;
 import com.macaplix.squareGames.plugin.ConnectfourPlugin;
 import com.macaplix.squareGames.plugin.GamePlugin;
 import com.macaplix.squareGames.plugin.TaquinPlugin;
@@ -23,6 +25,8 @@ public class GameServiceImpl implements GameService
     private TaquinPlugin taquinPlugin;
     @Autowired
     private ConnectfourPlugin connectfourPlugin;
+    @Autowired
+    private TokenDAO tokenDAO;
     private HashMap<String, Game> activeGames;
     private HashMap<String, TokenInfo[]> gameTokens;
 
@@ -174,6 +178,40 @@ public class GameServiceImpl implements GameService
         }
         //game.getBoard().computeIfAbsent()
         return result;//new MovedTokenResult( gameid, 0, );
+    }
+
+    @Override
+    public void saveTokens(String gameid)
+    {
+        Game game = activeGames.get(gameid);
+        for (Token t: game.getBoard().values())
+        {
+            TokenEntity te = new TokenEntity();
+            te.setGameId( gameid);
+            te.setName( t.getName());
+            te.setPositionX( Integer.valueOf(t.getPosition().x()));
+            te.setPositionY(Integer.valueOf(t.getPosition().y()));
+            te.setOnBoard(Boolean.TRUE);
+            te.setCanMove( Boolean.valueOf( t.canMove()));
+            tokenDAO.save(te);
+        }
+        for (Token t: game.getRemainingTokens())
+        {
+            TokenEntity te = new TokenEntity();
+            te.setGameId( gameid);
+            te.setName( t.getName());
+            te.setPositionX( Integer.valueOf(0));
+            te.setPositionY(Integer.valueOf(0));
+            te.setOnBoard(Boolean.TRUE);
+            te.setCanMove( Boolean.valueOf( t.canMove()));
+            tokenDAO.save(te);
+
+        }
+    }
+
+    @Override
+    public List<Token> readTokens(int gamid) {
+        return null;
     }
 
 

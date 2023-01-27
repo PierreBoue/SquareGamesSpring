@@ -16,7 +16,12 @@ public interface GamePlugin
     public GameParamsAnswer checkParams(GameParams params);
     public Game createGame( GameParamsAnswer params);
     public int getDefaultPlayerCount();
+    public int getMinPlayerCount();
+    public int getMaxPlayerCount();
+
     public int getDefaultBoardSize();
+    public int getMinBoardSize();
+    public int getMaxBoardSize();
    // public int defaultPlayerCount();
   //  public int defaultBoardSize();
 
