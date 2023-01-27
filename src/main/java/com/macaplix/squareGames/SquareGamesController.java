@@ -1,5 +1,6 @@
 package com.macaplix.squareGames;
 
+import com.macaplix.squareGames.dao.MySQLconnector;
 import com.macaplix.squareGames.dto.*;
 import com.macaplix.squareGames.service.GameCatalog;
 import com.macaplix.squareGames.service.GameCatalogDummyImpl;
@@ -16,7 +17,10 @@ import java.util.Map;
 public class SquareGamesController {
     @Autowired
     private GameService gameService;
-
+    SquareGamesController()
+    {
+        MySQLconnector.getInstance();
+    }
     /**
      *
      * @param params GameParams DTO to hold game creation data
