@@ -33,10 +33,20 @@ function ajaxFunction()
   {
      if (ajaxRequest.status == 200)
      {
-
-      document.getElementById("gametype").value = ajaxRequest.responseText;
+        const jsn = ajaxRequest.responseText;
+        document.getElementById("messagebox").value = jsn;
+        populateTypeList(jsn);
      }
   }
+}
+function populateTypeList( jsonList)
+{
+    const types = JSON.parse( jsonList);
+    for ( let i =0; i < types.length;   i++)
+    {
+        const item = new GameType( types[i]);
+        item.addItemToList();
+    }
 }
  function initContent()
   {
