@@ -1,5 +1,6 @@
 // JavaScript Document
 var ajaxRequest = null; 
+var gameTypeController = null;
   //Browser Support Code
 function ajaxFunction()
 {
@@ -34,18 +35,24 @@ function ajaxFunction()
      if (ajaxRequest.status == 200)
      {
         const jsn = ajaxRequest.responseText;
-        document.getElementById("messagebox").value = jsn;
+        document.getElementById("debugbox").value = jsn;
         populateTypeList(jsn);
      }
   }
 }
+function selectGameType( idx )
+{
+    gameTypeController.selectTypeAtIndex( idx );
+}
 function populateTypeList( jsonList)
 {
     const types = JSON.parse( jsonList);
+    gameTypeController = new GameTypeController();
     for ( let i =0; i < types.length;   i++)
     {
         const item = new GameType( types[i]);
-        item.addItemToList();
+        gameTypeController.add( item );
+        //item.addItemToList();
     }
 }
  function initContent()

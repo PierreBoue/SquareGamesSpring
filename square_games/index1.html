@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <link rel='icon' type='image/png' href='http://macaplix.com/images/macaplixlogo32.png' />
+    <link href="sqgboard.css" rel="stylesheet" type="text/css" />
+      <script type="text/javascript" src="main.js"></script>
+      <script type="text/javascript" src="sqgboard.js"></script>
+      <script type="text/javascript" src="gameType.js"></script>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+ 
+
+     <title>Square Games</title>
+</head>
+<body onload="initContent();">
+<div class="container">
+    <h1 align="center">Square Games</h1>
+      <table width="80%" align="center" cellpadding="10">
+          <tr>
+              <td align="right" width="50%">
+                  <ul class="nav nav-pills nav-stacked" id="gametypelist">
+                      
+<li><a href="javascript:alert('ouh!!!');">0 - Morpion ( tictactoe )</a></li>
+<li><a href="javascript:alert('ouh!!!');">1 - Puzzle Quinze ( 15 puzzle )</a></li>
+<li><a href="javascript:alert('ouh!!!');">2 - Connect Quatre ( connect4 )</a></li>
+                  </ul>
+              </td>
+              <td align="left">
+                  
+                  <input type="number" min="0" max="100" id="playerCount" name="playerCount" value="0">
+                  <label for="playerCount">player count</label><br/>
+                  
+                  <input type="number" min="0" max="100" id="boardSize" name="boardSize" value="0">
+                  <label for="boardSize">board size</label><br/>
+                  <button  type="button" onclick="createGame()" style="" value="">créer&nbsp;le&nbsp;jeux</button>
+              </td>
+          </tr>
+      </table>
+    
+    <div class="card col-auto">
+    <table class="table table-striped table-bordered table-hover table-condensed w-50">
+    <!--thead>
+      <tr>
+        <th>gameid</th>
+        <th>Jeux</th>
+      </tr>
+    </thead-->
+    <tbody>
+      <tr>
+        <td>4f54df4z5G4W6D4FG</td>
+        <td>Morpion</td>
+      </tr>
+      <tr>
+        <td>iuz5464ffze45fdsf</td>
+        <td>Takin</td>
+      </tr>
+      <tr>
+        <td>54dfg4e8rt44g64g6h</td>
+        <td>Morpion</td>
+      </tr>
+    </tbody>
+  </table>
+        <div class="alert-success w-25" id="alertbox">
+            ...
+       </div>
+    <div id="boarddesk">
+    <div id="boarddiv" class="boarddiv" onClick="displayBoard( 3 );"> &nbsp;
+    </div>
+</div>
+</div>
+<textarea id="messagebox" name="messagebox" rows="8" cols="132">
+</textarea>
+      <ul class="nav nav-pills nav-stacked">
+    <li class="active"><a href="#">Home</a></li>
+    <li><a href="#">Menu 1</a></li>
+    <li><a href="#">Menu 2</a></li>
+    <li><a href="#">Menu 3</a></li>
+  </ul>
+
+</div>
+</body>
+</html>
