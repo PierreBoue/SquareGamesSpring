@@ -102,7 +102,7 @@ function newGameCreated( jsonAnswer )
     }
     g = new Game( answ );
     
-    
+    gamesController.add( g );
     
 }
 function populateTypeList( jsonList)
@@ -121,11 +121,19 @@ function populateGameList(jsonList)
 {
     gamesController = new GamesController();
     const games = JSON.parse(jsonList);
+    for ( let g of games.entries())
+    {
+        const game = new Game( g );
+        gamesController.add( game);
+        
+        
+        
+    }
     
 }
  function initContent()
   {
-    let url ="http://127.0.0.1:8081/games/types";
+    const url ="http://127.0.0.1:8081/games/types";
     ajaxRequest.onreadystatechange = processGameTypeRequest;
      // alert("init");
       //if ( ajaxRequest == null ) alert("pas d'ajax !!!");
@@ -143,11 +151,12 @@ function populateGameList(jsonList)
   }
   function createGame()
   {
+    const url ="http://127.0.0.1:8081/games";
      //int gameIndex, int playerCount, int boardSize
-      const playerCount= parseInt() document.getElementById("playerCount").value );
-      const boardSize= parseInt() document.getElementById("boardSize").value );
+      const playerCount= parseInt( document.getElementById("playerCount").value );
+      const boardSize= parseInt( document.getElementById("boardSize").value );
       const jsonGame = {"gameIndex":gameTypeController.index, "playerCount":playerCount, "boardSize":boardSize};
-        ajaxRequest.open("GET", url, true);
+        ajaxRequest.open("POST", url, true);
       ajaxRequest.onreadystatechange = newGameCreated;
         ajaxRequest.withCredentials = true; // added to test localajaxRequest.onreadystatechange = processGameTypeRequest;
         ajaxRequest.send( JSON.stringify( jsonGame ) );
