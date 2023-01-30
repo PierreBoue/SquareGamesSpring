@@ -1,6 +1,7 @@
 // JavaScript Document
 var ajaxRequest = null; 
 var gameTypeController = null;
+var gamesController = null;
   //Browser Support Code
 function ajaxFunction()
 {
@@ -57,6 +58,20 @@ function processGameListRequest()
         }
     }
 }
+
+function processCreateGameRequest()
+{
+    if (ajaxRequest.readyState == 4)
+    {
+        if (ajaxRequest.status == 200)
+        {
+            const jsn = ajaxRequest.responseText;
+            displayJson(jsn,"game creation");
+            newGameCreated( jsn );
+            //populateGameList(jsn);
+        }
+    }
+}
 function displayJson( jsn, msg )
 {
     const debugbox =document.getElementById("debugbox");
@@ -68,6 +83,27 @@ function displayJson( jsn, msg )
 function selectGameType( idx )
 {
     gameTypeController.selectTypeAtIndex( idx );
+}
+function newGameCreated( jsonAnswer )
+{
+    let answ = null;
+    try 
+    {
+        answ =JSON.parse( jsonAnswer );
+    } catch ( erreur ){
+        alert( "Server answer is unreadable: " + jsonAnswer + "\n" + erreur);
+        return;
+    }
+    // int gameIndex, int playerCount, int boardSize,  String gameUUID, String errorMessage, boolean isOk, String gameName
+    if ( ! answ["isOk"])
+    {
+        alert("game creation failed:\n" + answ["errorMessage"]);
+        return;
+    }
+    g = new Game( answ );
+    
+    
+    
 }
 function populateTypeList( jsonList)
 {
@@ -83,7 +119,9 @@ function populateTypeList( jsonList)
 }
 function populateGameList(jsonList)
 {
+    gamesController = new GamesController();
     const games = JSON.parse(jsonList);
+    
 }
  function initContent()
   {
@@ -105,5 +143,14 @@ function populateGameList(jsonList)
   }
   function createGame()
   {
-      console.log("create");
+     //int gameIndex, int playerCount, int boardSize
+      const playerCount= parseInt() document.getElementById("playerCount").value );
+      const boardSize= parseInt() document.getElementById("boardSize").value );
+      const jsonGame = {"gameIndex":gameTypeController.index, "playerCount":playerCount, "boardSize":boardSize};
+        ajaxRequest.open("GET", url, true);
+      ajaxRequest.onreadystatechange = newGameCreated;
+        ajaxRequest.withCredentials = true; // added to test localajaxRequest.onreadystatechange = processGameTypeRequest;
+        ajaxRequest.send( JSON.stringify( jsonGame ) );
+      
+      // console.log("create");
   }
