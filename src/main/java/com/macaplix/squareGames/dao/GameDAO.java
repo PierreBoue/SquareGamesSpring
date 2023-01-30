@@ -18,7 +18,7 @@ public class GameDAO {
     public GameDAO()
     {
         if ( ! ISACTIVE ) return;
-        createGameTable();
+       createGameTable();
     }
     private boolean createGameTable()
     {
@@ -67,7 +67,7 @@ public class GameDAO {
     public ArrayList<GameSaveDTO> readGames( )
     {
         if ( ! ISACTIVE ) return (ArrayList<GameSaveDTO>) List.of( errorDTO("SQL is not active"));
-        String req ="SELECT sqlid, gameKey, gameType, currentPlayerID, gameStatus, boardSize, creationDate, duration FROM " + GAME_TABLE_NAME + ";";
+        String req ="SELECT id, gameuuid, gameType, currentPlayerID, gameStatus, boardSize, creation, duration FROM " + GAME_TABLE_NAME + ";";
         ResultSet rezset = MySQLconnector.getInstance().selectStatment(req);
         ArrayList<GameSaveDTO> games = new ArrayList<GameSaveDTO>();
         while(true) {
@@ -78,10 +78,10 @@ public class GameDAO {
                 return games;
              }
             try {
-                games.add(new GameSaveDTO( rezset.getInt("sqlid"),
-                        rezset.getString("gameKey"), rezset.getInt("gameType"),
+                games.add(new GameSaveDTO( rezset.getInt("id"),
+                        rezset.getString("gameuuid"), rezset.getInt("gameType"),
                         rezset.getInt("currentPlayerID"), rezset.getString("gameStatus"),
-                        rezset.getInt("boardSize"), rezset.getDate("creationDate"),
+                        rezset.getInt("boardSize"), rezset.getDate("creation"),
                         Duration.ofSeconds( rezset.getLong("duration")),true,"ok"));
 
             } catch (SQLException e) {

@@ -15,7 +15,7 @@ class GameType
     }
     getListItemHmtml() {
         return "<li class=\"list-group-item\">" + this.localName + " ( " + this.localName +" ) </li>\n";
-    };
+    }
     addItemToList() {
         const parent = document.getElementById("gametypelist");
         const elt =document.createElement("li");
@@ -34,7 +34,19 @@ class GameType
         parent.appendChild(elt);
 
         return elt;
-    };
+    }
+    updateUI()
+    {
+        document.getElementById("gameTypeTitle").innerHTML = this.localName;
+        const playerCountInput = document.getElementById("playerCount");
+        playerCountInput.value = this.defaultPlayerCount;
+        playerCountInput.min = this.minPlayerCount;
+        playerCountInput.max = this.maxPlayerCount;
+        const boardSizeInput = document.getElementById("boardSize");
+        boardSizeInput.value = this.defaultBoardSize;
+        boardSizeInput.min = this.minBoarSize;
+        boardSizeInput.max = this.maxBoardSize;
+    }
 }
 class GameTypeController
 {
@@ -55,6 +67,7 @@ class GameTypeController
         this.domElements[this.index].children[0].className ="nav-link";
         this.index = idx;
         this.domElements[this.index].children[0].className ="nav-link active";
+        this.gameTypes[this.index].updateUI();
         
     }
 }

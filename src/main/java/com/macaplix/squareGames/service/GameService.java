@@ -26,6 +26,7 @@ public interface GameService
      */
     public GameDescription getGameDescription(String gameid );
 
+    public void saveGame( GameSaveDTO gameInfo );
     /**
      * get the token list of a game including both on board and remaining
      * @param gameid UUID of the game

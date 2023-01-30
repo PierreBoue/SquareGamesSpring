@@ -1,5 +1,6 @@
 package com.macaplix.squareGames.service;
 
+import com.macaplix.squareGames.dao.GameDAO;
 import com.macaplix.squareGames.dao.TokenDAO;
 import com.macaplix.squareGames.dto.*;
 import com.macaplix.squareGames.entities.TokenEntity;
@@ -8,6 +9,7 @@ import com.macaplix.squareGames.plugin.GamePlugin;
 import com.macaplix.squareGames.plugin.TaquinPlugin;
 import com.macaplix.squareGames.plugin.TicTacToePlugin;
 import fr.le_campus_numerique.square_games.engine.*;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +29,9 @@ public class GameServiceImpl implements GameService
     private ConnectfourPlugin connectfourPlugin;
     @Autowired
     private TokenDAO tokenDAO;
+    @Autowired
+    private GameDAO gameDAO;
+
     private HashMap<String, Game> activeGames;
     private HashMap<String, TokenInfo[]> gameTokens;
 
@@ -34,6 +39,12 @@ public class GameServiceImpl implements GameService
     {
         activeGames = new HashMap<String, Game>();
         gameTokens = new HashMap<String, TokenInfo[]>();
+        //readPersistentGames();
+    }
+    private GamePlugin[] getPlugins()
+    {
+       return new GamePlugin[]{ticTacToePlugin, taquinPlugin, connectfourPlugin};
+
     }
     public GamePlugin pluginForGame( String gameName )
     {
@@ -62,23 +73,10 @@ public class GameServiceImpl implements GameService
     public GameParamsAnswer createGame(GameParams params)
     {
         GameParamsAnswer aparam;
-       GamePlugin plugin=null;
-        switch (params.gameIndex())
-        {
-            case 0:
-                plugin = ticTacToePlugin;
-                break;
-            case 1:
-                plugin = taquinPlugin;
-                break;
-            case 2:
-                plugin = connectfourPlugin;
-                break;
-            default:
-                return new GameParamsAnswer(params.gameIndex(), params.playerCount(), params.boardSize(), null,"gameIndex out of range", false,"");
-        }
-        if ( plugin == null)
-            return null;
+        int idx = params.gameIndex();
+        if ( (idx < 0) ||(idx >= getPlugins().length))
+            return new GameParamsAnswer(params.gameIndex(), params.playerCount(), params.boardSize(), null,"gameIndex out of range", false,"");
+        GamePlugin plugin= getPlugins()[idx];
         GameParamsAnswer answer = plugin.checkParams( params);
         if ( ! answer.isOk())
         {
@@ -102,7 +100,10 @@ public class GameServiceImpl implements GameService
         Game game = getGame(gameid);
         return new GameDescription(gameid, game.getFactoryId(), game.getBoardSize(), game.getPlayerIds().size(), game.getBoard());
     }
-
+    public void saveGame( GameSaveDTO gameInfo )
+    {
+        gameDAO.saveGame(gameInfo);
+    }
     @Override
     public TokenInfo[] getTokenList(String gameid)
     {
@@ -220,7 +221,18 @@ public class GameServiceImpl implements GameService
     {
         return activeGames;
     }
-
+    @PostConstruct
+    private void readPersistentGames()
+    {
+        ArrayList<GameSaveDTO> gameDTOs = gameDAO.readGames( );
+        System.out.println("read persistent");
+        for (GameSaveDTO gdto: gameDTOs)
+        {
+            GamePlugin plugin = getPlugins()[gdto.gameType()];
+            Game game = plugin.createGame( new GameParamsAnswer(gdto.gameType(), plugin.getDefaultPlayerCount(), gdto.boardSize(), gdto.gameKey(), "ok",true, plugin.getName(Locale.getDefault())));
+            activeGames.put(gdto.gameKey(), game);
+        }
+    }
     private String checkPlayerCount(GameFactory factory, int playerCount )
     {
         IntRange range = factory.getPlayerCountRange();

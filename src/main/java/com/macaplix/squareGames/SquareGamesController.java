@@ -19,12 +19,13 @@ import java.util.Map;
 public class SquareGamesController {
     @Autowired
     private GameService gameService;
-    @Autowired
-    private GameDAO gameDAO;
-/*
-    @Autowired
-    private TokenDAO tokenDAO;
-*/
+    /*
+       @Autowired
+
+        private GameDAO gameD;
+        @Autowired
+        private TokenDAO tokenDAO;
+    */
     SquareGamesController()
     {
         MySQLconnector.getInstance();
@@ -42,7 +43,8 @@ public class SquareGamesController {
         //System.out.println(body);
         GameParamsAnswer rez = gameService.createGame( params );
         //int sqlid, String gameKey, int gameType, int currentPlayerID, String gameStatus, int boardSize, Date creationDate, Duration duration, boolean success, String errorMessage
-        gameDAO.saveGame( new GameSaveDTO(0,rez.gameUUID(), rez.gameIndex(), 0, "SETUP", rez.boardSize(), null, null, true, ""));
+        //gameDAO.saveGame( new GameSaveDTO(0,rez.gameUUID(), rez.gameIndex(), 0, "SETUP", rez.boardSize(), null, null, true, ""));
+        gameService.saveGame(new GameSaveDTO(0,rez.gameUUID(), rez.gameIndex(), 0, "SETUP", rez.boardSize(), null, null, true, ""));
         gameService.saveTokens(rez.gameUUID());
         return rez;
     }
