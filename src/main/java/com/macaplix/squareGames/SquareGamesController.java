@@ -1,8 +1,6 @@
 package com.macaplix.squareGames;
 
-import com.macaplix.squareGames.dao.GameDAO;
 import com.macaplix.squareGames.dao.MySQLconnector;
-import com.macaplix.squareGames.dao.TokenDAO;
 import com.macaplix.squareGames.dto.*;
 import com.macaplix.squareGames.service.GameCatalog;
 import com.macaplix.squareGames.service.GameCatalogImpl;

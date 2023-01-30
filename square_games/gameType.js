@@ -46,6 +46,7 @@ class GameType
         boardSizeInput.value = this.defaultBoardSize;
         boardSizeInput.min = this.minBoarSize;
         boardSizeInput.max = this.maxBoardSize;
+        displayBoard(this.defaultBoardSize);
     }
 }
 class GameTypeController

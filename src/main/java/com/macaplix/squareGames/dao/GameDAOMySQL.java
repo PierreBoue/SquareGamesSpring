@@ -12,10 +12,10 @@ import java.time.Duration;
 import java.util.List;
 
 @Component
-public class GameDAO {
+public class GameDAOMySQL implements GameDAOInterface {
     final String GAME_TABLE_NAME = "games";
     final boolean ISACTIVE = true;
-    public GameDAO()
+    public GameDAOMySQL()
     {
         if ( ! ISACTIVE ) return;
        createGameTable();

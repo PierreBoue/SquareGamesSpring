@@ -38,7 +38,7 @@ public class GameCatalogImpl implements GameCatalog {
         for (GameFactory factory:factories)
         {
             GamePlugin plugin = gameService.pluginForGame(factory.getGameId());
-            types[index] = new GameTypeInfo(index, factory.getGameId(), plugin.getName(Locale.getDefault()), plugin.getDefaultPlayerCount(), plugin.getMinPlayerCount(), plugin.getMaxPlayerCount(), plugin.getDefaultBoardSize(), plugin.getMinBoardSize(), plugin.getMaxBoardSize());
+            types[index] = new GameTypeInfo(index, factory.getGameId(), plugin.getName(gameService.getEndUserLocale()), plugin.getDefaultPlayerCount(), plugin.getMinPlayerCount(), plugin.getMaxPlayerCount(), plugin.getDefaultBoardSize(), plugin.getMinBoardSize(), plugin.getMaxBoardSize());
             index++;
         }
         return types;

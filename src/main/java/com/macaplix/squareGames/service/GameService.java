@@ -8,6 +8,7 @@ import fr.le_campus_numerique.square_games.engine.Token;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 
 public interface GameService
@@ -65,5 +66,7 @@ public interface GameService
      * @return a GamePlugin instance
      */
     public GamePlugin pluginForGame(String gameName );
+
+    public Locale getEndUserLocale();
     //public GameDescription[] getAllGameDescription();
 }

@@ -5,6 +5,7 @@ import com.macaplix.squareGames.dto.GameParamsAnswer;
 import fr.le_campus_numerique.square_games.engine.Game;
 import fr.le_campus_numerique.square_games.engine.GameFactory;
 import fr.le_campus_numerique.square_games.engine.IntRange;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
@@ -15,11 +16,15 @@ public abstract class GamePluginBase implements GamePlugin {
     protected GameFactory factory;
     @Autowired
     private MessageSource messageSource;
-
     @Override
     public String getName(Locale locale)
     {
-        return messageSource.getMessage("game." + factory.getGameId().replaceAll("\\s", "") + ".name", null, locale);
+        Locale curLocale = Locale.getDefault();
+        Locale.setDefault(Locale.ENGLISH);
+
+        String msg = messageSource.getMessage("game." + factory.getGameId().replaceAll("\\s", "") + ".name", null, locale);
+        Locale.setDefault(curLocale);
+        return msg;
     }
 
 
