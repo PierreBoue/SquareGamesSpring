@@ -66,6 +66,7 @@ function processCreateGameRequest()
         if (ajaxRequest.status == 200)
         {
             const jsn = ajaxRequest.responseText;
+            console.log(jsn);
             displayJson(jsn,"game creation");
             newGameCreated( jsn );
             //populateGameList(jsn);
@@ -87,6 +88,7 @@ function selectGameType( idx )
 function newGameCreated( jsonAnswer )
 {
     let answ = null;
+    console.log(jsonAnswer);
     try 
     {
         answ =JSON.parse( jsonAnswer );
@@ -157,10 +159,20 @@ function populateGameList(jsonList)
       const playerCount= parseInt( document.getElementById("playerCount").value );
       const boardSize= parseInt( document.getElementById("boardSize").value );
       const jsonGame = {"gameIndex":gameTypeController.index, "playerCount":playerCount, "boardSize":boardSize};
+      //console.log(JSON.stringify( jsonGame));
         ajaxRequest.open("POST", url, true);
-      ajaxRequest.onreadystatechange = newGameCreated;
+      // ajaxRequest.onreadystatechange = processCreateGameRequest;
+     ajaxRequest.setRequestHeader('Accept', 'application/json');
+      //ajaxRequest.setRequestHeader('Accept-Charset', 'UTF-8');
+
+      //ajaxRequest.setRequestHeader('Content-Type', 'application/json');//
         ajaxRequest.withCredentials = true; // added to test localajaxRequest.onreadystatechange = processGameTypeRequest;
-        ajaxRequest.send( JSON.stringify( jsonGame ) );
-      
+        ajaxRequest.send(JSON.stringify(jsonGame));
+/*
+      headers: {
+          'Accept': 'application/json',
+              'Content-Type': 'application/json'
+      }
+*/
       // console.log("create");
   }

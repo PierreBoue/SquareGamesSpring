@@ -38,7 +38,7 @@ public class SquareGamesController {
     private GameParamsAnswer gameCreate(@RequestBody( required= false) GameParams params)
     {
         if (  params == null ) params = new GameParams(0,0,0);
-        //System.out.println(body);
+        //System.out.println(params);
         GameParamsAnswer rez = gameService.createGame( params );
         //int sqlid, String gameKey, int gameType, int currentPlayerID, String gameStatus, int boardSize, Date creationDate, Duration duration, boolean success, String errorMessage
         //gameDAO.saveGame( new GameSaveDTO(0,rez.gameUUID(), rez.gameIndex(), 0, "SETUP", rez.boardSize(), null, null, true, ""));

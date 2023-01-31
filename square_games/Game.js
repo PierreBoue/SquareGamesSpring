@@ -35,7 +35,7 @@ class Game
             //alert(text);
             if ( this.selected ) elt.setAttribute("class","bg-warning");
             const td = document.createElement("td");
-            td.setAttribute("class", "col-md-auto");
+            //td.setAttribute("class", "col-md-auto");
             const txt = document.createTextNode(text);
             td.appendChild( txt );
             elt.appendChild( td );
