@@ -12,6 +12,7 @@ class Game
     selected = false;
     constructor( dto )
     {
+        //int gameIndex, String gameKey, int sqlid, String typeLocale, String typeName, int playerCount, int boardSize, Map<CellPosition, Token> board, Date creation, int duration, String errorMessage, boolean isOk
         this.gameIndex = dto["gameIndex"];
         this.playerCount = dto["playerCount"];
         this.boardSize = dto["boardSize"];

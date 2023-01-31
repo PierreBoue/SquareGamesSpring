@@ -18,7 +18,7 @@ public interface GameService
      * @param params includes game type ( by index ), playerCount, boardSize
      * @return game creation status with UUID on success and error message on failure
      */
-    public GameParamsAnswer createGame(GameParams params);
+    public GameDescription createGame(GameParams params);
 
     /**
      * get the game info including current board size

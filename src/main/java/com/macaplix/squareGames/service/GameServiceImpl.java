@@ -69,13 +69,13 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public GameParamsAnswer createGame(GameParams params) {
-        GameParamsAnswer aparam;
+    public GameDescription createGame(GameParams params) {
+        GameDescription aparam;
         int idx = params.gameIndex();
         if ((idx < 0) || (idx >= getPlugins().length))
-            return new GameParamsAnswer(params.gameIndex(), params.playerCount(), params.boardSize(), null, "gameIndex out of range", false, "");
+            return new GameDescription(params.gameIndex(), params.playerCount(), params.boardSize(), null, "gameIndex out of range", false, "");
         GamePlugin plugin = getPlugins()[idx];
-        GameParamsAnswer answer = plugin.checkParams(params);
+        GameDescription answer = plugin.checkParams(params);
         if (!answer.isOk()) {
             return answer;
         }
@@ -84,9 +84,9 @@ public class GameServiceImpl implements GameService {
         activeGames.put(uuid, activeGame);
         Locale curLocale = Locale.getDefault();
         Locale.setDefault(Locale.ENGLISH);
-        //Locale newloc = Locale.of( response.getHeader("Accept-Language"));
-        //System.out.println(newloc);
-        GameParamsAnswer rep = new GameParamsAnswer(answer.gameIndex(), answer.playerCount(), answer.boardSize(), uuid, "ok", true, plugin.getName(getEndUserLocale()));
+        //int gameIndex, String gameKey, int sqlid, String typeLocale, String typeName, int playerCount, int boardSize, Map<CellPosition, Token> board, Date creation, int duration, String errorMessage, boolean isOk        GameDescription rep = new GameDescription(answer.gameIndex(), answer.playerCount(), answer.boardSize(), uuid, "ok", true, plugin.getName(getEndUserLocale()));
+        GameDescription rep = new GameDescription(answer.gameIndex(), uuid, 0, plugin.getName(getEndUserLocale()), plugin.getType(), answer.playerCount(), answer.boardSize(), new HashMap<CellPosition, Token>(), new Date(), 0, "ok", true);
+
         Locale.setDefault(curLocale);
         return rep;
     }
@@ -115,7 +115,9 @@ public class GameServiceImpl implements GameService {
     public GameDescription getGameDescription(String gameid)
     {
         Game game = getGame(gameid);
-        return new GameDescription(gameid, game.getFactoryId(), game.getBoardSize(), game.getPlayerIds().size(), game.getBoard());
+
+        //int gameIndex, String gameKey, int sqlid, String typeLocale, String typeName, int playerCount, int boardSize, Map<CellPosition, Token> board, Date creation, int duration, String errorMessage, boolean isOk
+        return new GameDescription( 0, game.getFactoryId(), gameid, game.getBoardSize(), game.getPlayerIds().size(), game.getBoard());
     }
     public void saveGame( GameSaveDTO gameInfo )
     {

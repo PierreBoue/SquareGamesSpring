@@ -35,15 +35,15 @@ public class SquareGamesController {
      */
 
     @PostMapping( value = "/games", consumes = {"application/xml","application/json"})
-    private GameParamsAnswer gameCreate(@RequestBody( required= false) GameParams params)
+    private GameDescription gameCreate(@RequestBody( required= false) GameParams params)
     {
         if (  params == null ) params = new GameParams(0,0,0);
         //System.out.println(params);
-        GameParamsAnswer rez = gameService.createGame( params );
+        GameDescription rez = gameService.createGame( params );
         //int sqlid, String gameKey, int gameType, int currentPlayerID, String gameStatus, int boardSize, Date creationDate, Duration duration, boolean success, String errorMessage
         //gameDAO.saveGame( new GameSaveDTO(0,rez.gameUUID(), rez.gameIndex(), 0, "SETUP", rez.boardSize(), null, null, true, ""));
-        gameService.saveGame(new GameSaveDTO(0,rez.gameUUID(), rez.gameIndex(), 0, "SETUP", rez.boardSize(), null, null, true, ""));
-        gameService.saveTokens(rez.gameUUID());
+        gameService.saveGame(new GameSaveDTO(0,rez.gameKey(), rez.gameIndex(), 0, "SETUP", rez.boardSize(), null, null, true, ""));
+        gameService.saveTokens(rez.gameKey());
         return rez;
     }
 
