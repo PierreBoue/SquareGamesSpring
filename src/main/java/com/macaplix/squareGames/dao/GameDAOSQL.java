@@ -30,7 +30,6 @@ public class GameDAOSQL implements GameDAOInterface {
     {
         //int sqlid, String gameKey, int gameType, int currentPlayerID, String gameStatus, int boardSize, Date creationDate, Duration duration
         //SQLconnector connector = SQLconnector.getInstance();" + connector.getDatabaseName() + "
-/*
         final String req = "CREATE TABLE IF NOT EXISTS " +GAME_TABLE_NAME +" ( " +
                 "id int(10) PRIMARY KEY NOT NULL AUTO_INCREMENT," +
                 "gameuuid VARCHAR( 36 ) UNIQUE," +
@@ -39,10 +38,11 @@ public class GameDAOSQL implements GameDAOInterface {
                 "gameStatus ENUM('SETUP', 'ONGOING', 'TERMINATED') DEFAULT 'SETUP'," +
                 "boardSize TINYINT," +
                 "creation DATETIME DEFAULT NOW()," +
-                "duration INT(6) DEFAULT 0 );";AUTO_INCREMENT
+                "duration INT(6) DEFAULT 0 );";
+/*
        final String req = "CREATE TABLE IF NOT EXISTS `GAMES` (  id int PRIMARY KEY NOT NULL , gameuuid VARCHAR( 36 ) UNIQUE, gametype INT, currentPlayerID INT, gameStatus ENUM('SETUP', 'ONGOING', 'TERMINATED') DEFAULT 'SETUP', boardSize INT, creation DATETIME DEFAULT date(), duration INT DEFAULT 0 );";
+        h2 -> final String req = "CREATE TABLE IF NOT EXISTS GAMES (  id int PRIMARY KEY NOT NULL AUTO_INCREMENT, gameuuid VARCHAR( 36 ) UNIQUE, gametype INT, currentPlayerID INT, gameStatus ENUM('SETUP', 'ONGOING', 'TERMINATED') DEFAULT 'SETUP', boardSize INT, creation DATETIME DEFAULT NOW(), duration INT DEFAULT 0 );";
  */
-        final String req = "CREATE TABLE IF NOT EXISTS GAMES (  id int PRIMARY KEY NOT NULL AUTO_INCREMENT, gameuuid VARCHAR( 36 ) UNIQUE, gametype INT, currentPlayerID INT, gameStatus ENUM('SETUP', 'ONGOING', 'TERMINATED') DEFAULT 'SETUP', boardSize INT, creation DATETIME DEFAULT NOW(), duration INT DEFAULT 0 );";
         connector.insertStatment(req);
         return true;
     }
