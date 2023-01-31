@@ -2,6 +2,7 @@ package com.macaplix.squareGames;
 
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
@@ -18,9 +19,17 @@ public class AddResponseHeaderFilter implements Filter {
                          ServletResponse servletResponse,
                          FilterChain filterChain) throws IOException, ServletException {
         HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
-        httpServletResponse.addHeader("Access-Control-Allow-Origin", "null");
-
+        String origin = ((HttpServletRequest)servletRequest).getHeader("origin");
+        origin = (origin == null || origin.equals("")) ? "null" : origin;
+        httpServletResponse.addHeader("Access-Control-Allow-Origin", origin);
+        httpServletResponse.addHeader("Access-Control-Allow-Methods", "POST, GET, PUT, UPDATE, DELETE, OPTIONS");
         httpServletResponse.addHeader("Access-Control-Allow-Credentials", "true");
+        httpServletResponse.addHeader("Access-Control-Allow-Headers",
+                "Authorization, origin, content-type, accept, x-requested-with");
+
+       // httpServletResponse.addHeader("Access-Control-Allow-Origin", "null");
+
+        //httpServletResponse.addHeader("Access-Control-Allow-Credentials", "true");
          filterChain.doFilter(servletRequest, servletResponse);
 
     }

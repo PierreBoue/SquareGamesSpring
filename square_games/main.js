@@ -161,13 +161,14 @@ function populateGameList(jsonList)
       const jsonGame = {"gameIndex":gameTypeController.index, "playerCount":playerCount, "boardSize":boardSize};
       //console.log(JSON.stringify( jsonGame));
         ajaxRequest.open("POST", url, true);
-      // ajaxRequest.onreadystatechange = processCreateGameRequest;
-     ajaxRequest.setRequestHeader('Accept', 'application/json');
-      //ajaxRequest.setRequestHeader('Accept-Charset', 'UTF-8');
+     ajaxRequest.onreadystatechange = processCreateGameRequest;
+    ajaxRequest.setRequestHeader('Accept', 'application/json');
+      
+      //ajaxRequest.setRequestHeader('contentType', 'application/json; charset=UTF-8'); 
 
-      //ajaxRequest.setRequestHeader('Content-Type', 'application/json');//
+      ajaxRequest.setRequestHeader('Content-Type', 'application/json');//
         ajaxRequest.withCredentials = true; // added to test localajaxRequest.onreadystatechange = processGameTypeRequest;
-        ajaxRequest.send(JSON.stringify(jsonGame));
+        ajaxRequest.send(JSON.stringify(jsonGame));//
 /*
       headers: {
           'Accept': 'application/json',

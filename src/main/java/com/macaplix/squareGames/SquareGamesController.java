@@ -34,7 +34,7 @@ public class SquareGamesController {
      * @return GameParamsAnswer DTO to hold creation result
      */
 
-    @PostMapping( "/games")
+    @PostMapping( value = "/games", consumes = {"application/xml","application/json"})
     private GameParamsAnswer gameCreate(@RequestBody( required= false) GameParams params)
     {
         if (  params == null ) params = new GameParams(0,0,0);
@@ -113,7 +113,7 @@ public class SquareGamesController {
      * @param moveTokenParam coordinates of the new token position
      * @return MovedTokenResult which encapsulate a boolean "success" and an error message in case of failure
      */
-    @PostMapping("/games/{gameid}/tokens/{tokenid}")
+    @PostMapping( value = "/games/{gameid}/tokens/{tokenid}", consumes = {"application/xml","application/json"})
     private MovedTokenResult moveToken(@PathVariable(value = "gameid") String gameid, @PathVariable(value = "tokenid") int tokenid, @RequestBody MoveTokenParam moveTokenParam)
     {
         return gameService.moveToken(gameid,tokenid, new  CellPosition(moveTokenParam.xdest(), moveTokenParam.ydest()));
