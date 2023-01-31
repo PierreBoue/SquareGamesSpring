@@ -121,8 +121,9 @@ function populateGameList(jsonList)
 {
     gamesController = new GamesController();
     const games = JSON.parse(jsonList);
-    for ( let g of games.entries())
+    for ( let g of games)
     {
+        //console.log(g);
         const game = new Game( g );
         gamesController.add( game);
         

@@ -12,6 +12,7 @@ import fr.le_campus_numerique.square_games.engine.*;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -29,8 +30,8 @@ public class GameServiceImpl implements GameService {
     private TokenDAO tokenDAO;
     @Autowired
     private GameDAOSQL gameDAOSQL;
-    @Autowired
-    private HttpServletRequest request;
+    //@Autowired
+    //private HttpServletRequest request;
 
     private HashMap<String, Game> activeGames;
     private HashMap<String, TokenInfo[]> gameTokens;
@@ -93,6 +94,8 @@ public class GameServiceImpl implements GameService {
     {
         //Locale newloc = Locale.of( );
         //System.out.println(newloc);
+        return LocaleContextHolder.getLocale();
+/*
         String lngheader = null;
         try {
             lngheader = request.getHeader("Accept-Language");
@@ -102,6 +105,7 @@ public class GameServiceImpl implements GameService {
         }
         Locale newloc = Locale.of( lngheader);
         return newloc;
+*/
     }
     private Game getGame( String gameid)
     {

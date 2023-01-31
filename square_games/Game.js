@@ -15,8 +15,9 @@ class Game
         this.gameIndex = dto["gameIndex"];
         this.playerCount = dto["playerCount"];
         this.boardSize = dto["boardSize"];
-        this.gameID = dto["gameUUID"];
-        this.gameName = dto["gameName"];
+        this.gameID = dto["key"];
+        this.gameName = dto["name"];
+        //alert(dto);
     }
     getDomElement()
     {
@@ -28,10 +29,13 @@ class Game
 
         */
         const elt = document.createElement("tr");
+        //alert(this.gameName);
         for ( let text of [this.gameName, this.gameID])
         {
+            //alert(text);
             if ( this.selected ) elt.setAttribute("class","bg-warning");
             const td = document.createElement("td");
+            td.setAttribute("class", "col-md-auto");
             const txt = document.createTextNode(text);
             td.appendChild( txt );
             elt.appendChild( td );
@@ -55,12 +59,13 @@ class GamesController
         const tgbe = document.getElementById("gameTableBody");
        if ( this.gamesList.length > 0 )
         {
-            tgbe.firstChild.setAttribute( "class", "" );
+            //alert(tgbe.firstChild.nodeName);
+            tgbe.children[0].setAttribute( "class", "" );
             this.gamesList[0].selected = false;
         }
         this.gamesList.unshift( game );
         game.selected = true;
         //this.gameIndex++;
-        tgbe.insertBefore(game.getDomElement(), null);
+        tgbe.insertBefore(game.getDomElement(), tgbe.firstChild);
     }
 }
