@@ -1,7 +1,10 @@
 package com.macaplix.squareGames.dao;
 
 import com.macaplix.squareGames.dto.GameSaveDTO;
+import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestParam;
 
 //import javax.xml.datatype.Duration;
 import java.sql.PreparedStatement;
@@ -15,16 +18,20 @@ import java.util.List;
 public class GameDAOSQL implements GameDAOInterface {
     final String GAME_TABLE_NAME = "games";
     final boolean ISACTIVE = true;
+    @Autowired
+    SQLconnector connector;
     public GameDAOSQL()
     {
         if ( ! ISACTIVE ) return;
-       createGameTable();
+       //createGameTable();
     }
+    @PostConstruct
     private boolean createGameTable()
     {
         //int sqlid, String gameKey, int gameType, int currentPlayerID, String gameStatus, int boardSize, Date creationDate, Duration duration
-        SQLconnector connector = SQLconnector.getInstance();
-        final String req = "CREATE TABLE IF NOT EXISTS " + connector.getDatabaseName() + "." +GAME_TABLE_NAME +" ( " +
+        //SQLconnector connector = SQLconnector.getInstance();" + connector.getDatabaseName() + "
+/*
+        final String req = "CREATE TABLE IF NOT EXISTS " +GAME_TABLE_NAME +" ( " +
                 "id int(10) PRIMARY KEY NOT NULL AUTO_INCREMENT," +
                 "gameuuid VARCHAR( 36 ) UNIQUE," +
                 "gametype TINYINT," +
@@ -32,15 +39,19 @@ public class GameDAOSQL implements GameDAOInterface {
                 "gameStatus ENUM('SETUP', 'ONGOING', 'TERMINATED') DEFAULT 'SETUP'," +
                 "boardSize TINYINT," +
                 "creation DATETIME DEFAULT NOW()," +
-                "duration INT(6) DEFAULT 0 );";
+                "duration INT(6) DEFAULT 0 );";AUTO_INCREMENT
+       final String req = "CREATE TABLE IF NOT EXISTS `GAMES` (  id int PRIMARY KEY NOT NULL , gameuuid VARCHAR( 36 ) UNIQUE, gametype INT, currentPlayerID INT, gameStatus ENUM('SETUP', 'ONGOING', 'TERMINATED') DEFAULT 'SETUP', boardSize INT, creation DATETIME DEFAULT date(), duration INT DEFAULT 0 );";
+ */
+        final String req = "CREATE TABLE IF NOT EXISTS GAMES (  id int PRIMARY KEY NOT NULL AUTO_INCREMENT, gameuuid VARCHAR( 36 ) UNIQUE, gametype INT, currentPlayerID INT, gameStatus ENUM('SETUP', 'ONGOING', 'TERMINATED') DEFAULT 'SETUP', boardSize INT, creation DATETIME DEFAULT NOW(), duration INT DEFAULT 0 );";
         connector.insertStatment(req);
         return true;
     }
     public GameSaveDTO saveGame( GameSaveDTO gameData)
     {
         if ( ! ISACTIVE ) return errorDTO("SQL is not active");
+        System.out.println("game save");
        String req = "INSERT INTO " + GAME_TABLE_NAME + " ( gameuuid, gametype, currentPlayerID, boardSize ) VALUES ( ?, ?, ? , ? );";
-        PreparedStatement smt = SQLconnector.getInstance().prepareStatment(req );
+        PreparedStatement smt = connector.prepareStatment(req );
         try {
             smt.setString(1, gameData.gameKey());
             smt.setInt(2, gameData.gameType());
@@ -59,17 +70,20 @@ public class GameDAOSQL implements GameDAOInterface {
                 //sqlid =  MySQLconnector.getInstance().mysqlConnection.g
             }
         } catch (SQLException e) {
+            System.err.println( "prepared statment failure: " + e.toString() );
             return errorDTO( "prepared statment failure: " + e.toString());
 
         }
+        System.err.println("sql id: " + sqlid);
         return null;// new GameSaveDTO();
     }
     public ArrayList<GameSaveDTO> readGames( )
     {
         if ( ! ISACTIVE ) return (ArrayList<GameSaveDTO>) List.of( errorDTO("SQL is not active"));
         String req ="SELECT id, gameuuid, gameType, currentPlayerID, gameStatus, boardSize, creation, duration FROM " + GAME_TABLE_NAME + ";";
-        ResultSet rezset = SQLconnector.getInstance().selectStatment(req);
+        ResultSet rezset = connector.selectStatment(req);
         ArrayList<GameSaveDTO> games = new ArrayList<GameSaveDTO>();
+        if ( rezset == null ) return games;
         while(true) {
             try {
                 if (!rezset.next()) break;
@@ -109,7 +123,7 @@ public class GameDAOSQL implements GameDAOInterface {
             return errorDTO("no valid key provided to get the game");
         }
         String req ="SELECT sqlid, gameKey, gameType, currentPlayerID, gameStatus, boardSize, creationDate, duration FROM " + GAME_TABLE_NAME + where;
-        SQLconnector connector = SQLconnector.getInstance();
+        //SQLconnector connector = SQLconnector.getInstance();
         PreparedStatement stmt = connector.prepareStatment(req);
         try {
             if ( hasNumID ) {

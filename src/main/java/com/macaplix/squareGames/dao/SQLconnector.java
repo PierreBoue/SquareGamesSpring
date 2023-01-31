@@ -1,16 +1,22 @@
 package com.macaplix.squareGames.dao;
 
-import java.sql.*;
+import org.springframework.stereotype.Component;
 
+import javax.sql.DataSource;
+import java.sql.*;
+@Component
 public class SQLconnector {
-    private final String DATABASE_NAME ="square_games";
-    Connection mysqlConnection;
-    private static SQLconnector INSTANCE = null;
-    private SQLconnector()
+    private final String DATABASE_NAME = "testdb";//"square_games";
+    Connection connection;
+    //private static SQLconnector INSTANCE = null;
+    private SQLconnector(DataSource dataSource)
     {
         try {
-            mysqlConnection= DriverManager.getConnection(
-                    "jdbc:mysql://localhost:6603/" + DATABASE_NAME,"root","helloworld");
+            connection = dataSource.getConnection();
+           // mysqlConnection= DriverManager.getConnection(
+          //          "jdbc:mysql://localhost:6603/" + DATABASE_NAME,"root","helloworld");
+            //mysqlConnection= DriverManager.getConnection(
+             //       "jdbc:h2:mem:testdb://localhost:9090/" + DATABASE_NAME,"sa","");
         } catch (SQLException e) {
             System.err.println("Database connection failed");
             throw new RuntimeException(e);
@@ -19,6 +25,7 @@ public class SQLconnector {
 
 */
     }
+/*
     public static SQLconnector getInstance()
     {
         if ( INSTANCE == null)
@@ -27,11 +34,12 @@ public class SQLconnector {
         }
         return INSTANCE;
     }
+*/
     public ResultSet selectStatment( String query )
     {
         Statement stmt= null;
         try {
-            stmt = mysqlConnection.createStatement();
+            stmt = connection.createStatement();
         } catch (SQLException e) {
             System.err.println("statment creation failed: " + e.toString());
             return null;
@@ -51,7 +59,7 @@ public class SQLconnector {
     {
         Statement stmt= null;
         try {
-            stmt = mysqlConnection.createStatement();
+            stmt = connection.createStatement();
         } catch (SQLException e) {
             System.err.println("statment creation failed: " + e.toString());
             return 0;
@@ -70,7 +78,7 @@ public class SQLconnector {
     boolean closeConnection()
     {
         try {
-            mysqlConnection.close();
+            connection.close();
         } catch (SQLException e) {
             System.err.println("Closing connection failed: " + e.toString());
             return false;
@@ -82,7 +90,7 @@ public class SQLconnector {
     {
         try
         {
-            return mysqlConnection.prepareStatement(query);
+            return connection.prepareStatement(query);
         } catch (SQLException e) {
             System.err.println("prepared statment failed: " + e.toString());
             return null;

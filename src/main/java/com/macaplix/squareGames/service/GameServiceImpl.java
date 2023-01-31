@@ -91,8 +91,16 @@ public class GameServiceImpl implements GameService {
     }
     public Locale getEndUserLocale()
     {
-        Locale newloc = Locale.of( request.getHeader("Accept-Language"));
-        System.out.println(newloc);
+        //Locale newloc = Locale.of( );
+        //System.out.println(newloc);
+        String lngheader = null;
+        try {
+            lngheader = request.getHeader("Accept-Language");
+        } catch (Exception e) {
+            lngheader = "fr";
+            System.err.println("No language header: " + e );
+        }
+        Locale newloc = Locale.of( lngheader);
         return newloc;
     }
     private Game getGame( String gameid)

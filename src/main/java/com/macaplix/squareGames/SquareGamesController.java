@@ -26,7 +26,7 @@ public class SquareGamesController {
     */
     SquareGamesController()
     {
-        SQLconnector.getInstance();
+        //SQLconnector.getInstance();
     }
     /**
      *

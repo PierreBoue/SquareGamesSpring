@@ -30,7 +30,7 @@ class Game
         const elt = document.createElement("tr");
         for ( let text of [this.gameName, this.gameID])
         {
-            if ( selected ) elt.setAttribute("class","bg-warning");
+            if ( this.selected ) elt.setAttribute("class","bg-warning");
             const td = document.createElement("td");
             const txt = document.createTextNode(text);
             td.appendChild( txt );
@@ -61,6 +61,6 @@ class GamesController
         this.gamesList.unshift( game );
         game.selected = true;
         //this.gameIndex++;
-        tgbe.insertBefore(game.getDomElement());
+        tgbe.insertBefore(game.getDomElement(), null);
     }
 }
