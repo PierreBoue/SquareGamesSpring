@@ -2,11 +2,11 @@ package com.macaplix.squareGames.dao;
 
 import java.sql.*;
 
-public class MySQLconnector {
+public class SQLconnector {
     private final String DATABASE_NAME ="square_games";
     Connection mysqlConnection;
-    private static MySQLconnector INSTANCE = null;
-    private MySQLconnector()
+    private static SQLconnector INSTANCE = null;
+    private SQLconnector()
     {
         try {
             mysqlConnection= DriverManager.getConnection(
@@ -19,11 +19,11 @@ public class MySQLconnector {
 
 */
     }
-    public static MySQLconnector getInstance()
+    public static SQLconnector getInstance()
     {
         if ( INSTANCE == null)
         {
-            INSTANCE = new MySQLconnector();
+            INSTANCE = new SQLconnector();
         }
         return INSTANCE;
     }

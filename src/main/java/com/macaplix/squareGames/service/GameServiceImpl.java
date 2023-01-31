@@ -1,6 +1,6 @@
 package com.macaplix.squareGames.service;
 
-import com.macaplix.squareGames.dao.GameDAOMySQL;
+import com.macaplix.squareGames.dao.GameDAOSQL;
 import com.macaplix.squareGames.dao.TokenDAO;
 import com.macaplix.squareGames.dto.*;
 import com.macaplix.squareGames.entities.TokenEntity;
@@ -11,7 +11,6 @@ import com.macaplix.squareGames.plugin.TicTacToePlugin;
 import fr.le_campus_numerique.square_games.engine.*;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +28,7 @@ public class GameServiceImpl implements GameService {
     @Autowired
     private TokenDAO tokenDAO;
     @Autowired
-    private GameDAOMySQL gameDAOMySQL;
+    private GameDAOSQL gameDAOSQL;
     @Autowired
     private HttpServletRequest request;
 
@@ -108,7 +107,7 @@ public class GameServiceImpl implements GameService {
     }
     public void saveGame( GameSaveDTO gameInfo )
     {
-        gameDAOMySQL.saveGame(gameInfo);
+        gameDAOSQL.saveGame(gameInfo);
     }
     @Override
     public TokenInfo[] getTokenList(String gameid)
@@ -230,7 +229,7 @@ public class GameServiceImpl implements GameService {
     @PostConstruct
     private void readPersistentGames()
     {
-        ArrayList<GameSaveDTO> gameDTOs = gameDAOMySQL.readGames( );
+        ArrayList<GameSaveDTO> gameDTOs = gameDAOSQL.readGames( );
         //System.out.println("read persistent");
         for (GameSaveDTO gdto: gameDTOs)
         {

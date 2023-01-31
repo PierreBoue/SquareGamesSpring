@@ -12,10 +12,10 @@ import java.time.Duration;
 import java.util.List;
 
 @Component
-public class GameDAOMySQL implements GameDAOInterface {
+public class GameDAOSQL implements GameDAOInterface {
     final String GAME_TABLE_NAME = "games";
     final boolean ISACTIVE = true;
-    public GameDAOMySQL()
+    public GameDAOSQL()
     {
         if ( ! ISACTIVE ) return;
        createGameTable();
@@ -23,7 +23,7 @@ public class GameDAOMySQL implements GameDAOInterface {
     private boolean createGameTable()
     {
         //int sqlid, String gameKey, int gameType, int currentPlayerID, String gameStatus, int boardSize, Date creationDate, Duration duration
-        MySQLconnector connector = MySQLconnector.getInstance();
+        SQLconnector connector = SQLconnector.getInstance();
         final String req = "CREATE TABLE IF NOT EXISTS " + connector.getDatabaseName() + "." +GAME_TABLE_NAME +" ( " +
                 "id int(10) PRIMARY KEY NOT NULL AUTO_INCREMENT," +
                 "gameuuid VARCHAR( 36 ) UNIQUE," +
@@ -40,7 +40,7 @@ public class GameDAOMySQL implements GameDAOInterface {
     {
         if ( ! ISACTIVE ) return errorDTO("SQL is not active");
        String req = "INSERT INTO " + GAME_TABLE_NAME + " ( gameuuid, gametype, currentPlayerID, boardSize ) VALUES ( ?, ?, ? , ? );";
-        PreparedStatement smt = MySQLconnector.getInstance().prepareStatment(req );
+        PreparedStatement smt = SQLconnector.getInstance().prepareStatment(req );
         try {
             smt.setString(1, gameData.gameKey());
             smt.setInt(2, gameData.gameType());
@@ -68,7 +68,7 @@ public class GameDAOMySQL implements GameDAOInterface {
     {
         if ( ! ISACTIVE ) return (ArrayList<GameSaveDTO>) List.of( errorDTO("SQL is not active"));
         String req ="SELECT id, gameuuid, gameType, currentPlayerID, gameStatus, boardSize, creation, duration FROM " + GAME_TABLE_NAME + ";";
-        ResultSet rezset = MySQLconnector.getInstance().selectStatment(req);
+        ResultSet rezset = SQLconnector.getInstance().selectStatment(req);
         ArrayList<GameSaveDTO> games = new ArrayList<GameSaveDTO>();
         while(true) {
             try {
@@ -109,7 +109,7 @@ public class GameDAOMySQL implements GameDAOInterface {
             return errorDTO("no valid key provided to get the game");
         }
         String req ="SELECT sqlid, gameKey, gameType, currentPlayerID, gameStatus, boardSize, creationDate, duration FROM " + GAME_TABLE_NAME + where;
-        MySQLconnector connector = MySQLconnector.getInstance();
+        SQLconnector connector = SQLconnector.getInstance();
         PreparedStatement stmt = connector.prepareStatment(req);
         try {
             if ( hasNumID ) {
