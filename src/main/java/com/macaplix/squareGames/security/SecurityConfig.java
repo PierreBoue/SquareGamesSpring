@@ -13,13 +13,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 //import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
     private final MyUserDetailsService userDetailsService;
-    //@Autowired
-    //private AuthenticationManager authenticationManager;
+    @Autowired
+    private JwtTokenAuthenticationFilter jwtTokenAuthenticationFilter;
     public SecurityConfig(final MyUserDetailsService userDetailsService) {
 
         this.userDetailsService = userDetailsService;
@@ -31,6 +32,7 @@ public class SecurityConfig {
                 http.getSharedObject(AuthenticationManagerBuilder.class);
         authenticationManagerBuilder.userDetailsService(userDetailsService);
         final var authenticationManager = authenticationManagerBuilder.build();
+        http.addFilterBefore( jwtTokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         http.authenticationManager(authenticationManager);
 // Activer CORS et désactiver CSRF
         http = http.cors().and().csrf().disable();
