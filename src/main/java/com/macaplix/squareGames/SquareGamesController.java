@@ -7,12 +7,14 @@ import com.macaplix.squareGames.service.GameCatalogImpl;
 import com.macaplix.squareGames.service.GameService;
 import fr.le_campus_numerique.square_games.engine.CellPosition;
 import fr.le_campus_numerique.square_games.engine.Game;
+import jakarta.annotation.security.RolesAllowed;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.slf4j.Log4jLogger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.management.relation.Role;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -105,7 +107,12 @@ public class SquareGamesController {
         }
         return gd;
     }
-
+    @RolesAllowed("ADMIN")
+    @GetMapping("/admin")
+    private String admin()
+    {
+        return "<h1 align='center'>You are in a safe place</h1>\n";
+    }
     /**
      *
      * @param gameid game UUID

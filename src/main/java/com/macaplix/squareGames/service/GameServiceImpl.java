@@ -227,6 +227,7 @@ public class GameServiceImpl implements GameService {
             te.setOnBoard(Boolean.TRUE);
             te.setCanMove( Boolean.valueOf( t.canMove()));
             tokenDAO.save(te);
+
         }
         for (Token t: game.getRemainingTokens())
         {
