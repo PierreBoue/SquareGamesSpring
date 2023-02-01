@@ -10,7 +10,7 @@ public interface GamePlugin
 {
     //public int defaultPlayerCount=0;
     //public int defaultBoradSize = 0;
-    public String getName(Locale locale);
+    public String getName(Locale locale, GamePluginBase pluginBase);
     public String getType();
     public GameDescription checkParams(GameParams params);
     public Game createGame( GameDescription params);

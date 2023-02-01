@@ -14,13 +14,13 @@ import java.util.Locale;
 public abstract class GamePluginBase implements GamePlugin {
     protected GameFactory factory;
     @Autowired
-    private MessageSource messageSource;
+    protected MessageSource messageSource;
     @Override
-    public String getName(Locale locale)
+    public String getName(Locale locale, GamePluginBase plugin )
     {
         Locale curLocale = Locale.getDefault();
         Locale.setDefault(Locale.ENGLISH);
-
+        if ( messageSource == null ) messageSource = plugin.messageSource;
         String msg = messageSource.getMessage("game." + this.getType() + ".name", null, locale);
         Locale.setDefault(curLocale);
         return msg;

@@ -43,13 +43,14 @@ public class GameDAOSQL implements GameDAOInterface {
        final String req = "CREATE TABLE IF NOT EXISTS `GAMES` (  id int PRIMARY KEY NOT NULL , gameuuid VARCHAR( 36 ) UNIQUE, gametype INT, currentPlayerID INT, gameStatus ENUM('SETUP', 'ONGOING', 'TERMINATED') DEFAULT 'SETUP', boardSize INT, creation DATETIME DEFAULT date(), duration INT DEFAULT 0 );";
         h2 -> final String req = "CREATE TABLE IF NOT EXISTS GAMES (  id int PRIMARY KEY NOT NULL AUTO_INCREMENT, gameuuid VARCHAR( 36 ) UNIQUE, gametype INT, currentPlayerID INT, gameStatus ENUM('SETUP', 'ONGOING', 'TERMINATED') DEFAULT 'SETUP', boardSize INT, creation DATETIME DEFAULT NOW(), duration INT DEFAULT 0 );";
  */
-        connector.insertStatment(req);
+        connector.updateStatment(req);
+
         return true;
     }
     public GameSaveDTO saveGame( GameSaveDTO gameData)
     {
         if ( ! ISACTIVE ) return errorDTO("SQL is not active");
-        System.out.println("game save");
+       // System.out.println("game save");
        String req = "INSERT INTO " + GAME_TABLE_NAME + " ( gameuuid, gametype, currentPlayerID, boardSize ) VALUES ( ?, ?, ? , ? );";
         PreparedStatement smt = connector.prepareStatment(req );
         try {
@@ -65,6 +66,7 @@ public class GameDAOSQL implements GameDAOInterface {
         try {
             if ( smt.executeUpdate() == 0)
             {
+
                 ResultSet rs = smt.getGeneratedKeys();
                 if ( rs.next()) sqlid = rs.getInt(1);
                 //sqlid =  MySQLconnector.getInstance().mysqlConnection.g
@@ -74,7 +76,7 @@ public class GameDAOSQL implements GameDAOInterface {
             return errorDTO( "prepared statment failure: " + e.toString());
 
         }
-        System.err.println("sql id: " + sqlid);
+        //System.err.println("sql id: " + sqlid);
         return null;// new GameSaveDTO();
     }
     public ArrayList<GameSaveDTO> readGames( )

@@ -67,6 +67,28 @@ public class SQLconnector {
         }
         int ret=0;
         try {
+            stmt.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
+            ResultSet rs = stmt.getGeneratedKeys();
+            ret = rs.getInt(1);
+        } catch (SQLException e) {
+            System.err.println("executing query " + query + " failed: " +e.toString());
+            return 0;
+            //throw new RuntimeException(e);
+        }
+        return ret;
+    }
+    public int updateStatment(String query)
+    {
+        Statement stmt= null;
+        try {
+            stmt = connection.createStatement();
+        } catch (SQLException e) {
+            System.err.println("statment creation failed: " + e.toString());
+            return 0;
+            //throw new RuntimeException(e);
+        }
+        int ret=0;
+        try {
             ret = stmt.executeUpdate(query);
         } catch (SQLException e) {
             System.err.println("executing query " + query + " failed: " +e.toString());
@@ -74,6 +96,7 @@ public class SQLconnector {
             //throw new RuntimeException(e);
         }
         return ret;
+
     }
     boolean closeConnection()
     {
@@ -90,7 +113,7 @@ public class SQLconnector {
     {
         try
         {
-            return connection.prepareStatement(query);
+            return connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
         } catch (SQLException e) {
             System.err.println("prepared statment failed: " + e.toString());
             return null;

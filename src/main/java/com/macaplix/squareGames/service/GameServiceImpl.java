@@ -4,18 +4,18 @@ import com.macaplix.squareGames.dao.GameDAOSQL;
 import com.macaplix.squareGames.dao.TokenDAO;
 import com.macaplix.squareGames.dto.*;
 import com.macaplix.squareGames.entities.TokenEntity;
-import com.macaplix.squareGames.plugin.ConnectfourPlugin;
-import com.macaplix.squareGames.plugin.GamePlugin;
-import com.macaplix.squareGames.plugin.TaquinPlugin;
-import com.macaplix.squareGames.plugin.TicTacToePlugin;
+import com.macaplix.squareGames.plugin.*;
 import fr.le_campus_numerique.square_games.engine.*;
 import jakarta.annotation.PostConstruct;
-import jakarta.servlet.http.HttpServletRequest;
+//import ch.qos.logback.classic.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.logging.Level;
 
 @Service
 public class GameServiceImpl implements GameService {
@@ -30,16 +30,18 @@ public class GameServiceImpl implements GameService {
     private TokenDAO tokenDAO;
     @Autowired
     private GameDAOSQL gameDAOSQL;
-    //@Autowired
-    //private HttpServletRequest request;
-
+    private static Logger logger= LoggerFactory.getLogger(GameServiceImpl.class);
     private HashMap<String, Game> activeGames;
     private HashMap<String, TokenInfo[]> gameTokens;
 
     public GameServiceImpl() {
         activeGames = new HashMap<String, Game>();
         gameTokens = new HashMap<String, TokenInfo[]>();
+        GameServiceImpl.logger.warn("warning log");
+        //Logger logger = (Logger) LoggerFactory.getLogger("com.macaplix.squareGames");
         //readPersistentGames();
+       //LoggerUtility.getInstance( this.getClass()).logWarning("this a warning");
+
     }
 
     private GamePlugin[] getPlugins() {
@@ -86,7 +88,7 @@ public class GameServiceImpl implements GameService {
         Locale curLocale = Locale.getDefault();
         Locale.setDefault(Locale.ENGLISH);
         //int gameIndex, String gameKey, int sqlid, String typeLocale, String typeName, int playerCount, int boardSize, Map<CellPosition, Token> board, Date creation, int duration, String errorMessage, boolean isOk        GameDescription rep = new GameDescription(answer.gameIndex(), answer.playerCount(), answer.boardSize(), uuid, "ok", true, plugin.getName(getEndUserLocale()));
-        GameDescription rep = new GameDescription(answer.gameIndex(), uuid, 0, plugin.getName(getEndUserLocale()), plugin.getType(), answer.playerCount(), answer.boardSize(), new HashMap<CellPosition, Token>(), new Date(), 0, "ok", true);
+        GameDescription rep = new GameDescription(answer.gameIndex(), uuid, 0, plugin.getName(getEndUserLocale(), ticTacToePlugin), plugin.getType(), answer.playerCount(), answer.boardSize(), new HashMap<CellPosition, Token>(), new Date(), 0, "ok", true);
 
         Locale.setDefault(curLocale);
         return rep;
@@ -116,10 +118,20 @@ public class GameServiceImpl implements GameService {
     public GameDescription getGameDescription(String gameid)
     {
         Game game = getGame(gameid);
-
+        if ( game == null) return new GameDescription(0, gameid, 0, "","", 0, 0, null, null,0,"game not found", false);
+        GamePluginAuto gpa = new GamePluginAuto(game.getFactoryId());
+        //int gameIndex, String gameKey, int sqlid, String typeLocale, String typeName, int playerCount, int boardSize, Map<CellPosition, Token> board, Date creation, int duration, String errorMessage, boolean isOk
+        return new GameDescription( gpa.getTypeIndex(), gameid, 0, gpa.getName( getEndUserLocale(), ticTacToePlugin), game.getFactoryId(),  game.getPlayerIds().size(), game.getBoardSize(), game.getBoard(), new Date(),0, "ok",true);
+    }
+    /*
+    public GameDescription getGameDescription(Game game, String gameid)
+    {
+        Game game = getGame(gameid);
+        if ( game == null) return new GameDescription(0, gameid, 0, "","", 0, 0, null, null,0,"game not found", false);
         //int gameIndex, String gameKey, int sqlid, String typeLocale, String typeName, int playerCount, int boardSize, Map<CellPosition, Token> board, Date creation, int duration, String errorMessage, boolean isOk
         return new GameDescription( 0, gameid, 0, game.getFactoryId(), game.getFactoryId(),  game.getPlayerIds().size(), game.getBoardSize(), game.getBoard(), new Date(),0, "ok",true);
     }
+    */
     public void saveGame( GameSaveDTO gameInfo )
     {
         gameDAOSQL.saveGame(gameInfo);
@@ -250,7 +262,7 @@ public class GameServiceImpl implements GameService {
         {
             GamePlugin plugin = getPlugins()[gdto.gameType()];
             //int gameIndex, String gameKey, int sqlid, String typeLocale, String typeName, int playerCount, int boardSize, Map<CellPosition, Token> board, Date creation, int duration, String errorMessage, boolean isOk
-            Game game = plugin.createGame( new GameDescription(gdto.gameType(), gdto.gameKey(), gdto.sqlid(), plugin.getName(Locale.getDefault()), plugin.getName(getEndUserLocale()),   plugin.getDefaultPlayerCount(), gdto.boardSize(), new HashMap<CellPosition, Token>(), new Date(), 0, "ok",true ));
+            Game game = plugin.createGame( new GameDescription(gdto.gameType(), gdto.gameKey(), gdto.sqlid(), plugin.getName(Locale.getDefault(), ticTacToePlugin), plugin.getName(getEndUserLocale(), ticTacToePlugin),   plugin.getDefaultPlayerCount(), gdto.boardSize(), new HashMap<CellPosition, Token>(), new Date(), 0, "ok",true ));
             activeGames.put(gdto.gameKey(), game);
         }
     }

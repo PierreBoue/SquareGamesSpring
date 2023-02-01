@@ -7,17 +7,26 @@ class Game
     playerCount;
     boardSize;
     gameID;
+    sqlID;
+    creation;
     gameName;
+    gameType;
+    duration;
     board;
     selected = false;
     constructor( dto )
     {
         //int gameIndex, String gameKey, int sqlid, String typeLocale, String typeName, int playerCount, int boardSize, Map<CellPosition, Token> board, Date creation, int duration, String errorMessage, boolean isOk
         this.gameIndex = dto["gameIndex"];
+        this.gameID = dto["gameKey"];
+        this.sqlID = dto["sqlid"];
+        this.gameType = dto["typeName"];
+        this.creation = dto["creation"];
+        this.duration = dto["duration"];
+        this.board = dto["board"];
         this.playerCount = dto["playerCount"];
         this.boardSize = dto["boardSize"];
-        this.gameID = dto["key"];
-        this.gameName = dto["name"];
+        this.gameName = dto["typeLocale"];
         //alert(dto);
     }
     getDomElement()
@@ -30,8 +39,9 @@ class Game
 
         */
         const elt = document.createElement("tr");
+        elt.setAttribute("title", this.gameID);
         //alert(this.gameName);
-        for ( let text of [this.gameName, this.gameID])
+        for ( let text of [this.creation, this.gameName])
         {
             //alert(text);
             if ( this.selected ) elt.setAttribute("class","bg-warning");
