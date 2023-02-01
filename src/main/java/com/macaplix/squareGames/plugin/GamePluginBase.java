@@ -2,13 +2,13 @@ package com.macaplix.squareGames.plugin;
 
 import com.macaplix.squareGames.dto.GameDescription;
 import com.macaplix.squareGames.dto.GameParams;
-import fr.le_campus_numerique.square_games.engine.Game;
-import fr.le_campus_numerique.square_games.engine.GameFactory;
-import fr.le_campus_numerique.square_games.engine.IntRange;
+import fr.le_campus_numerique.square_games.engine.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
 @Service
 public abstract class GamePluginBase implements GamePlugin {
@@ -42,7 +42,8 @@ public abstract class GamePluginBase implements GamePlugin {
         } else {
             checkAnswer = checkPlayerCount( playerCount);
         }
-        if ( ! checkAnswer.isBlank()) return new GameDescription( params.gameIndex(), playerCount, params.boardSize(), null, "playerCount should be between " + factory.getPlayerCountRange().min() + " and " + factory.getPlayerCountRange().max(), false, "");
+        //int gameIndex, String gameKey, int sqlid, String typeLocale, String typeName, int playerCount, int boardSize, Map<CellPosition, Token> board, Date creation, int duration, String errorMessage, boolean isOk
+        if ( ! checkAnswer.isBlank()) return new GameDescription( params.gameIndex(), "",0, factory.getGameId(), factory.getGameId(), playerCount, params.boardSize(), new HashMap<CellPosition, Token>(), new Date(), 0, "playerCount should be between " + factory.getPlayerCountRange().min() + " and " + factory.getPlayerCountRange().max(), false);
         int boardSize = params.boardSize();
         if ( boardSize == 0)
         {
@@ -50,8 +51,9 @@ public abstract class GamePluginBase implements GamePlugin {
         } else {
             checkAnswer = checkBoardSize(boardSize, playerCount);
         }
-        if ( ! checkAnswer.isBlank()) return new GameDescription( params.gameIndex(), playerCount, boardSize, null, "board size should be between " + factory.getBoardSizeRange(params.playerCount()).min() +" and " +factory.getBoardSizeRange(params.playerCount()).max(), false, "");
-        return new GameDescription( params.gameIndex(), playerCount, boardSize, null,"",true, factory.getGameId());
+        if ( ! checkAnswer.isBlank()) return new GameDescription( params.gameIndex(), "",0, "","", playerCount, boardSize, new HashMap<CellPosition, Token>(), new Date(),0,"board size should be between " + factory.getBoardSizeRange(params.playerCount()).min() +" and " +factory.getBoardSizeRange(params.playerCount()).max(), false);
+        //int gameIndex, String gameKey, int sqlid, String typeLocale, String typeName, int playerCount, int boardSize, Map<CellPosition, Token> board, Date creation, int duration, String errorMessage, boolean isOk
+        return new GameDescription( params.gameIndex(), "", 0, factory.getGameId(), factory.getGameId(), playerCount, boardSize, new HashMap<CellPosition,Token>(), new Date(), 0,"",true);
     }
 
     @Override

@@ -72,8 +72,9 @@ public class GameServiceImpl implements GameService {
     public GameDescription createGame(GameParams params) {
         GameDescription aparam;
         int idx = params.gameIndex();
+        //int gameIndex, String gameKey, int sqlid, String typeLocale, String typeName, int playerCount, int boardSize, Map<CellPosition, Token> board, Date creation, int duration, String errorMessage, boolean isOk
         if ((idx < 0) || (idx >= getPlugins().length))
-            return new GameDescription(params.gameIndex(), params.playerCount(), params.boardSize(), null, "gameIndex out of range", false, "");
+            return new GameDescription(params.gameIndex(), "",0, "", "", params.playerCount(), params.boardSize(), new HashMap<CellPosition, Token>(), new Date(), 0, "gameIndex out of range", false );
         GamePlugin plugin = getPlugins()[idx];
         GameDescription answer = plugin.checkParams(params);
         if (!answer.isOk()) {
@@ -117,7 +118,7 @@ public class GameServiceImpl implements GameService {
         Game game = getGame(gameid);
 
         //int gameIndex, String gameKey, int sqlid, String typeLocale, String typeName, int playerCount, int boardSize, Map<CellPosition, Token> board, Date creation, int duration, String errorMessage, boolean isOk
-        return new GameDescription( 0, game.getFactoryId(), gameid, game.getBoardSize(), game.getPlayerIds().size(), game.getBoard());
+        return new GameDescription( 0, gameid, 0, game.getFactoryId(), game.getFactoryId(),  game.getPlayerIds().size(), game.getBoardSize(), game.getBoard(), new Date(),0, "ok",true);
     }
     public void saveGame( GameSaveDTO gameInfo )
     {
@@ -248,7 +249,8 @@ public class GameServiceImpl implements GameService {
         for (GameSaveDTO gdto: gameDTOs)
         {
             GamePlugin plugin = getPlugins()[gdto.gameType()];
-            Game game = plugin.createGame( new GameParamsAnswer(gdto.gameType(), plugin.getDefaultPlayerCount(), gdto.boardSize(), gdto.gameKey(), "ok",true, plugin.getName(Locale.getDefault())));
+            //int gameIndex, String gameKey, int sqlid, String typeLocale, String typeName, int playerCount, int boardSize, Map<CellPosition, Token> board, Date creation, int duration, String errorMessage, boolean isOk
+            Game game = plugin.createGame( new GameDescription(gdto.gameType(), gdto.gameKey(), gdto.sqlid(), plugin.getName(Locale.getDefault()), plugin.getName(getEndUserLocale()),   plugin.getDefaultPlayerCount(), gdto.boardSize(), new HashMap<CellPosition, Token>(), new Date(), 0, "ok",true ));
             activeGames.put(gdto.gameKey(), game);
         }
     }
