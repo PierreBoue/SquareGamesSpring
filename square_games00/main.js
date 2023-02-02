@@ -43,8 +43,8 @@ function ajaxFunction()
          ajaxRequest.open( "GET", url, true);
         ajaxRequest.onreadystatechange = processGameListRequest;
         ajaxRequest.send( null );
-     } else console.log("status http: "+ ajaxRequest.status + "\n" + ajaxRequest.responseText);
-  } else console.log("status ajax: "+ ajaxRequest.readyState + "\n" + ajaxRequest.responseText );
+     }
+  }
 }
 function processGameListRequest()
 {
@@ -141,8 +141,6 @@ function populateGameList(jsonList)
      // alert("init");
       //if ( ajaxRequest == null ) alert("pas d'ajax !!!");
     ajaxRequest.open("GET", url, true);
-   //ajaxRequest.setRequestHeader('Authorization', 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwaWVybyIsImF1dGhvcml0aWVzIjpbXSwiaWF0IjoxNjc1MzQ1NDQzLCJleHAiOjE2NzUzNDkwNDN9.uPfmhhQk5G-AWAdMBdJY4TeGA7vTw_GuejngMoIadXmCZ-BHnxJb95oWuycF4MBWglNbazMPcv0xrnHFFk2eoA');
-     // ajaxRequest.setRequestHeader('Access-Control-Allow-Origin', null);
     ajaxRequest.withCredentials = true; // added to test localajaxRequest.onreadystatechange = processGameTypeRequest;
     ajaxRequest.send( null );
 

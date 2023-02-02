@@ -21,7 +21,7 @@ class Game
         this.gameID = dto["gameKey"];
         this.sqlID = dto["sqlid"];
         this.gameType = dto["typeName"];
-        this.creation = new Date( dto["creation"]);
+        this.creation = dto["creation"];
         this.duration = dto["duration"];
         this.board = dto["board"];
         this.playerCount = dto["playerCount"];
@@ -41,8 +41,7 @@ class Game
         const elt = document.createElement("tr");
         elt.setAttribute("title", this.gameID);
         //alert(this.gameName);
-        //const fm = new DateTimeFormat("fr-FR");
-        for ( let text of [ this.creation.toLocaleString(), this.gameName])
+        for ( let text of [this.creation, this.gameName])
         {
             //alert(text);
             if ( this.selected ) elt.setAttribute("class","bg-warning");
