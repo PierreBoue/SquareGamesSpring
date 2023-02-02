@@ -9,6 +9,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -29,33 +30,35 @@ public class JwtTokenAuthenticationFilter extends OncePerRequestFilter
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException
     {
         final String header = request.getHeader("Authorization");
-        final String token = header.split(" ")[1].trim();
-    // On “parse” le token en utilisant la même clé de signature qui sera
-        //utilisée pour générer le token à l’authentification (“secret”)
-        final Claims claims =
-                Jwts.parser().setSigningKey("fakeAgent".getBytes()).parseClaimsJws(token)
-                        .getBody();
+        if ( header != null ) {
+            final String token = header.split(" ")[1].trim();
+            // On “parse” le token en utilisant la même clé de signature qui sera
+            //utilisée pour générer le token à l’authentification (“secret”)
+            final Claims claims =
+                    Jwts.parser().setSigningKey("fakeAgent".getBytes()).parseClaimsJws(token)
+                            .getBody();
 // On récupère le nom de l’utilisateur indiqué dans l’objet
-        final String username = claims.getSubject();
+            final String username = claims.getSubject();
 // On récupère les informations de l’utilisateur grâce au repository
-        final UserEntity userDetails = userRepository.findByUsername(username
-        );
-        final UsernamePasswordAuthenticationToken
+            final UserEntity userDetails = userRepository.findByUsername(username
+            );
+            final UsernamePasswordAuthenticationToken
 
-                authentication = new UsernamePasswordAuthenticationToken(
-                userDetails, null,
-                userDetails == null ?
+                    authentication = new UsernamePasswordAuthenticationToken(
+                    userDetails, null,
+                    userDetails == null ?
 
-                        List.of() : userDetails.getAuthorities()
+                            List.of() : userDetails.getAuthorities()
 
-        );
+            );
 // Ajoute les informations de l’utilisateur
-        authentication.setDetails(
+            authentication.setDetails(
 
-                new WebAuthenticationDetailsSource().buildDetails(request)
-        );
+                    new WebAuthenticationDetailsSource().buildDetails(request)
+            );
 // Met à jour le contexte d’authentification
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+        }
         filterChain.doFilter(request, response);
     }
 

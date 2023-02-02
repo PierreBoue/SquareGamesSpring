@@ -4,6 +4,7 @@ import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.core.annotation.Order;
 
 import java.io.IOException;
 
@@ -27,7 +28,7 @@ public class AddResponseHeaderFilter implements Filter {
         httpServletResponse.addHeader("Access-Control-Allow-Headers",
                 "Authorization, origin, content-type, accept, x-requested-with");
 
-       // httpServletResponse.addHeader("Access-Control-Allow-Origin", "null");
+       //httpServletResponse.addHeader("Access-Control-Allow-Origin", "null");
 
         //httpServletResponse.addHeader("Access-Control-Allow-Credentials", "true");
          filterChain.doFilter(servletRequest, servletResponse);

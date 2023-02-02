@@ -11,6 +11,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -36,11 +38,13 @@ public class MyUserDetailsService implements UserDetailsService {
     private void populateUserDatabase()
     {
        Iterable<UserEntity> userIt = userDAO.findAll();
+
        if ( ! userIt.iterator().hasNext())
        {
+           String pass = new BCryptPasswordEncoder().encode("nimp");
            UserEntity userE = new UserEntity();
            userE.setUsername("piero");
-            userE.setPassword("nimp");
+            userE.setPassword(pass);
             userE.setAccountNonLocked(true);
             userE.setEnabled(true);
             userE.setAccountNotExpired(true);

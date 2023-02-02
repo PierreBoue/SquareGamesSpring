@@ -3,6 +3,7 @@ package com.macaplix.squareGames.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -67,7 +68,7 @@ public class SecurityConfig {
             // Les accès sans autorisation
 
 
-            .requestMatchers("/**").permitAll()
+            .requestMatchers("/api/public/**").permitAll()///**
             // Les autres accès
             .anyRequest().authenticated();        return http.build();
     }

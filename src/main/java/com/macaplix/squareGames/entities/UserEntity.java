@@ -1,19 +1,24 @@
 package com.macaplix.squareGames.entities;
 
 import jakarta.persistence.*;
+import org.springframework.data.repository.cdi.Eager;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 public class UserEntity implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    @Transient
-    private ArrayList<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> authorities = new ArrayList<>();
     private String password;
     private String username;
     private boolean isAccountNotExpired;
@@ -22,12 +27,14 @@ public class UserEntity implements UserDetails {
     private boolean isEnabled;
     public Collection<? extends GrantedAuthority> getAuthorities()
     {
-        return authorities;
+        return authorities.stream().map(s -> (GrantedAuthority) () -> s).collect(Collectors.toList());//AuthorityUtils.class( authorities );
     }
-    public void addGrantedAuthoity( GrantedAuthority gauth)
+
+    public void addGrantedAuthoity( String gauth)
     {
         authorities.add(gauth);
     }
+
     public String getPassword()
     {
         return password;
