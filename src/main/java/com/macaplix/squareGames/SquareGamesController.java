@@ -2,6 +2,8 @@ package com.macaplix.squareGames;
 
 import com.macaplix.squareGames.dao.SQLconnector;
 import com.macaplix.squareGames.dto.*;
+import com.macaplix.squareGames.plugin.TicTacToePlugin;
+import com.macaplix.squareGames.security.Roles;
 import com.macaplix.squareGames.service.GameCatalog;
 import com.macaplix.squareGames.service.GameCatalogImpl;
 import com.macaplix.squareGames.service.GameService;
@@ -12,6 +14,7 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.slf4j.Log4jLogger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.management.relation.Role;
@@ -22,18 +25,9 @@ import java.util.Map;
 public class SquareGamesController {
     @Autowired
     private GameService gameService;
-    private static final Log4jLogger LOGGER = (Log4jLogger) LoggerFactory.getLogger(SquareGamesController.class);
-    /*
-       @Autowired
 
-        private GameDAO gameD;
-        @Autowired
-        private TokenDAO tokenDAO;
-    */
-    SquareGamesController()
-    {
-        //SQLconnector.getInstance();
-    }
+    private static final Log4jLogger LOGGER = (Log4jLogger) LoggerFactory.getLogger(SquareGamesController.class);
+
     /**
      *
      * @param params GameParams DTO to hold game creation data
@@ -63,7 +57,9 @@ public class SquareGamesController {
      * get the list of the created games
      * @return
      */
+
     @GetMapping("/games")
+    @Secured({Roles.ROLE_USER})
     private GameDescription[] getGames()
     {
         HashMap<String,Game> activeGames = gameService.getAllGames();

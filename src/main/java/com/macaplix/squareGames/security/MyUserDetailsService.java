@@ -19,21 +19,13 @@ import org.springframework.stereotype.Component;
 public class MyUserDetailsService implements UserDetailsService {
     @Autowired
     UserDAO userDAO;
-    @Autowired
-    AuthenticationConfiguration authenticationConfiguration;
+
     @Override
     public UserDetails loadUserByUsername(String username)
     {
         return userDAO.findByUsername(username);
     }
-    @Bean
-    public AuthenticationManager authenticationManager() {
-        try {
-            return authenticationConfiguration.getAuthenticationManager();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
+
     @PostConstruct
     private void populateUserDatabase()
     {

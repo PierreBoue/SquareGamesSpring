@@ -6,6 +6,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -18,10 +21,15 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class SecurityConfig {
     private final MyUserDetailsService userDetailsService;
     @Autowired
     private JwtTokenAuthenticationFilter jwtTokenAuthenticationFilter;
+
+    @Autowired
+    AuthenticationConfiguration authenticationConfiguration;
+
     public SecurityConfig(final MyUserDetailsService userDetailsService) {
 
         this.userDetailsService = userDetailsService;
@@ -35,8 +43,8 @@ public class SecurityConfig {
         final var authenticationManager = authenticationManagerBuilder.build();
         http.addFilterBefore( jwtTokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         http.authenticationManager(authenticationManager);
-// Activer CORS et désactiver CSRF
-        http = http.cors().and().csrf().disable();
+// Activer CORS et désactiver CSRFcors().and().
+        http = http.csrf().disable();
 // Modifier le manager de session pour utiliser le mode STATELESS
         http = http
 
@@ -69,8 +77,10 @@ public class SecurityConfig {
 
 
             .requestMatchers("/api/public/**").permitAll()///**
+                       // .requestMatchers("/**").permitAll();///**
             // Les autres accès
-            .anyRequest().authenticated();        return http.build();
+            .anyRequest().authenticated();
+                return http.build();
     }
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -82,4 +92,14 @@ public class SecurityConfig {
         return authenticationManager.getAuthenticationManager();
     }
 */
+
+    @Bean
+    public AuthenticationManager authenticationManager() {
+        try {
+            return authenticationConfiguration.getAuthenticationManager();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
