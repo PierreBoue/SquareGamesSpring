@@ -1,0 +1,45 @@
+SQLite
+
+- en quelques mots
+	SGBD moteur de base de donnée relationnelle SQL open source embarqué 1 fichier = 1 base
+	petit ( 750 Ko ), rapide, auto-embarqué, hautement fiable ( testé avec le cahier des charges norme aéronautique ) et complet
+- histoire
+	Inventé en 2000 par le Docteur Richard Hipp ( Fossil logiciel de contrôle de version ) et son équipe pour des applications militaires
+	2004 sqlite3 nouveau standard de fichier compatible avec les verions suivantes
+- utilisateurs
+	logiciels :
+		Firefox
+		Skype
+		Google Gears
+		Adobe
+	Système d'exploitation :
+		Apple MacOS ioS core-data ( fourche propriétaire )
+		Android
+		Symbian
+	plus de 1 milliard de base de donnée SQLite en utilisation dans le monde
+- plus de détails
+	www.sqlite.org
+	dialecte SQL standard
+	bibliothèque écrite en C standard ANSI donc utilisable en C++, C#, Objective-C
+	API Java jdbc ( compatible JPA ), PHP, Python
+	interface en ligne de commande native MacOS > 10.4 Windows > 10, installable simplement ( apt-get install sqlite3 ) sur Ubuntu.
+	données pas ou peu typées, typage dynamique, affinités ( avnatage et incionvénient ) compatible avec le SQL standard
+	pas de gestion des droits à part celle du système de fichier ou sur des versions payantes
+	paramétrage embarqué ( PRAGMA )
+- avantages
+	simplicité de mise en oeuvre: pour créer une base fonctionnelle le seul paramètre à fournir c'est le chemin d'un fichier existant ou non
+	portabilité :
+		moteur disponible sur toutes les plateformes et dans la plupart des languages de programmation modernes, le moteur n'a pas besoin d'être paramétré
+		les fichiers créés sur une polateforme sont utilisables sur n'importe quelle autre sans aucune transformation
+	
+	simplicité de maintenance / déploiement
+	échanges de données facile avec d'autres moteurs SQL par l'intermédiaire de DUMP dans des fichiers texte
+	standard amené à perdurer ( 2050 )
+- inconvénients
+	gestion des connections concurentes moins performante et sûre que dans un paradigme client - serveur
+	répartition de la charge sur plusieurs serveurs compliquée et peu efficace
+	1 fichier = 1 base pas de possibilité de répartir une bas volumineuse sur plusieurs fichiers. Un fichier peut faire jusqu'à 281 To une ligne jusqu'à 1 Go
+- conclusion
+	bonne alternative aux autres moteurs SQL facilité d'utilisation, portabilité
+	bon moteur de persistence d'une application avec l'accès SQL en bonus
+	pas adapté au web

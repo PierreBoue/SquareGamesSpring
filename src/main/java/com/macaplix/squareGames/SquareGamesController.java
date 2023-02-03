@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.management.relation.Role;
 import java.util.HashMap;
@@ -75,6 +76,27 @@ public class SquareGamesController {
         return games;
 
     }
+    @RequestMapping("/")
+    public ModelAndView indexpage() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("index.html");
+        return modelAndView;
+    }
+    @RequestMapping(value="/api/public/login", method = RequestMethod.GET,
+            headers = "Accept=application/json")
+    public ModelAndView loginpage() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("login.html");
+        return modelAndView;
+    }
+/*
+    @GetMapping("login")
+    public ModelAndView getloginpage() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("login.html");
+        return modelAndView;
+    }
+*/
 
     /**
      *
@@ -103,7 +125,7 @@ public class SquareGamesController {
         }
         return gd;
     }
-    @RolesAllowed("ADMIN")
+    @RolesAllowed(Roles.ROLE_ADMIN)
     @GetMapping("/admin")
     private String admin()
     {

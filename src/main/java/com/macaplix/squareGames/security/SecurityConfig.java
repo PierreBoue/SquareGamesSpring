@@ -3,11 +3,9 @@ package com.macaplix.squareGames.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -43,8 +41,8 @@ public class SecurityConfig {
         final var authenticationManager = authenticationManagerBuilder.build();
         http.addFilterBefore( jwtTokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         http.authenticationManager(authenticationManager);
-// Activer CORS et désactiver CSRFcors().and().
-        http = http.csrf().disable();
+// Activer CORS et désactiver
+        http = http.cors().and().csrf().disable();
 // Modifier le manager de session pour utiliser le mode STATELESS
         http = http
 
@@ -69,17 +67,18 @@ public class SecurityConfig {
 
                 )
                 .and();
-
+        //.addFilterAfter( , AccessDeniedFilter.class)
                 // Définir les autorisations d’accès aux ressources
                 http.authorizeHttpRequests()
 
             // Les accès sans autorisation
 
 
-            .requestMatchers("/api/public/**").permitAll()///**
-                       // .requestMatchers("/**").permitAll();///**
+                       .requestMatchers("/api/public/**").permitAll()///**
+                        // .requestMatchers("/**").permitAll()///**
             // Les autres accès
-            .anyRequest().authenticated();
+            .anyRequest().authenticated()
+                ;
                 return http.build();
     }
     @Bean

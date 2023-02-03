@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.Date;
@@ -31,10 +32,20 @@ public class AuthenticationApi {
 
         this.authenticationManager = authenticationManager;
     }
+/*
+    @RequestMapping("login")
+    public ModelAndView loginpage() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("login.html");
+        return modelAndView;
+    }
+*/
+
     @PostMapping("login")
     public ResponseEntity<UserDTO> login(@RequestBody @Valid
                                          AuthenticationRequest request) {
 
+        //System.err.println(request.getUsername());
         try {
             final Authentication authenticate = authenticationManager
 
@@ -74,7 +85,7 @@ public class AuthenticationApi {
                             "Bearer " + token
 
                     )
-                    .body(new UserDTO(user.getUsername(), token));
+                    .body(new UserDTO(user.getUsername(), token, user.getAuthorities()));
 
         } catch (BadCredentialsException ex) {
             return
