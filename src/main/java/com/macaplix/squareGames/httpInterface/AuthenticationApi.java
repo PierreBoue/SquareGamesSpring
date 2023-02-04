@@ -1,4 +1,4 @@
-package com.macaplix.squareGames;
+package com.macaplix.squareGames.httpInterface;
 
 import com.macaplix.squareGames.dto.UserDTO;
 import com.macaplix.squareGames.entities.UserEntity;
