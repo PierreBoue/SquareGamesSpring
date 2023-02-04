@@ -13,7 +13,7 @@ class ApiController
         } catch (e) {
             alert( e.toString());
         }
-        if ( this._ajaxRequest == undefined) console.assert("ajax not instanciated !!!!"); else console.log( "opened ------> " + this._ajaxRequest.OPENED)
+        if ( this._ajaxRequest == undefined) console.assert("ajax not instanciated !!!!"); else console.log( "opened ------> " + this._ajaxRequest.LOADING)
         this.rootURL = document.location.origin;
     }
     sendGetRequest( url, requestNm, callbackFctn )
