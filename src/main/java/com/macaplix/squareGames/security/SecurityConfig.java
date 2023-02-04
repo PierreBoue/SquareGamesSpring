@@ -74,10 +74,10 @@ public class SecurityConfig {
             // Les accès sans autorisation
 
 
-                       .requestMatchers("/api/public/**").permitAll()///**
-                        // .requestMatchers("/**").permitAll()///**
+                .requestMatchers("/api/public/**").permitAll()///**
+                        //      .requestMatchers("/**").permitAll()///**
             // Les autres accès
-            .anyRequest().authenticated()
+           .anyRequest().authenticated()
                 ;
                 return http.build();
     }

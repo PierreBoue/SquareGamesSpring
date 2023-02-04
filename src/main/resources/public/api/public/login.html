@@ -3,24 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Identification</title>
-    <script>
-        encodePwd( )
-        {
-            let pwd = document.getElementById("password").value;
-            //document.getElementById("password").value =
-        }
-    </script>
+    <script src="js/ApiController.js" type="text/javascript"></script>
+    <script src="js/login.js" type="text/javascript"></script>
+    
 </head>
 <body>
  <h3 align="center">Merci de vous identifier</h3>
- <form action="" target="_self" method="post" onsubmit="encodePwd">
+ 
 <table align="center" border="0" cellpadding="5" cellspacing="5">
     <tr>
         <td>
-            username
+            <label for="username">username</label>
         </td>
         <td>
-            password
+            <label for="password">password</label>
         </td>
     </tr>
     <tr>
@@ -36,10 +32,20 @@
             <button type="reset" value="annuler">Annuler</button>
         </td>
         <td>
-            <button type="submit">Se connecter</button>
+            <button type="button" onClick="sendUserData()">Se connecter</button>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <input type="text" width="400" id="tokenView" disabled>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <textarea cols="80" id="debugbox"></textarea>
         </td>
     </tr>
 </table>
- </form>
+
 </body>
 </html>

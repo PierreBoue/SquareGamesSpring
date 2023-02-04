@@ -29,6 +29,9 @@ function ajaxFunction()
  }
  ajaxFunction();
  //
+//sendGetRequest( url, requestNm, callbackFctn )
+//sendPostRequest( url, requestNm, callbackFctn, body )
+
  function processGameTypeRequest()
  {
   if (ajaxRequest.readyState == 4) 
