@@ -44,7 +44,7 @@ class ApiController
     _privateCallback()
     {
        // this = apiController;
-        console.log( apiController._ajaxRequest );
+        //console.log( apiController._ajaxRequest );
         if (apiController._ajaxRequest.readyState == 4) 
         {
              if (apiController._ajaxRequest.status == 200)
