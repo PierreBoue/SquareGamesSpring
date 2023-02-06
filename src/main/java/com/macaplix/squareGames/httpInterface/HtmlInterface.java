@@ -23,14 +23,7 @@ public class HtmlInterface
     public ModelAndView erroHtml()
     {
         ModelAndView modelAndView = new ModelAndView();
-/*
-        modelAndView.setView(new View() {
-            @Override
-            public void render(Map<String, ?> model, HttpServletRequest request, HttpServletResponse response) throws Exception {
-                response.sendError("erreur",16);
-            }
-        });
-*/
+        modelAndView.setViewName("error.html");
         return modelAndView;
     }
 
