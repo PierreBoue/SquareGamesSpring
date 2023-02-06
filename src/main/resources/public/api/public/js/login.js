@@ -16,6 +16,7 @@ function tokenReceive( jsn )
     const tokenDTO = JSON.parse(jsn);
     document.getElementById("tokenView").value = tokenDTO["token"];
     printMessage( "token reçu " + ( new Date()).toLocaleString("fr-FR",{ hour:'2-digit', minute:'2-digit', weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) );
+   apiController.setToken(tokenDTO["token"]);
     /*
     navigator.clipboard.writeText("Bearer" + tokenDTO["token"]).then(() => {
               alert("Token writen to pateboard:\n" + tokenDTO["token"]);
@@ -37,6 +38,10 @@ function copyToken( token )
               alert('Error in copying text: ', err);
             });
     
+}
+function gotoProtectedURL( url )
+{
+    apiController.gotoProtected(url);
 }
 function printMessage( mesg )
 {

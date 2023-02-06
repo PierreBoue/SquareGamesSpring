@@ -19,7 +19,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity
+@EnableMethodSecurity(securedEnabled = true)
 public class SecurityConfig {
     private final MyUserDetailsService userDetailsService;
     @Autowired
@@ -67,7 +67,7 @@ public class SecurityConfig {
 
                 )
                 .and();
-        //.addFilterAfter( , AccessDeniedFilter.class)
+        //.addFilterAfter( jwtTokenAuthenticationFilter , AccessDeniedFilter.class);
                 // Définir les autorisations d’accès aux ressources
                 http.authorizeHttpRequests()
 

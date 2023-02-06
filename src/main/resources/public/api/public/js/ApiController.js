@@ -4,6 +4,7 @@ class ApiController
     _ajaxRequest;
     _callbackFunction;
     _requestName;
+    _token;
     rootURL;
     constructor()
     {
@@ -15,11 +16,13 @@ class ApiController
         }
         if ( this._ajaxRequest == undefined) console.assert("ajax not instanciated !!!!"); else console.log( "opened ------> " + this._ajaxRequest.LOADING)
         this.rootURL = document.location.origin;
+        this._token = null;
     }
     sendGetRequest( url, requestNm, callbackFctn )
     {
         this._callbackFunction = callbackFctn;
         this._requestName = requestNm;
+       if ( this._token != null ) this._ajaxRequest.setRequestHeader( "Authorization", this._token);
         this._ajaxRequest.open( "GET", this.rootURL + url, true);
         this._ajaxRequest.onreadystatechange = this._privateCallback;
         this._ajaxRequest.send( null );
@@ -31,6 +34,7 @@ class ApiController
         this._callbackFunction = callbackFctn;
         this._requestName = requestNm;
         this._ajaxRequest.open("POST", this.rootURL + url, true);
+        if ( this._token != null ) this._ajaxRequest.setRequestHeader( "Authorization", this._token);
         this._ajaxRequest.onreadystatechange = this._privateCallback;
         this._ajaxRequest.setRequestHeader('Accept', 'application/json');
       
@@ -40,6 +44,36 @@ class ApiController
         this._ajaxRequest.withCredentials = true; // added to test localajaxRequest.onreadystatechange = processGameTypeRequest;
         this._ajaxRequest.send(JSON.stringify(body));
        
+    }
+    setToken( tkn )
+    {
+        this._token = tkn;
+    }
+    gotoProtected( url )
+    {
+      //console.log(this._token);
+       this._ajaxRequest.open( this.rootURL +  url, {'Authorization':'Bearer ' + this._token},
+           function (res)
+           {
+               console.log(res);
+           }
+       );
+       this._ajaxRequest.send( null);
+        /*
+        const cont = fetch( url, {
+            method: 'GET',
+            headers: new Headers({
+                'Authorization': this._token
+            })
+
+        });
+        document.write(cont);
+        */
+
+    }
+    getToken()
+    {
+        return this._token;
     }
     _privateCallback()
     {

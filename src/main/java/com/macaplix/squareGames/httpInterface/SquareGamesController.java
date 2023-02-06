@@ -12,6 +12,7 @@ import org.apache.logging.slf4j.Log4jLogger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -55,9 +56,9 @@ public class SquareGamesController {
      * @return
      */
 
+    // @Secured({Roles.ROLE_USER})
     @GetMapping("/games")
-    @Secured({Roles.ROLE_USER})
-    private GameDescription[] getGames()
+     private GameDescription[] getGames()
     {
         HashMap<String,Game> activeGames = gameService.getAllGames();
         //System.out.println(activeGames);
@@ -121,10 +122,16 @@ public class SquareGamesController {
         }
         return gd;
     }
-    @RolesAllowed(Roles.ROLE_ADMIN)
+    //@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+     //
+   //
+    //
+    //@RolesAllowed(Roles.ROLE_ADMIN)
+    @Secured(Roles.ROLE_ADMIN)
     @GetMapping("/admin")
     private String admin()
     {
+
         return "<h1 align='center'>You are in a safe place</h1>\n";
     }
     /**

@@ -33,15 +33,20 @@ public class MyUserDetailsService implements UserDetailsService {
 
        if ( ! userIt.iterator().hasNext())
        {
-           String pass = new BCryptPasswordEncoder().encode("nimp");
-           UserEntity userE = new UserEntity();
-           userE.setUsername("piero");
-            userE.setPassword(pass);
-            userE.setAccountNonLocked(true);
-            userE.setEnabled(true);
-            userE.setAccountNotExpired(true);
-            userE.setCredentialsNonExpired( true );
-            userDAO.save(userE);
+           String[][] users =  {{"piero","nimp","ROLE_USER"},{"admin","devine","ROLE_ADMIN"}};
+           for ( String[] userdat: users)
+            {
+                String pass = new BCryptPasswordEncoder().encode(userdat[1]);
+                UserEntity userE = new UserEntity();
+                userE.setUsername(userdat[0]);
+                userE.setPassword(pass);
+                userE.addGrantedAuthoity(userdat[2]);
+                userE.setAccountNonLocked(true);
+                userE.setEnabled(true);
+                userE.setAccountNotExpired(true);
+                userE.setCredentialsNonExpired(true);
+                userDAO.save(userE);
+            }
        }
     }
 }
