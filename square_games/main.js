@@ -1,86 +1,17 @@
 // JavaScript Document
-var ajaxRequest = null; 
+ 
+var apiController = new ApiController();
 var gameTypeController = null;
 var gamesController = null;
-  //Browser Support Code
-function ajaxFunction()
+
+function processGameTypeRequest( jsn )
 {
-
-    try {
-       // Opera 8.0+, Firefox, Safari 
-       ajaxRequest = new XMLHttpRequest();
-    } catch (e) {
-
-       // Internet Explorer Browsers
-       try {
-          ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");
-       } catch (e) {
-
-          try {
-             ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");
-          } catch (e) {
-
-             // Something went wrong
-             alert("Your browser broke!");
-             return false;
-          }
-       }
-    }
- }
- ajaxFunction();
- //
- function processGameTypeRequest()
- {
-  if (ajaxRequest.readyState == 4) 
-  {
-     if (ajaxRequest.status == 200)
-     {
-        const jsn = ajaxRequest.responseText;
-        displayJson(jsn,"game type answer");
-
-        populateTypeList(jsn);
-         const url = "http://127.0.0.1:8081/games";
-         ajaxRequest.open( "GET", url, true);
-        ajaxRequest.onreadystatechange = processGameListRequest;
-        ajaxRequest.send( null );
-     } else console.log("status http: "+ ajaxRequest.status + "\n" + ajaxRequest.responseText);
-  } else console.log("status ajax: "+ ajaxRequest.readyState + "\n" + ajaxRequest.responseText );
-}
-function processGameListRequest()
-{
-    if (ajaxRequest.readyState == 4)
-    {
-        if (ajaxRequest.status == 200)
-        {
-            const jsn = ajaxRequest.responseText;
-            displayJson(jsn,"get game list");
-            populateGameList(jsn);
-        }
-    }
+    //sendPostRequest( url, requestNm, callbackFctn, body )
+    populateTypeList(jsn);
+    const url = "http://127.0.0.1:8081/games";
+    apiController.sendGetRequest( url, "games list request", populateGameList );
 }
 
-function processCreateGameRequest()
-{
-    if (ajaxRequest.readyState == 4)
-    {
-        if (ajaxRequest.status == 200)
-        {
-            const jsn = ajaxRequest.responseText;
-            console.log(jsn);
-            displayJson(jsn,"game creation");
-            newGameCreated( jsn );
-            //populateGameList(jsn);
-        }
-    }
-}
-function displayJson( jsn, msg )
-{
-    const debugbox =document.getElementById("debugbox");
-    debugbox.value = debugbox.value +
-        "\n______________ " + msg + " ______________\n" +
-        jsn +
-        "\n___________________________________________\n";
-}
 function selectGameType( idx )
 {
     gameTypeController.selectTypeAtIndex( idx );
@@ -128,54 +59,19 @@ function populateGameList(jsonList)
         //console.log(g);
         const game = new Game( g );
         gamesController.add( game);
-        
-        
-        
     }
-    
 }
  function initContent()
-  {
+{//sendPostRequest( url, requestNm, callbackFctn, body )
     const url ="http://127.0.0.1:8081/games/types";
-    ajaxRequest.onreadystatechange = processGameTypeRequest;
-     // alert("init");
-      //if ( ajaxRequest == null ) alert("pas d'ajax !!!");
-    ajaxRequest.open("GET", url, true);
-   //ajaxRequest.setRequestHeader('Authorization', 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwaWVybyIsImF1dGhvcml0aWVzIjpbXSwiaWF0IjoxNjc1MzQ1NDQzLCJleHAiOjE2NzUzNDkwNDN9.uPfmhhQk5G-AWAdMBdJY4TeGA7vTw_GuejngMoIadXmCZ-BHnxJb95oWuycF4MBWglNbazMPcv0xrnHFFk2eoA');
-     // ajaxRequest.setRequestHeader('Access-Control-Allow-Origin', null);
-    ajaxRequest.withCredentials = true; // added to test localajaxRequest.onreadystatechange = processGameTypeRequest;
-    ajaxRequest.send( null );
-
-/*
-    url = "http://127.0.0.1:8081/games";
-    ajaxRequest.open("GET", url, true);
-    ajaxRequest.onreadystatechange = processGameListRequest;
-    ajaxRequest.send( null );
-*/
-
-  }
-  function createGame()
-  {
+    apiController.sendGetRequest( url, "game types query", processGameTypeRequest);
+}
+function createGame()
+{ //sendPostRequest( url, requestNm, callbackFctn, body )
     const url ="http://127.0.0.1:8081/games";
      //int gameIndex, int playerCount, int boardSize
-      const playerCount= parseInt( document.getElementById("playerCount").value );
-      const boardSize= parseInt( document.getElementById("boardSize").value );
-      const jsonGame = {"gameIndex":gameTypeController.index, "playerCount":playerCount, "boardSize":boardSize};
-      //console.log(JSON.stringify( jsonGame));
-        ajaxRequest.open("POST", url, true);
-     ajaxRequest.onreadystatechange = processCreateGameRequest;
-    ajaxRequest.setRequestHeader('Accept', 'application/json');
-      
-      //ajaxRequest.setRequestHeader('contentType', 'application/json; charset=UTF-8'); 
-
-      ajaxRequest.setRequestHeader('Content-Type', 'application/json');//
-        ajaxRequest.withCredentials = true; // added to test localajaxRequest.onreadystatechange = processGameTypeRequest;
-        ajaxRequest.send(JSON.stringify(jsonGame));//
-/*
-      headers: {
-          'Accept': 'application/json',
-              'Content-Type': 'application/json'
-      }
-*/
-      // console.log("create");
-  }
+    const playerCount= parseInt( document.getElementById("playerCount").value );
+    const boardSize= parseInt( document.getElementById("boardSize").value );
+    const jsonGame = {"gameIndex":gameTypeController.index, "playerCount":playerCount, "boardSize":boardSize};
+    apiController.sendPostRequest( url, "create game request", newGameCreated, jsonGame );
+}
