@@ -14,7 +14,7 @@ class ApiController
         } catch (e) {
             alert( e.toString());
         }
-        if ( this._ajaxRequest == undefined) console.assert("ajax not instanciated !!!!"); else console.log( "opened ------> " + this._ajaxRequest.LOADING)
+        if ( this._ajaxRequest == undefined) console.assert("ajax not instanciated !!!!"); //else console.log( "opened ------> " + this._ajaxRequest.LOADING)
         this.rootURL = document.location.origin;
         this._token = null;
     }
@@ -86,7 +86,13 @@ class ApiController
                 const jsn = apiController._ajaxRequest.responseText;
                 apiController._logJson( jsn );
                 apiController._callbackFunction( jsn );
+             } else if (apiController._ajaxRequest.status == 401){
+                 alert("Identifiant ou mot de passe incorrect, merci de réessayer");
+                 
+             } else {
+                 alert("Le serveur a renvoyé une erreur ", apiController._ajaxRequest.status);
              }
+            
         }
 
     }

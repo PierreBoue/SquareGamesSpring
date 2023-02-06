@@ -115,53 +115,26 @@
     <button class="w-100 btn btn-lg btn-primary" type="button" onClick="sendUserData()">Se connecter</button>
     <p class="mt-5 mb-3 text-muted" id="mesgbox"></p>
     <div class="text-center w-auto form-floating">
-        <input type="text" id="tokenView" disabled value="">
-        <button class="m-2 btn btn-dark" type="button" onClick="copyToken( null )">Copier</button>        
-        <textarea rows="5" id="debugbox" class="text-light"></textarea>
-    </div>
+        <div class="row-cols-sm-auto">
+            <!--div class="col"-->
+           
+                <input type="text" class="form-control" id="tokenView" placeholder="token..." disabled value="">
+            <!--/div>
+            <!--div class="col"-->
+                <button class="m-2 btn btn-dark" type="button" onClick="copyToken( null )">Copier</button>
+            <!--/div-->
+        </div>
+        <div class="form-floating"><!--id="floatingTextarea"-->
+        <textarea class="form-control w-100" id="debugbox" placeholder="logs..."  style="height: 100px">
+           --- ouverture de la page ---
+
+            </textarea>
+          </div>
+  
+        </div>
+    
   </form>
 </main>
-
-
-    
- <!--h3 align="center">Merci de vous identifier</h3>
- 
-<table align="center" border="0" cellpadding="5" cellspacing="5">
-    <tr>
-        <td>
-            <label for="username">username</label>
-        </td>
-        <td>
-            <label for="password">password</label>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <input type="text" name="username" id="username">
-        </td>
-        <td>
-            <input type="password" name="password" id="password">
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <button type="reset" value="annuler">Annuler</button>
-        </td>
-        <td>
-            <button type="button" onClick="sendUserData()">Se connecter</button>
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2">
-            <input type="text" size="80" id="tokenView" disabled>
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2">
-            <textarea cols="80" rows="5" id="debugbox"></textarea>
-        </td>
-    </tr>
-</table-->
 
 </body>
 </html>
