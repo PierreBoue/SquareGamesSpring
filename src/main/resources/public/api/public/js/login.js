@@ -8,6 +8,7 @@ function sendUserData()
 {
     const name = document.getElementById("floatingInput").value;
     const pswd = document.getElementById("floatingPassword").value;
+    document.getElementById("tokenView").value = "";
     printMessage("Attente réponse serveur.");
     apiController.sendPostRequest( '/api/public/login', 'login call', tokenReceive, {"username":name, "password":pswd});
 }
