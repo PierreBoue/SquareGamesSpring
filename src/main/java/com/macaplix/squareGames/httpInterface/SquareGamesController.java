@@ -166,5 +166,10 @@ public class SquareGamesController {
         }
         return mtr;
     }
+    @PostMapping("/api/public/mockstat")
+    public String mockstat()
+    {
+        return gameService.mockWriteStats();
+    }
 
 }

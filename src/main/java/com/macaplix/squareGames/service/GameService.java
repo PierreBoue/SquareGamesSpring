@@ -66,7 +66,7 @@ public interface GameService
      * @return a GamePlugin instance
      */
     public GamePlugin pluginForGame(String gameName );
-
-    public Locale getEndUserLocale();
+    public String mockWriteStats();
+     public Locale getEndUserLocale();
     //public GameDescription[] getAllGameDescription();
 }

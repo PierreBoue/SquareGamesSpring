@@ -77,6 +77,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/public/**").permitAll()///**
                         //      .requestMatchers("/**").permitAll()///**
             // Les autres accès
+                        //.requestMatchers("/admin").hasRole("ADMIN")
            .anyRequest().authenticated()
                 ;
                 return http.build();

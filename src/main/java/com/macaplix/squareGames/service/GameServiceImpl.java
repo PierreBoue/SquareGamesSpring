@@ -11,8 +11,10 @@ import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.*;
 import java.util.logging.Level;
@@ -30,6 +32,11 @@ public class GameServiceImpl implements GameService {
     private TokenDAO tokenDAO;
     @Autowired
     private GameDAOSQL gameDAOSQL;
+    @Autowired
+    public RestTemplate restTemplate(RestTemplateBuilder builder) {
+        return builder.build();
+    }
+
     private static Logger logger= LoggerFactory.getLogger(GameServiceImpl.class);
     private HashMap<String, Game> activeGames;
     private HashMap<String, TokenInfo[]> gameTokens;
@@ -267,6 +274,21 @@ public class GameServiceImpl implements GameService {
             activeGames.put(gdto.gameKey(), game);
         }
     }
+    @Override
+    public String mockWriteStats()
+    {
+        String rep="";
+        for (int u=1; u <3; u++)
+        {
+            for ( int i =0; i <10; i++)
+            {
+                int score = (int) (Math.round( Math.random() * 3) -1);
+                rep += restTemplate( new RestTemplateBuilder()).getForObject("http://127.0.0.1:8082/stats/" + u + "?score=" + score, String.class) + "\n";
+            }
+        }
+        return rep;
+    }
+
     private String checkPlayerCount(GameFactory factory, int playerCount )
     {
         IntRange range = factory.getPlayerCountRange();
