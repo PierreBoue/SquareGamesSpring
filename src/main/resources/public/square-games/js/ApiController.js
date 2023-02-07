@@ -23,6 +23,7 @@ class ApiController
         this._callbackFunction = callbackFctn;
         this._requestName = requestNm;
        if ( this._token != null ) this._ajaxRequest.setRequestHeader( "Authorization", this._token);
+        console.log( this.rootURL + "%%%" + url);
         this._ajaxRequest.open( "GET", this.rootURL + url, true);
         this._ajaxRequest.onreadystatechange = this._privateCallback;
         this._ajaxRequest.send( null );

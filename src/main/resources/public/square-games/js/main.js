@@ -63,12 +63,12 @@ function populateGameList(jsonList)
 }
  function initContent()
 {//sendPostRequest( url, requestNm, callbackFctn, body )
-    const url ="http://127.0.0.1:8081/games/types";
+    const url ="/games/types";
     apiController.sendGetRequest( url, "game types query", processGameTypeRequest);
 }
 function createGame()
 { //sendPostRequest( url, requestNm, callbackFctn, body )
-    const url ="http://127.0.0.1:8081/games";
+    const url ="/games";
      //int gameIndex, int playerCount, int boardSize
     const playerCount= parseInt( document.getElementById("playerCount").value );
     const boardSize= parseInt( document.getElementById("boardSize").value );
