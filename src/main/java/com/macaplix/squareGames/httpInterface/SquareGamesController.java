@@ -73,6 +73,7 @@ public class SquareGamesController {
         return games;
 
     }
+/*
     @RequestMapping("/")
     public ModelAndView indexpage() {
         ModelAndView modelAndView = new ModelAndView();
@@ -86,6 +87,7 @@ public class SquareGamesController {
         modelAndView.setViewName("login.html");
         return modelAndView;
     }
+*/
 /*
     @GetMapping("login")
     public ModelAndView getloginpage() {

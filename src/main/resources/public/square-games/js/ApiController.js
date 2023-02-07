@@ -55,7 +55,7 @@ class ApiController
        this._ajaxRequest.open( this.rootURL +  url, {'Authorization':'Bearer ' + this._token},
            function (res)
            {
-               console.log(res);
+               console.log( "goto callback "+res);
            }
        );
        this._ajaxRequest.send( null);

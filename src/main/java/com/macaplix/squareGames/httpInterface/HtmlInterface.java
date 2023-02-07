@@ -11,17 +11,25 @@ import org.springframework.web.servlet.View;
 import java.util.Map;
 
 @RestController
+@RequestMapping(path = "square-games")
 public class HtmlInterface
 {
-    @RequestMapping("login")
-    public ModelAndView loginpage()
+    @RequestMapping("/")
+    private ModelAndView indexPage()
+    {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("index.html");
+        return modelAndView;
+    }
+    @RequestMapping("/login")
+    private ModelAndView loginPage()
     {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("login.html");
         return modelAndView;
     }
     @RequestMapping("errorHtml")
-    public ModelAndView erroHtml()
+    private ModelAndView erroHtml()
     {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("error.html");
