@@ -64,6 +64,7 @@ function populateGameList(jsonList)
  function initContent()
 {//sendPostRequest( url, requestNm, callbackFctn, body )
     const url ="/games/types";
+    apiController.setToken( "Bearer " + window.localStorage.getItem("sgtoken"));
     apiController.sendGetRequest( url, "game types query", processGameTypeRequest);
 }
 function createGame()
