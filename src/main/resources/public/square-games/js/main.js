@@ -8,7 +8,7 @@ function processGameTypeRequest( jsn )
 {
     //sendPostRequest( url, requestNm, callbackFctn, body )
     populateTypeList(jsn);
-    const url = "http://127.0.0.1:8081/games";
+    const url = "/games";
     apiController.sendGetRequest( url, "games list request", populateGameList );
 }
 

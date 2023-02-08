@@ -27,7 +27,7 @@ class ApiController
         if ( this._token != null )
         {
             this._ajaxRequest.setRequestHeader("Authorization", this._token);
-            console.log("received: " + this._token);
+            //console.log("received: " + this._token);
         }
         this._ajaxRequest.onreadystatechange = this._privateCallback;
         this._ajaxRequest.send( null );
@@ -56,7 +56,7 @@ class ApiController
     }
     gotoProtected( url )
     {
-      //console.log(this._token);
+      console.log("go to protected ????????");
        this._ajaxRequest.open( this.rootURL +  url, {'Authorization':'Bearer ' + this._token},
            function (res)
            {

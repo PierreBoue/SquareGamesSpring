@@ -19,8 +19,46 @@
     <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm15 2h-4v3h4V4zm0 4h-4v3h4V8zm0 4h-4v3h3a1 1 0 0 0 1-1v-2zm-5 3v-3H6v3h4zm-5 0v-3H1v2a1 1 0 0 0 1 1h3zm-4-4h4V8H1v3zm0-4h4V4H1v3zm5-3v3h4V4H6zm4 4H6v3h4V8z"/>
   </symbol>
 </svg>
+      <div class="container">
+    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+      <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+        <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
+      </a>
+
+      <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+        <li><a href="#" class="nav-link px-2 link-dark">Accueil</a></li>
+        <li><a href="#" class="nav-link px-2 link-dark">Compte</a></li>
+        <li><a href="#" class="nav-link px-2 link-secondary">Jouer</a></li>
+      </ul>
+        <div id="login-form" class="d-inline-flex flex-nowrap">
+        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="login">
+          <input type="text" class="form-control" placeholder="Identifiant" aria-label="floatingInput">
+            
+          <input type="password" class="form-control" placeholder="Mot de passe" aria-label="Mot de passe" name="password" id="floatingPassword">
+        </form>
+          <div class="col-md-3 text-end">
+            <button type="button" class="btn btn-primary">S'identifier</button>
+            <button type="button" class="btn btn-outline-primary me-2">Nouveau compte</button>
+          </div>
+        </div>
+        <div class="dropdown text-end" id="logged">
+          <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+          </a>
+          <ul class="dropdown-menu text-small">
+            <li><a class="dropdown-item" href="#">Mon compte</a></li>
+            <li><a class="dropdown-item" href="#">Mes Stats</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Me deconnecter</a></li>
+          </ul>
+        </div>
+
+    </header>
+  </div>
+
+    
     <h1 align="center">Square Games</h1>
-<main class="container py-3">
+<main class="container py-3 mb-5">
     <div class="row row-cols-1 row-cols-md-3 mb-3 text-start" style="height: 250px;"> 
         <div class="col">
           <div class="card mb-4 rounded-3 shadow-sm">
@@ -49,11 +87,11 @@
             
             <ul class="list-unstyled mt-3 mb-4">
               <li>    
-                  <input type="number" min="0" max="100" id="playerCount" name="playerCount" value="0">
+                  <input type="number" min="0" max="100" id="playerCount" name="playerCount" class="form-control" value="0">
                   <label for="playerCount">nombre de joueurs</label>
               </li>
               <li>
-                <input type="number" min="0" max="100" id="boardSize" name="boardSize" value="0">
+                <input type="number" min="0" max="100" id="boardSize" name="boardSize" class="form-control" value="0">
                 <label for="boardSize">taille du plateau</label><br/>
               </li>
             </ul>
@@ -62,7 +100,7 @@
         </div>
     </div>
     <div class="col">
-        <div class="card mb-4 rounded-3 shadow-sm" style="height: 243px;">
+        <div class="card mb-5 rounded-3 shadow-sm" style="height: 243px;">
           <div class="card-header py-3">
             <h4 class="my-0 fw-normal">Jeux en cours</h4>
           </div>
@@ -88,7 +126,7 @@
 
     </div>
   </div>
-  <div class="d-flex flex-column flex-md-row align-items-center pb-3 pt-3 mb-4 border-bottom border-top row-gap-sm-3">
+  <div class="d-flex flex-column flex-md-row align-items-center pb-3 pt-3 mb-4 border-bottom border-top row-gap-sm-3 mt-5">
       <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
           <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#table"/></svg>
         

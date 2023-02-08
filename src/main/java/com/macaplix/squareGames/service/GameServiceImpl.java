@@ -44,7 +44,7 @@ public class GameServiceImpl implements GameService {
     public GameServiceImpl() {
         activeGames = new HashMap<String, Game>();
         gameTokens = new HashMap<String, TokenInfo[]>();
-        GameServiceImpl.logger.warn("warning log");
+        //GameServiceImpl.logger.warn("Instantiated GameService");
         //Logger logger = (Logger) LoggerFactory.getLogger("com.macaplix.squareGames");
         //readPersistentGames();
        //LoggerUtility.getInstance( this.getClass()).logWarning("this a warning");

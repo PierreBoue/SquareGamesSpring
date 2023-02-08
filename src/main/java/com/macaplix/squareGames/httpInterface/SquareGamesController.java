@@ -29,7 +29,7 @@ public class SquareGamesController {
     private static final Log4jLogger LOGGER = (Log4jLogger) LoggerFactory.getLogger(SquareGamesController.class);
     public SquareGamesController()
     {
-        LOGGER.warn("sgc constructor");
+        //LOGGER.warn("sgc constructor");
     }
     /**
      *
@@ -111,7 +111,7 @@ public class SquareGamesController {
     private GameTypeInfo[] getGameTypes( )
     {
         GameCatalog catalog = new GameCatalogImpl();
-        return catalog.getGameTypes( gameService);
+        return catalog.getGameTypes( this.gameService);
     }
 
     /**
@@ -135,7 +135,7 @@ public class SquareGamesController {
    //
     //
     //@RolesAllowed(Roles.ROLE_ADMIN)
-    @Secured(Roles.ROLE_ADMIN)
+    //@Secured(Roles.ROLE_ADMIN)
     @GetMapping("/admin")
     private String admin()
     {
