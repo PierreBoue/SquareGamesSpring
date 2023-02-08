@@ -21,27 +21,30 @@
 </svg>
       <div class="container">
     <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-      <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
-        <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
-      </a>
-
-      <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+      
+      <ul class="nav col-9 col-md-auto mb-2 justify-content-center mb-md-0">
         <li><a href="#" class="nav-link px-2 link-dark">Accueil</a></li>
         <li><a href="#" class="nav-link px-2 link-dark">Compte</a></li>
         <li><a href="#" class="nav-link px-2 link-secondary">Jouer</a></li>
       </ul>
         <div id="login-form" class="d-inline-flex flex-nowrap">
-        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="login">
-          <input type="text" class="form-control" placeholder="Identifiant" aria-label="floatingInput">
+        <!--form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="login"-->
+            <div class="col-md-5">
             
-          <input type="password" class="form-control" placeholder="Mot de passe" aria-label="Mot de passe" name="password" id="floatingPassword">
-        </form>
+              <input type="text" class="form-control m-3 w-auto" placeholder="Identifiant" aria-label="floatingInput" id="username" name="username">
+            </div>
+            <div class="col-md-5">
+              <input type="password" class="form-control m-3 w-auto" placeholder="Mot de passe" aria-label="Mot de passe" name="password" id="floatingPassword">
+            </div>
+        <!--/form-->
           <div class="col-md-3 text-end">
             <button type="button" class="btn btn-primary">S'identifier</button>
+          </div>  
+          <div class="col-md-3">
             <button type="button" class="btn btn-outline-primary me-2">Nouveau compte</button>
           </div>
         </div>
-        <div class="dropdown text-end" id="logged">
+        <div class="dropdown text-end visually-hidden" id="logged">
           <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
             <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
           </a>

@@ -19,14 +19,6 @@ function tokenReceive( jsn )
     printMessage( "token reçu " + ( new Date()).toLocaleString("fr-FR",{ hour:'2-digit', minute:'2-digit', weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) );
    apiController.setToken(tokenDTO["token"]);
    window.localStorage.setItem("sgtoken", tokenDTO["token"]);
-    /*
-    navigator.clipboard.writeText("Bearer" + tokenDTO["token"]).then(() => {
-              alert("Token writen to pateboard:\n" + tokenDTO["token"]);
-            })
-            .catch(err => {
-              alert('Error in copying text: ', err);
-            });
-            */
     //copyToken( tokenDTO["token"]);
 }
 function copyToken( token )
