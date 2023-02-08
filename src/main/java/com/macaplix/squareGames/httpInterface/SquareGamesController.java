@@ -7,10 +7,12 @@ import com.macaplix.squareGames.service.GameCatalogImpl;
 import com.macaplix.squareGames.service.GameService;
 import fr.le_campus_numerique.square_games.engine.CellPosition;
 import fr.le_campus_numerique.square_games.engine.Game;
+import jakarta.annotation.PostConstruct;
 import jakarta.annotation.security.RolesAllowed;
 import org.apache.logging.slf4j.Log4jLogger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -25,13 +27,16 @@ public class SquareGamesController {
     private GameService gameService;
 
     private static final Log4jLogger LOGGER = (Log4jLogger) LoggerFactory.getLogger(SquareGamesController.class);
-
+    public SquareGamesController()
+    {
+        LOGGER.warn("sgc constructor");
+    }
     /**
      *
      * @param params GameParams DTO to hold game creation data
      * @return GameParamsAnswer DTO to hold creation result
      */
-
+    //@Qualifier(value = "gameService")
     @PostMapping( value = "/games", consumes = {"application/xml","application/json"})
     private GameDescription gameCreate(@RequestBody( required= false) GameParams params)
     {
@@ -57,6 +62,7 @@ public class SquareGamesController {
      */
 
     // @Secured({Roles.ROLE_USER})
+    //@PostConstruct
     @GetMapping("/games")
      private GameDescription[] getGames()
     {
