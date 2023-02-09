@@ -7,6 +7,7 @@
       <script type="text/javascript" src="js/main.js"></script>
       <script type="text/javascript" src="js/Game.js"></script>
       <script type="text/javascript" src="js/sqgboard.js"></script>
+      <script type="text/javascript" src="js/login.js"></script>
       <script type="text/javascript" src="js/GameType.js"></script>
       <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
@@ -27,24 +28,24 @@
         <li><a href="#" class="nav-link px-2 link-dark">Compte</a></li>
         <li><a href="#" class="nav-link px-2 link-secondary">Jouer</a></li>
       </ul>
-        <div id="login-form" class="d-inline-flex flex-nowrap">
+        <div id="login-form" class="d-inline-flex flex-nowrap " style="visibility: visible">
         <!--form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="login"-->
-            <div class="col-md-5">
+            <div class="col-auto">
             
-              <input type="text" class="form-control m-3 w-auto" placeholder="Identifiant" aria-label="floatingInput" id="username" name="username">
+              <input type="text" class="form-control-sm m-2 w-auto" placeholder="Identifiant" aria-label="floatingInput" id="username" name="username">
             </div>
-            <div class="col-md-5">
-              <input type="password" class="form-control m-3 w-auto" placeholder="Mot de passe" aria-label="Mot de passe" name="password" id="floatingPassword">
+            <div class="col-auto">
+              <input type="password" class="form-control-sm m-2 w-auto" placeholder="Mot de passe" aria-label="Mot de passe" name="password" id="floatingPassword">
             </div>
         <!--/form-->
-          <div class="col-md-3 text-end">
-            <button type="button" class="btn btn-primary">S'identifier</button>
+          <div class="col-auto">
+            <button type="button" class="btn btn-primary btn-sm mt-2 me-2" onClick="sendUserData();">S'identifier</button>
           </div>  
-          <div class="col-md-3">
-            <button type="button" class="btn btn-outline-primary me-2">Nouveau compte</button>
+          <div class="col-auto">
+            <button type="button" class="btn btn-outline-primary btn-sm mt-2 me-2">S'inscrire</button>
           </div>
         </div>
-        <div class="dropdown text-end visually-hidden" id="logged">
+        <div class="dropdown text-end" style="visibility: collapse" id="logged">
           <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
             <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
           </a>

@@ -19,6 +19,8 @@ function tokenReceive( jsn )
     printMessage( "token reçu " + ( new Date()).toLocaleString("fr-FR",{ hour:'2-digit', minute:'2-digit', weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) );
    apiController.setToken(tokenDTO["token"]);
    window.localStorage.setItem("sgtoken", tokenDTO["token"]);
+    document.getElementById("login-form").style.visibility = "collapse";
+    document.getElementById("logged").style.visibility = "visible";
     //copyToken( tokenDTO["token"]);
 }
 function copyToken( token )
