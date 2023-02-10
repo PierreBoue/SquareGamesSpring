@@ -5,6 +5,7 @@ class ApiController
     _callbackFunction;
     _requestName;
     _token;
+    _tokenDate;
     rootURL;
     constructor()
     {
@@ -24,7 +25,7 @@ class ApiController
         this._requestName = requestNm;
         console.log( this.rootURL + "%%%" + url);
         this._ajaxRequest.open( "GET", this.rootURL + url, true);
-        if ( this._token != null )
+        if (( this._token != null ) && ( this._token.length ))
         {
             this._ajaxRequest.setRequestHeader("Authorization", this._token);
             //console.log("received: " + this._token);
@@ -33,13 +34,12 @@ class ApiController
         this._ajaxRequest.send( null );
         
     }
-
     sendPostRequest( url, requestNm, callbackFctn, body )
     {
         this._callbackFunction = callbackFctn;
         this._requestName = requestNm;
         this._ajaxRequest.open("POST", this.rootURL + url, true);
-        if ( this._token != null ) this._ajaxRequest.setRequestHeader( "Authorization", this._token);
+        if ( this.getToken() != null ) this._ajaxRequest.setRequestHeader( "Authorization", "Bearer " + this.getToken());
         this._ajaxRequest.onreadystatechange = this._privateCallback;
         this._ajaxRequest.setRequestHeader('Accept', 'application/json');
       
@@ -50,34 +50,17 @@ class ApiController
         this._ajaxRequest.send(JSON.stringify(body));
        
     }
-    setToken( tkn )
+    setToken( tkninfo )
     {
-        this._token = tkn;
-    }
-    gotoProtected( url )
-    {
-      console.log("go to protected ????????");
-       this._ajaxRequest.open( this.rootURL +  url, {'Authorization':'Bearer ' + this._token},
-           function (res)
-           {
-               console.log( "goto callback "+res);
-           }
-       );
-       this._ajaxRequest.send( null);
-        /*
-        const cont = fetch( url, {
-            method: 'GET',
-            headers: new Headers({
-                'Authorization': this._token
-            })
-
-        });
-        document.write(cont);
-        */
-
+        this._token = tkninfo["token"];
+        this._tokenDate = tkninfo["date"];
     }
     getToken()
     {
+        if (( new Date() - this._tokenDate) > 3000000 )
+        {
+            this._token = null;
+        }
         return this._token;
     }
     _privateCallback()
@@ -92,7 +75,7 @@ class ApiController
                 apiController._logJson( jsn );
                 apiController._callbackFunction( jsn );
              } else if (apiController._ajaxRequest.status == 401){
-                 alert("Identifiant ou mot de passe incorrect, merci de réessayer");
+                 //alert("Identifiant ou mot de passe incorrect, merci de réessayer");
                  
              } else {
                  alert("Le serveur a renvoyé une erreur ", apiController._ajaxRequest.status);

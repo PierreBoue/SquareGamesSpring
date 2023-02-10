@@ -107,7 +107,7 @@ public class SquareGamesController {
      *
      * @return every available game types
      */
-    @GetMapping("/games/types")
+    @GetMapping("api/public/games/types")
     private GameTypeInfo[] getGameTypes( )
     {
         GameCatalog catalog = new GameCatalogImpl();

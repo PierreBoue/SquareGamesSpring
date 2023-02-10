@@ -1,6 +1,6 @@
 // JavaScript Document
 var apiController = new ApiController();
-if ( apiController != undefined ) console.assert("Hello Java Script Login");
+if ( apiController != undefined ) console.log("Hello Java Script Login");
 //sendGetRequest( url, requestNm, callbackFctn )
 //sendPostRequest( url, requestNm, callbackFctn, body )
 
@@ -8,7 +8,7 @@ function sendUserData()
 {
     const name = document.getElementById("floatingInput").value;
     const pswd = document.getElementById("floatingPassword").value;
-    document.getElementById("tokenView").value = "";
+    if ( isIndexPage == undefined ) document.getElementById("tokenView").value = ""; else console.log( name +" - " +pswd );
     printMessage("Attente réponse serveur.");
     apiController.sendPostRequest( '/api/public/login', 'login call', tokenReceive, {"username":name, "password":pswd});
 }
@@ -19,8 +19,15 @@ function tokenReceive( jsn )
     printMessage( "token reçu " + ( new Date()).toLocaleString("fr-FR",{ hour:'2-digit', minute:'2-digit', weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) );
    apiController.setToken(tokenDTO["token"]);
    window.localStorage.setItem("sgtoken", tokenDTO["token"]);
+    apiController.setToken( {"token":tokenDTO["token"], "date": new Date() });
     document.getElementById("login-form").style.visibility = "collapse";
     document.getElementById("logged").style.visibility = "visible";
+    if ( isIndexPage != undefined )
+    {
+        const url = "/games";
+        apiController.sendGetRequest( url, "games list request", populateGameList );
+
+    }
     //copyToken( tokenDTO["token"]);
 }
 function copyToken( token )
@@ -42,5 +49,9 @@ function gotoProtectedURL( url )
 }
 function printMessage( mesg )
 {
-    document.getElementById("mesgbox").innerHTML = mesg;
+    if ( isIndexPage == undefined )
+    {
+         document.getElementById("mesgbox").innerHTML = mesg;
+    } else console.log( mesg);
+   
 }
