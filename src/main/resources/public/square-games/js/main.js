@@ -8,10 +8,39 @@ function processGameTypeRequest( jsn )
 {
     //sendPostRequest( url, requestNm, callbackFctn, body )
     populateTypeList(jsn);
+    if ( apiController.getToken()) == null )
+    {
+        return;
+    }
     const url = "/games";
     apiController.sendGetRequest( url, "games list request", populateGameList );
 }
-
+function printULlog( type, mesg, parent, append )
+{
+    let listli = document.createElement("li");
+    switch ( type )
+    {
+        case "log":
+            listli.setAttribute("class","");
+            break;
+        case "warn":
+           listli.setAttribute("class","alert alert-warning");
+            break;
+        case "error":
+           listli.setAttribute("class","");
+            break;
+        default:
+           listli.setAttribute("class","");
+            break;
+    }
+    if ( append )
+    {
+        parent.appendChild(listli);
+    } else {
+        parent.
+    }
+    //let ul = parent
+}
 function selectGameType( idx )
 {
     gameTypeController.selectTypeAtIndex( idx );
