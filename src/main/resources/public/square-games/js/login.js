@@ -1,6 +1,6 @@
 // JavaScript Document
 var apiController = new ApiController();
-if ( apiController != undefined ) console.log("Hello Java Script Login");
+//if ( apiController != undefined ) console.log("Hello Java Script Login");
 //sendGetRequest( url, requestNm, callbackFctn )
 //sendPostRequest( url, requestNm, callbackFctn, body )
 
@@ -8,27 +8,46 @@ function sendUserData()
 {
     const name = document.getElementById("floatingInput").value;
     const pswd = document.getElementById("floatingPassword").value;
-    if ( isIndexPage == undefined ) document.getElementById("tokenView").value = ""; else console.log( name +" - " +pswd );
+    if ( ! isIndexPage ) document.getElementById("tokenView").value = ""; else// console.log( name +" - " +pswd );
     printMessage("Attente réponse serveur.");
     apiController.sendPostRequest( '/api/public/login', 'login call', tokenReceive, {"username":name, "password":pswd});
 }
 function tokenReceive( jsn )
 {
     const tokenDTO = JSON.parse(jsn);
-    document.getElementById("tokenView").value = tokenDTO["token"];
+   if ( ! isIndexPage )  document.getElementById("tokenView").value = tokenDTO["token"];
     printMessage( "token reçu " + ( new Date()).toLocaleString("fr-FR",{ hour:'2-digit', minute:'2-digit', weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) );
    apiController.setToken(tokenDTO["token"]);
-   window.localStorage.setItem("sgtoken", tokenDTO["token"]);
-    apiController.setToken( {"token":tokenDTO["token"], "date": new Date() });
-    document.getElementById("login-form").style.visibility = "collapse";
-    document.getElementById("logged").style.visibility = "visible";
-    if ( isIndexPage != undefined )
+  // window.localStorage.setItem("sgtoken", tokenDTO["token"]);
+    window.sessionStorage.setItem("user", jsn);
+    apiController.setUser(tokenDTO);
+    //apiController.setToken( {"token":tokenDTO["token"], "date": new Date( tokenDTO["expiration"] ) });
+    //document.getElementById("login-form").style.visibility = "collapse";
+    //document.getElementById("logged").style.visibility = "visible";
+    toggleAuthForm( false );
+    if ( isIndexPage   && ( apiController.getToken() != null ))
     {
-        const url = "/games";
-        apiController.sendGetRequest( url, "games list request", populateGameList );
-
+        askAPIforGames();
     }
     //copyToken( tokenDTO["token"]);
+}
+function askAPIforGames()
+{
+        const url = "/games";
+        apiController.sendGetRequest( url, "games list request", populateGameList, true );
+    
+}
+function toggleAuthForm( ison )
+{
+    const lgin = document.getElementById("login-form")
+     lgin.style.visibility   = (ison)? "visible":"collapse";
+    lgin.classList.toggle( "collapse");
+    
+    const lgd = document.getElementById("logged");
+    lgd.style.visibility = (ison)?"collapse":"visible";
+    lgd.classList.toggle( "collapse");
+    lgd.parentNode.insertBefore( (ison)?lgd:lgin, (ison)?lgin:lgd );
+    
 }
 function copyToken( token )
 {
@@ -49,9 +68,12 @@ function gotoProtectedURL( url )
 }
 function printMessage( mesg )
 {
-    if ( isIndexPage == undefined )
+    if ( ! isIndexPage  )
     {
          document.getElementById("mesgbox").innerHTML = mesg;
-    } else console.log( mesg);
-   
+    } else {
+       // printULlog("warn", mesg, document.getElementById("gametypelist"), false); // console.log( mesg);
+        displayMessage( "info", mesg );
+        console.log( mesg );
+    }
 }

@@ -8,12 +8,13 @@ function processGameTypeRequest( jsn )
 {
     //sendPostRequest( url, requestNm, callbackFctn, body )
     populateTypeList(jsn);
-    if ( apiController.getToken()) == null )
+    if ( apiController.getToken() == null )
     {
         return;
     }
-    const url = "/games";
-    apiController.sendGetRequest( url, "games list request", populateGameList );
+    askAPIforGames();
+    //const url = "/games";
+   // apiController.sendGetRequest( url, "games list request", populateGameList );
 }
 function printULlog( type, mesg, parent, append )
 {
@@ -33,11 +34,13 @@ function printULlog( type, mesg, parent, append )
            listli.setAttribute("class","");
             break;
     }
+    listli.appendChild( document.createTextNode( mesg ));
     if ( append )
     {
         parent.appendChild(listli);
     } else {
-        parent.
+        parent.replaceChildren( listli );
+    
     }
     //let ul = parent
 }
@@ -93,8 +96,26 @@ function populateGameList(jsonList)
  function initContent()
 {//sendPostRequest( url, requestNm, callbackFctn, body )
     const url ="/api/public/games/types";
-    apiController.setToken( "Bearer " + window.localStorage.getItem("sgtoken"));
-    apiController.sendGetRequest( url, "game types query", processGameTypeRequest);
+    //apiController.setToken( "Bearer " + window.localStorage.getItem("sgtoken"));
+    apiController.sendGetRequest( url, "game types query", processGameTypeRequest, false);
+    if ( apiController.getToken() != null )
+    {
+        toggleAuthForm( false );
+    }
+    document.getElementById("avatar").src = apiController.getUserImage();
+}
+function displayMessage( type, msg )
+{
+    //alert alert-success
+   //alert-primary, alert-secondary, alert-success alert-danger, alert-warning, alert-info, alert-light, alert alert-dark
+    let clss = "alert alert-" + type + " fade show w-auto" ;
+    const alertbox = document.getElementById("alertbox");
+    alertbox.setAttribute("class", clss );
+    while (alertbox.firstChild) 
+    {
+        alertbox.removeChild(alertbox.firstChild);
+    }
+    alertbox.appendChild( document.createTextNode( msg ));
 }
 function createGame()
 { //sendPostRequest( url, requestNm, callbackFctn, body )

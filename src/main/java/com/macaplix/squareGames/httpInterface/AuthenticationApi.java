@@ -61,14 +61,15 @@ public class AuthenticationApi {
                     );
 
             final UserEntity user = (UserEntity) authenticate.getPrincipal();
+            final Date expiration = new Date(System.currentTimeMillis() + 3600 *
+
+                    1000L);
             final String token = Jwts.builder().setSubject(authenticate
 
                             .getName()).claim("authorities", authenticate
                             .getAuthorities().stream().map(GrantedAuthority::getAuthority).collect
                                     (Collectors.toList())).setIssuedAt(new Date())
-                    .setExpiration(new Date(System.currentTimeMillis() + 3600 *
-
-                            1000L))
+                    .setExpiration(expiration)
 
                     .signWith(SignatureAlgorithm.HS512,
 
@@ -85,7 +86,8 @@ public class AuthenticationApi {
                             "Bearer " + token
 
                     )
-                    .body(new UserDTO(user.getUsername(), token, user.getAuthorities()));
+                    .body(new UserDTO(user.getUsername(), token, expiration, "https://media.licdn.com/dms/image/D4E03AQGVYZ5euIGocA/profile-displayphoto-shrink_800_800/0/1671441491557?e=1681344000&v=beta&t=pGZdGiwkNVYyWnhNTpEwyBJpOvEEH5Ufn6RmFA7lVW8",
+                            user.getAuthorities()));
 
         } catch (BadCredentialsException ex) {
             return
