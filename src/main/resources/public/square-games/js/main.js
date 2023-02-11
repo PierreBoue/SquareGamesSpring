@@ -44,6 +44,17 @@ function printULlog( type, mesg, parent, append )
     }
     //let ul = parent
 }
+function askAPIforGames()
+{
+    if ( apiController.getToken() == null)
+    {
+        displayMessage("warning", "Attempt to get games with null token");
+        return;
+    }
+    const url = "/games";
+    apiController.sendGetRequest( url, "games list request", populateGameList, true );
+    
+}
 function selectGameType( idx )
 {
     gameTypeController.selectTypeAtIndex( idx );
@@ -101,6 +112,7 @@ function populateGameList(jsonList)
     if ( apiController.getToken() != null )
     {
         toggleAuthForm( false );
+        displayMessage("success", "vous êtes identifié(e) en tant que " + apiController.userName)
     }
     document.getElementById("avatar").src = apiController.getUserImage();
 }

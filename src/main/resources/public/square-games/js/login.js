@@ -31,12 +31,6 @@ function tokenReceive( jsn )
     }
     //copyToken( tokenDTO["token"]);
 }
-function askAPIforGames()
-{
-        const url = "/games";
-        apiController.sendGetRequest( url, "games list request", populateGameList, true );
-    
-}
 function toggleAuthForm( ison )
 {
     const lgin = document.getElementById("login-form")

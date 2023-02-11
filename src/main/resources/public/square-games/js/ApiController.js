@@ -8,6 +8,7 @@ class ApiController
     //_tokenDate;
     _tokenExpiration;
     _userimage;
+    userName;
     rootURL;
     constructor()
     {
@@ -63,14 +64,22 @@ class ApiController
         this._token = userdto["token"];
         this._tokenExpiration = new Date( userdto["expiration"]);
         this._userimage = userdto["imgpath"];
+        this.userName = userdto["username"];
+        setTimeout( nearlyExpiringToken, this._tokenExpiration - new Date( )- 120000 );// 2 minutes avant
         //const imgsrc = ( this._userimage == null)?"https://www.selfstir.com/wp-content/uploads/2015/11/default-user.png": this._userimage;
        // if (  imgsrc != null ) document.getElementById("avatar").src = imgsrc;
      }
+    nearlyExpiringToken()
+    {
+        alert( "votre identification expire dans 2 minutes");
+    }
+    /*
     setToken( tkninfo )// inutilisée
     {
         this._token = tkninfo["token"];
         this._tokenDate = tkninfo["date"];
     }
+    */
     getToken()
     {
         if (( new Date() - this._tokenExpiration) > 0 )
