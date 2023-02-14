@@ -75,7 +75,7 @@ public class SecurityConfig {
 
 
                 .requestMatchers("/api/public/**").permitAll()///**
-                        //      .requestMatchers("/**").permitAll()///**
+                .requestMatchers("/square-games/**").permitAll()///**
             // Les autres accès
                         //.requestMatchers("/admin").hasRole("ADMIN")
            .anyRequest().authenticated()
