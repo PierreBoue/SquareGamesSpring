@@ -60,16 +60,21 @@ class ApiController
     }
     setUser( userdto )
     {//String username, String token, Date expiration, String imgpath, Collection<? extends GrantedAuthority> roles
-       console.log( userdto );
+        if ( userdto == null )
+        {
+            this._token == null;
+            return;
+        }
+        console.log( userdto );
         this._token = userdto["token"];
         this._tokenExpiration = new Date( userdto["expiration"]);
         this._userimage = userdto["imgpath"];
         this.userName = userdto["username"];
-        setTimeout( nearlyExpiringToken, this._tokenExpiration - new Date( )- 120000 );// 2 minutes avant
+        setTimeout( apiController.tokenIsAboutToExpire, this._tokenExpiration - new Date( )- 120000 );// 2 minutes avant
         //const imgsrc = ( this._userimage == null)?"https://www.selfstir.com/wp-content/uploads/2015/11/default-user.png": this._userimage;
        // if (  imgsrc != null ) document.getElementById("avatar").src = imgsrc;
      }
-    nearlyExpiringToken()
+    tokenIsAboutToExpire()
     {
         alert( "votre identification expire dans 2 minutes");
     }

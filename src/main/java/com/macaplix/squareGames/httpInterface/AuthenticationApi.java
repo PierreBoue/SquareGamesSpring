@@ -5,6 +5,7 @@ import com.macaplix.squareGames.entities.UserEntity;
 import com.macaplix.squareGames.security.AuthenticationRequest;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +27,12 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping(path = "api/public")
 public class AuthenticationApi {
+//    @Autowired
+//    JwtUtils jwtUtils;
+
+//    @Autowired
+//    RefreshTokenService refreshTokenService;
+
     private final AuthenticationManager authenticationManager;
     public AuthenticationApi(AuthenticationManager
                                      authenticationManager) {

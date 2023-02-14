@@ -17,19 +17,19 @@ function tokenReceive( jsn )
     const tokenDTO = JSON.parse(jsn);
    if ( ! isIndexPage )  document.getElementById("tokenView").value = tokenDTO["token"];
     printMessage( "token reçu " + ( new Date()).toLocaleString("fr-FR",{ hour:'2-digit', minute:'2-digit', weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) );
-   apiController.setToken(tokenDTO["token"]);
-  // window.localStorage.setItem("sgtoken", tokenDTO["token"]);
+   //apiController.setToken(tokenDTO["token"]);
     window.sessionStorage.setItem("user", jsn);
     apiController.setUser(tokenDTO);
-    //apiController.setToken( {"token":tokenDTO["token"], "date": new Date( tokenDTO["expiration"] ) });
-    //document.getElementById("login-form").style.visibility = "collapse";
-    //document.getElementById("logged").style.visibility = "visible";
     toggleAuthForm( false );
     if ( isIndexPage   && ( apiController.getToken() != null ))
     {
         askAPIforGames();
     }
-    //copyToken( tokenDTO["token"]);
+}
+function logout()
+{
+    apiController.setUser( null );
+    toggleAuthForm( true );
 }
 function toggleAuthForm( ison )
 {
