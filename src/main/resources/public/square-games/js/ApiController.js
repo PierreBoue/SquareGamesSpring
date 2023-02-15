@@ -70,7 +70,7 @@ class ApiController
         this._tokenExpiration = new Date( userdto["expiration"]);
         this._userimage = userdto["imgpath"];
         this.userName = userdto["username"];
-        setTimeout( apiController.tokenIsAboutToExpire, this._tokenExpiration - new Date( )- 120000 );// 2 minutes avant
+        setTimeout( this.tokenIsAboutToExpire, this._tokenExpiration - new Date( )- 120000 );// 2 minutes avant
         //const imgsrc = ( this._userimage == null)?"https://www.selfstir.com/wp-content/uploads/2015/11/default-user.png": this._userimage;
        // if (  imgsrc != null ) document.getElementById("avatar").src = imgsrc;
      }
