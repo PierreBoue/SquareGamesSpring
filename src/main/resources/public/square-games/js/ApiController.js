@@ -76,7 +76,7 @@ class ApiController
      }
     tokenIsAboutToExpire()
     {
-        alert( "votre identification expire dans 2 minutes");
+        alert( "votre session expire dans 2 minutes");
     }
     /*
     setToken( tkninfo )// inutilisée
