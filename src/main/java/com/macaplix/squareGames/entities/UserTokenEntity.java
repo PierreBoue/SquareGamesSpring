@@ -10,9 +10,9 @@ public class UserTokenEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    @ManyToOne(cascade = CascadeType.ALL)
+    //@ManyToOne(cascade = CascadeType.ALL)
     //@JoinColumn(name = "userid", referencedColumnName = "id")
-    @MapsId
+    //@MapsId
     private int userid;
     private String mainToken;
     private Date mainCreation;

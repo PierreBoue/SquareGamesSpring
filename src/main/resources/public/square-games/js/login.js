@@ -29,6 +29,7 @@ function tokenReceive( jsn )
 function logout()
 {
     apiController.setUser( null );
+    sessionStorage.removeItem("user");
     toggleAuthForm( true );
 }
 function toggleAuthForm( ison )
