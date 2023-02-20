@@ -110,8 +110,9 @@ class ApiController
                 apiController._logJson( jsn );
                 apiController._callbackFunction( jsn );
              } else if (apiController._ajaxRequest.status == 401){
-                 alert("Identifiant ou mot de passe incorrect, merci de réessayer");
-                 
+                 //alert("Identifiant ou mot de passe incorrect, merci de réessayer");
+                 displayMessage("warning","Échec d'identification");
+                 toggleAuthForm(true);
              } else {
                  alert("Le serveur a renvoyé une erreur ", apiController._ajaxRequest.status);
              }

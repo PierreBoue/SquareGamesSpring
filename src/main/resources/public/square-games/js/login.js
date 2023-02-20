@@ -1,22 +1,19 @@
 // JavaScript Document
 var apiController = new ApiController();
-//if ( apiController != undefined ) console.log("Hello Java Script Login");
-//sendGetRequest( url, requestNm, callbackFctn )
-//sendPostRequest( url, requestNm, callbackFctn, body )
 
 function sendUserData()
 {
     const name = document.getElementById("floatingInput").value;
     const pswd = document.getElementById("floatingPassword").value;
-    if ( ! isIndexPage ) document.getElementById("tokenView").value = ""; else// console.log( name +" - " +pswd );
-    printMessage("Attente réponse serveur.");
+    if ( ! isIndexPage ) document.getElementById("tokenView").value = "";// else console.log( name +" - " +pswd );
+    if ( isIndexPage ) displayMessage( "info", "Attente réponse du serveur..."); else printMessage("Attente réponse serveur.");
     apiController.sendPostRequest( '/api/public/login', 'login call', tokenReceive, {"username":name, "password":pswd});
 }
 function tokenReceive( jsn )
 {
     const tokenDTO = JSON.parse(jsn);
    if ( ! isIndexPage )  document.getElementById("tokenView").value = tokenDTO["token"];
-    printMessage( "token reçu " + ( new Date()).toLocaleString("fr-FR",{ hour:'2-digit', minute:'2-digit', weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) );
+    displayMessage( "success", tokenDTO["username"] + " connecté le " + ( new Date()).toLocaleString("fr-FR",{ hour:'2-digit', minute:'2-digit', weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) );
    //apiController.setToken(tokenDTO["token"]);
     window.sessionStorage.setItem("user", jsn);
     apiController.setUser(tokenDTO);
@@ -52,7 +49,7 @@ function copyToken( token )
                 printMessage("le Token a été copié");
             })
             .catch(err => {
-              alert('Error in copying text: ', err);
+              alert('Error in copying token:\n', err);
             });
     
 }
