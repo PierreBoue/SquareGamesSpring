@@ -59,6 +59,10 @@ function selectGameType( idx )
 {
     gameTypeController.selectTypeAtIndex( idx );
 }
+function selectGame( idx )
+{
+    gamesController.selectGameAtIndex( idx );
+}
 function newGameCreated( jsonAnswer )
 {
     let answ = null;

@@ -114,9 +114,12 @@ class ApiController
                  displayMessage("warning","Échec d'identification");
                  toggleAuthForm(true);
              } else {
-                 alert("Le serveur a renvoyé une erreur ", apiController._ajaxRequest.status);
+                 displayMessage("danger","Érreur " + apiController._ajaxRequest.status +" connection au serveur ");
+                 //alert("Le serveur a renvoyé une erreur ", //apiController._ajaxRequest.status);
              }
             
+        } else {
+           displayMessage("danger","Érreur Ajax : "+  _ajaxRequest.ajaxError );
         }
 
     }

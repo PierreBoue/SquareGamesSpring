@@ -21,7 +21,7 @@ class Game
         this.gameID = dto["gameKey"];
         this.sqlID = dto["sqlid"];
         this.gameType = dto["typeName"];
-        this.creation = dto["creation"];
+        this.creation = new Date( dto["creation"] );
         this.duration = dto["duration"];
         this.board = dto["board"];
         this.playerCount = dto["playerCount"];
@@ -39,9 +39,11 @@ class Game
 
         */
         const elt = document.createElement("tr");
+        elt.addEventListener("click", selectGame );
         elt.setAttribute("title", this.gameID);
         //alert(this.gameName);
-        for ( let text of [this.creation, this.gameName])
+        const creat = this.creation.toLocaleString( undefined, { hour:'2-digit', minute:'2-digit', day: '2-digit', month: '2-digit', year: 'numeric' } );
+        for ( let text of [creat, this.gameName])
         {
             //alert(text);
             if ( this.selected ) elt.setAttribute("class","bg-warning");
@@ -78,5 +80,9 @@ class GamesController
         game.selected = true;
         //this.gameIndex++;
         tgbe.insertBefore(game.getDomElement(), tgbe.firstChild);
+    }
+    selectGameAtIndex( idx )
+    {
+        
     }
 }
