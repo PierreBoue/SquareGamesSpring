@@ -90,6 +90,7 @@ function populateTypeList( jsonList)
 {
     const types = JSON.parse( jsonList);
     gameTypeController = new GameTypeController();
+    
     for ( let i =0; i < types.length;   i++)
     {
         const item = new GameType( types[i]);

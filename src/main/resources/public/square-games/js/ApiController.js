@@ -37,7 +37,7 @@ class ApiController
         console.log( this.rootURL + url);
         this._ajaxRequest.open( "GET", this.rootURL + url, true);
         if ( authenticate && ( tkn != null ) && ( this._token.length )) this._ajaxRequest.setRequestHeader( "Authorization", "Bearer " +  tkn);
-        this._ajaxRequest.onreadystatechange = this._privateCallback;
+        this._ajaxRequest.onreadystatechange = apiController._privateCallback;
         this._ajaxRequest.send( null );
         
     }
@@ -45,7 +45,7 @@ class ApiController
     {
         this._callbackFunction = callbackFctn;
         this._requestName = requestNm;
-        this._ajaxRequest.open("POST", this.rootURL + url, true);
+        this._ajaxRequest.open("POST", apiController.rootURL + url, true);
         const tkn = this.getToken();
         if ( tkn!= null ) this._ajaxRequest.setRequestHeader( "Authorization", "Bearer " + tkn);
         this._ajaxRequest.onreadystatechange = this._privateCallback;

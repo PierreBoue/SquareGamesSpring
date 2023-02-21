@@ -56,6 +56,8 @@ class GameTypeController
         this.domElements = [];
         this.index=0;
         this.gameTypes = [];
+        const gtls = document.getElementById("gametypelist");
+        while ( gtls.lastElementChild ) gtls.removeChild( gtls.lastElementChild );
     }
     add( gtype )
     {

@@ -81,10 +81,13 @@ class GamesController
         game.selected = true;
         //this.gameIndex++;
         tgbe.insertBefore(game.getDomElement(), tgbe.firstChild);
-        this.gameDomList.unshift( tgbe.children[0]));
+       // this.gameDomList.unshift( tgbe.children[0]));
     }
     selectGameAtIndex( idx )
     {
-        
+        const tgbe = document.getElementById("gameTableBody");
+        tgbe.children[this.gameIndex].setAttribute( "class", "" );
+        this.gameIndex = idx;
+        tgbe.children[this.gameIndex].setAttribute( "class", "bg-warning" );
     }
 }
