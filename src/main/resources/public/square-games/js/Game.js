@@ -41,6 +41,7 @@ class Game
         const elt = document.createElement("tr");
         elt.addEventListener("click", selectGame );
         elt.setAttribute("title", this.gameID);
+        elt.setAttribute("id","g" + this.gameIndex);
         //alert(this.gameName);
         const creat = this.creation.toLocaleString( undefined, { hour:'2-digit', minute:'2-digit', day: '2-digit', month: '2-digit', year: 'numeric' } );
         for ( let text of [creat, this.gameName])
@@ -80,6 +81,7 @@ class GamesController
         game.selected = true;
         //this.gameIndex++;
         tgbe.insertBefore(game.getDomElement(), tgbe.firstChild);
+        this.gameDomList.unshift( tgbe.children[0]));
     }
     selectGameAtIndex( idx )
     {

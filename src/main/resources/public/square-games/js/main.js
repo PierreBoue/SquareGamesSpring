@@ -59,8 +59,9 @@ function selectGameType( idx )
 {
     gameTypeController.selectTypeAtIndex( idx );
 }
-function selectGame( idx )
+function selectGame( event )
 {
+    const idx = parseInt( event.target.id.slice(1));
     gamesController.selectGameAtIndex( idx );
 }
 function newGameCreated( jsonAnswer )
