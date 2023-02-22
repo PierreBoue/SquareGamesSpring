@@ -45,10 +45,10 @@ class ApiController
     {
         this._callbackFunction = callbackFctn;
         this._requestName = requestNm;
-        this._ajaxRequest.open("POST", apiController.rootURL + url, true);
+        this._ajaxRequest.open("POST", this.rootURL + url, true);
         const tkn = this.getToken();
         if ( tkn!= null ) this._ajaxRequest.setRequestHeader( "Authorization", "Bearer " + tkn);
-        this._ajaxRequest.onreadystatechange = this._privateCallback;
+        this._ajaxRequest.onreadystatechange = apiController._privateCallback;
         this._ajaxRequest.setRequestHeader('Accept', 'application/json');
       
         //ajaxRequest.setRequestHeader('contentType', 'application/json; charset=UTF-8'); 
@@ -104,7 +104,7 @@ class ApiController
         //console.log( apiController._ajaxRequest );
         if (apiController._ajaxRequest.readyState == 4) 
         {
-             if (apiController._ajaxRequest.status == 200)
+             if ( apiController._ajaxRequest.status == 200)
              {
                 const jsn = apiController._ajaxRequest.responseText;
                 apiController._logJson( jsn );
@@ -114,12 +114,12 @@ class ApiController
                  displayMessage("warning","Échec d'identification");
                  toggleAuthForm(true);
              } else {
-                 displayMessage("danger","Érreur " + apiController._ajaxRequest.status +" connection au serveur ");
+                 displayMessage("danger","Érreur " +apiController._ajaxRequest.status  +" connection au serveur ");
                  //alert("Le serveur a renvoyé une erreur ", //apiController._ajaxRequest.status);
              }
             
         } else {
-           displayMessage("danger","Érreur Ajax : "+  _ajaxRequest.ajaxError );
+          //s displayMessage("danger","Erreur Ajax : "+  apiController._ajaxRequest.ajaxError + " " + this._requestName );
         }
 
     }

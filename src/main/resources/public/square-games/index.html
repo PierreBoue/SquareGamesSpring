@@ -4,9 +4,9 @@
     <link rel="icon" type="image/png" href="http://macaplix.com/images/macaplixlogo32.png" />
     <link href="css/sqgboard.css" rel="stylesheet" type="text/css" />
       <script type="text/javascript" src="js/ApiController.js"></script>
-      <script type="text/javascript" src="js/main.js"></script>
       <script type="text/javascript" src="js/Game.js"></script>
-      <script type="text/javascript" src="js/sqgboard.js"></script>
+      <script type="text/javascript" src="js/main.js"></script>
+       <script type="text/javascript" src="js/sqgboard.js"></script>
       <script type="text/javascript" src="js/login.js"></script>
       <script type="text/javascript" src="js/GameType.js"></script>
       <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -88,18 +88,30 @@
  <div class="col">
         <div class="card mb-6 rounded-3 shadow-sm">
           <div class="card-header py-3">
-            <h4 class="my-0 fw-normal" id="gameTypeTitle">Morpion</h4>
+            <h4 class="my-0 fw-normal" id="gameTypeTitle">&nbsp;</h4>
           </div>
           <div class="card-body">
             
             <ul class="list-unstyled mt-3 mb-4">
-              <li>    
-                  <input type="number" min="0" max="100" id="playerCount" name="playerCount" class="form-control" value="0">
-                  <label for="playerCount">nombre de joueurs</label>
+              <li>
+                <div class="row mb-3">
+                  <div class="col-5">
+                      <input type="number" min="0" max="100" id="playerCount" name="playerCount" class="form-control col-sm-3" value="0">
+                  </div>
+                  <div class="col-5">
+                      <label for="playerCount">nombre de joueurs</label>
+                </div>
+               </div>
               </li>
               <li>
-                <input type="number" min="0" max="100" id="boardSize" name="boardSize" class="form-control" value="0">
-                <label for="boardSize">taille du plateau</label><br/>
+               <div class="row mb-3">
+                <div class="col-5">
+                    <input type="number" min="0" max="100" id="boardSize" name="boardSize" class="form-control col-sm-3"  value="0">
+                </div>
+                 <div class="col-5">
+                    <label for="boardSize">taille du plateau</label>
+                 </div>
+                </div>
               </li>
             </ul>
             <button type="button" class="w-100 btn btn-lg btn-outline-primary" onclick="createGame()" >Créer un nouveau jeu</button>
@@ -107,7 +119,7 @@
         </div>
     </div>
     <div class="col">
-        <div class="card mb-5 rounded-3 shadow-sm" style="height: 243px;">
+        <div class="card mb-5 rounded-3 shadow-sm" style="height: 280px;">
           <div class="card-header py-3">
             <h4 class="my-0 fw-normal">Jeux en cours</h4>
           </div>
@@ -133,15 +145,15 @@
 
     </div>
   </div>
-  <div class="d-flex flex-column flex-md-row align-items-center pb-3 pt-3 mb-4 border-bottom border-top row-gap-sm-3 mt-2">
+  <div class="d-flex flex-column flex-md-row align-items-center pb-3 pt-3 mb-4 border-bottom border-top row-gap-sm-3 mt-5">
       <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
           <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#table"/></svg>
         
         <span class="fs-4">Morpion</span>
       </a>
       <span class="w-100 align-content-center ms-5 me-5">
-         <div class="alert alert-success fade show w-auto" role="alert" id="alertbox">
-          Joueur X c'est à vous !
+         <div class="alert alert-secondary fade show w-auto" role="alert" id="alertbox">
+          Chargement...
         </div>
       </span>
       <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">

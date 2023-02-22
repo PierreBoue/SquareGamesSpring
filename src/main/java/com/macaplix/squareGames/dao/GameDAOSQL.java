@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.time.Duration;
+import java.util.Date;
 import java.util.List;
 
 @Component
@@ -82,7 +83,7 @@ public class GameDAOSQL implements GameDAOInterface {
     public ArrayList<GameSaveDTO> readGames( )
     {
         if ( ! ISACTIVE ) return (ArrayList<GameSaveDTO>) List.of( errorDTO("SQL is not active"));
-        String req ="SELECT id, gameuuid, gameType, currentPlayerID, gameStatus, boardSize, creation, duration FROM " + GAME_TABLE_NAME + ";";
+        String req ="SELECT id, gameuuid, gameType, currentPlayerID, gameStatus, boardSize, creation, duration FROM " + GAME_TABLE_NAME + " ORDER BY creation DESC;";
         ResultSet rezset = connector.selectStatment(req);
         ArrayList<GameSaveDTO> games = new ArrayList<GameSaveDTO>();
         if ( rezset == null ) return games;
@@ -97,8 +98,9 @@ public class GameDAOSQL implements GameDAOInterface {
                 games.add(new GameSaveDTO( rezset.getInt("id"),
                         rezset.getString("gameuuid"), rezset.getInt("gameType"),
                         rezset.getInt("currentPlayerID"), rezset.getString("gameStatus"),
-                        rezset.getInt("boardSize"), rezset.getDate("creation"),
+                        rezset.getInt("boardSize"), new Date(rezset.getTimestamp("creation").getTime()),
                         Duration.ofSeconds( rezset.getLong("duration")),true,"ok"));
+                //System.err.println(new Date(rezset.getTimestamp("creation").getTime()));
 
             } catch (SQLException e) {
                 games.add(errorDTO( "result set reading failed: " + e.toString()));

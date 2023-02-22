@@ -39,11 +39,13 @@ public class GameServiceImpl implements GameService {
 
     private static Logger logger= LoggerFactory.getLogger(GameServiceImpl.class);
     private HashMap<String, Game> activeGames;
+    private HashMap<String, Date> gameCreations;
     private HashMap<String, TokenInfo[]> gameTokens;
 
     public GameServiceImpl() {
         activeGames = new HashMap<String, Game>();
         gameTokens = new HashMap<String, TokenInfo[]>();
+        this.gameCreations = new HashMap<String, Date>();
         //GameServiceImpl.logger.warn("Instantiated GameService");
         //Logger logger = (Logger) LoggerFactory.getLogger("com.macaplix.squareGames");
         //readPersistentGames();
@@ -92,6 +94,7 @@ public class GameServiceImpl implements GameService {
         Game activeGame = plugin.createGame(answer);
         String uuid = UUID.randomUUID().toString();
         activeGames.put(uuid, activeGame);
+        gameCreations.put(uuid, new Date());
         Locale curLocale = Locale.getDefault();
         Locale.setDefault(Locale.ENGLISH);
         //int gameIndex, String gameKey, int sqlid, String typeLocale, String typeName, int playerCount, int boardSize, Map<CellPosition, Token> board, Date creation, int duration, String errorMessage, boolean isOk        GameDescription rep = new GameDescription(answer.gameIndex(), answer.playerCount(), answer.boardSize(), uuid, "ok", true, plugin.getName(getEndUserLocale()));
@@ -128,7 +131,7 @@ public class GameServiceImpl implements GameService {
         if ( game == null) return new GameDescription(0, gameid, 0, "","", 0, 0, null, null,0,"game not found", false);
         GamePluginAuto gpa = new GamePluginAuto(game.getFactoryId());
         //int gameIndex, String gameKey, int sqlid, String typeLocale, String typeName, int playerCount, int boardSize, Map<CellPosition, Token> board, Date creation, int duration, String errorMessage, boolean isOk
-        return new GameDescription( gpa.getTypeIndex(), gameid, 0, gpa.getName( getEndUserLocale(), ticTacToePlugin), game.getFactoryId(),  game.getPlayerIds().size(), game.getBoardSize(), game.getBoard(), new Date(),0, "ok",true);
+        return new GameDescription( gpa.getTypeIndex(), gameid, 0, gpa.getName( getEndUserLocale(), ticTacToePlugin), game.getFactoryId(),  game.getPlayerIds().size(), game.getBoardSize(), game.getBoard(), this.gameCreations.get(gameid),0, "ok",true);
     }
     /*
     public GameDescription getGameDescription(Game game, String gameid)
@@ -270,8 +273,9 @@ public class GameServiceImpl implements GameService {
         {
             GamePlugin plugin = getPlugins()[gdto.gameType()];
             //int gameIndex, String gameKey, int sqlid, String typeLocale, String typeName, int playerCount, int boardSize, Map<CellPosition, Token> board, Date creation, int duration, String errorMessage, boolean isOk
-            Game game = plugin.createGame( new GameDescription(gdto.gameType(), gdto.gameKey(), gdto.sqlid(), plugin.getName(Locale.getDefault(), ticTacToePlugin), plugin.getName(getEndUserLocale(), ticTacToePlugin),   plugin.getDefaultPlayerCount(), gdto.boardSize(), new HashMap<CellPosition, Token>(), new Date(), 0, "ok",true ));
+            Game game = plugin.createGame( new GameDescription(gdto.gameType(), gdto.gameKey(), gdto.sqlid(), plugin.getName(Locale.getDefault(), ticTacToePlugin), plugin.getName(getEndUserLocale(), ticTacToePlugin),   plugin.getDefaultPlayerCount(), gdto.boardSize(), new HashMap<CellPosition, Token>(), gdto.creationDate(), 0, "ok",true ));
             activeGames.put(gdto.gameKey(), game);
+            gameCreations.put(gdto.gameKey(), gdto.creationDate());
         }
     }
     @Override

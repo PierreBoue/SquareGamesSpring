@@ -22,6 +22,7 @@ class Game
         this.sqlID = dto["sqlid"];
         this.gameType = dto["typeName"];
         this.creation = new Date( dto["creation"] );
+        console.log(dto["creation"] + " - " + this.creation);
         this.duration = dto["duration"];
         this.board = dto["board"];
         this.playerCount = dto["playerCount"];
@@ -29,7 +30,7 @@ class Game
         this.gameName = dto["typeLocale"];
         //alert(dto);
     }
-    getDomElement()
+    getDomElement(idx)
     {
         /*
                       <tr class="">
@@ -41,7 +42,8 @@ class Game
         const elt = document.createElement("tr");
         elt.addEventListener("click", selectGame );
         elt.setAttribute("title", this.gameID);
-        elt.setAttribute("id","g" + this.gameIndex);
+        elt.setAttribute("id","g" + idx);
+        elt.setAttribute("role", "button");
         //alert(this.gameName);
         const creat = this.creation.toLocaleString( undefined, { hour:'2-digit', minute:'2-digit', day: '2-digit', month: '2-digit', year: 'numeric' } );
         for ( let text of [creat, this.gameName])
@@ -86,8 +88,11 @@ class GamesController
     selectGameAtIndex( idx )
     {
         const tgbe = document.getElementById("gameTableBody");
-        tgbe.children[this.gameIndex].setAttribute( "class", "" );
+        document.getElementById("g"+ (this.gameIndex +1)).setAttribute( "class", "" );
+        //tgbe.children[this.gameIndex].setAttribute( "class", "" );
         this.gameIndex = idx;
-        tgbe.children[this.gameIndex].setAttribute( "class", "bg-warning" );
+        console.log("id = g" + (this.gameIndex +1 ));
+        document.getElementById("g"+ (this.gameIndex +1 )).setAttribute( "class", "bg-warning" );
+        //tgbe.children[this.gameIndex].setAttribute( "class", "bg-warning" );
     }
 }

@@ -18,8 +18,11 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+//import javax.xml.datatype.Duration;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.time.Duration;
 
 @RestController
 public class SquareGamesController {
@@ -51,7 +54,7 @@ public class SquareGamesController {
         }
         //int sqlid, String gameKey, int gameType, int currentPlayerID, String gameStatus, int boardSize, Date creationDate, Duration duration, boolean success, String errorMessage
         //gameDAO.saveGame( new GameSaveDTO(0,rez.gameUUID(), rez.gameIndex(), 0, "SETUP", rez.boardSize(), null, null, true, ""));
-        gameService.saveGame(new GameSaveDTO(0,rez.gameKey(), rez.gameIndex(), 0, "SETUP", rez.boardSize(), null, null, true, ""));
+        gameService.saveGame(new GameSaveDTO(0,rez.gameKey(), rez.gameIndex(), 0, "SETUP", rez.boardSize(), new Date(), Duration.ZERO, true, ""));
         gameService.saveTokens(rez.gameKey());
         return rez;
     }
