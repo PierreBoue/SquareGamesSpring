@@ -34,7 +34,7 @@ class ApiController
         this._callbackFunction = callbackFctn;
         this._requestName = requestNm;
         const tkn = this.getToken();
-        console.log( this.rootURL + url);
+       // console.log( this.rootURL + url);
         this._ajaxRequest.open( "GET", this.rootURL + url, true);
         if ( authenticate && ( tkn != null ) && ( this._token.length )) this._ajaxRequest.setRequestHeader( "Authorization", "Bearer " +  tkn);
         this._ajaxRequest.onreadystatechange = apiController._privateCallback;
@@ -65,7 +65,7 @@ class ApiController
             this._token == null;
             return;
         }
-        console.log( userdto );
+       // console.log( userdto );
         this._token = userdto["token"];
         this._tokenExpiration = new Date( userdto["expiration"]);
         this._userimage = userdto["imgpath"];

@@ -110,6 +110,7 @@ function populateGameList(jsonList)
         const game = new Game( g );
         gamesController.add( game);
     }
+    gamesController.updateUI();
 }
  function initContent()
 {//sendPostRequest( url, requestNm, callbackFctn, body )

@@ -118,14 +118,15 @@ public class GameDAOSQL implements GameDAOInterface {
         boolean hasNumID = false;
         if ( gameData.sqlid() !=0 )
         {
-            where += "sqlid = ? ;";
+            where += "sqlid = ?";
             hasNumID = true;
         } else if (( gameData.gameKey() != null) && ( ! gameData.gameKey().isBlank())) {
-            where += "gameKey = ? ;";
+            where += "gameKey = ?";
             hasNumID = false;
         } else {
             return errorDTO("no valid key provided to get the game");
         }
+        where += " ORDER BY creation DESC;";
         String req ="SELECT sqlid, gameKey, gameType, currentPlayerID, gameStatus, boardSize, creationDate, duration FROM " + GAME_TABLE_NAME + where;
         //SQLconnector connector = SQLconnector.getInstance();
         PreparedStatement stmt = connector.prepareStatment(req);

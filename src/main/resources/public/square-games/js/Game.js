@@ -2,6 +2,7 @@
 // int gameIndex, int playerCount, int boardSize,  String gameUUID, String errorMessage, boolean isOk, String gameName
 class Game
 {
+    //listIndex;
     gameIndex;
     gameType;
     playerCount;
@@ -22,7 +23,7 @@ class Game
         this.sqlID = dto["sqlid"];
         this.gameType = dto["typeName"];
         this.creation = new Date( dto["creation"] );
-        console.log(dto["creation"] + " - " + this.creation);
+        //console.log(dto["creation"] + " - " + this.creation);
         this.duration = dto["duration"];
         this.board = dto["board"];
         this.playerCount = dto["playerCount"];
@@ -30,7 +31,7 @@ class Game
         this.gameName = dto["typeLocale"];
         //alert(dto);
     }
-    getDomElement(idx)
+    getDomElement( idx )
     {
         /*
                       <tr class="">
@@ -63,7 +64,7 @@ class Game
 class GamesController
 {
     gamesList = [];
-    gamesDomList = [];
+    //gamesDomList = [];
     gameIndex=0;
     constructor()
     {
@@ -72,27 +73,47 @@ class GamesController
     add( game )
     {
         
-        const tgbe = document.getElementById("gameTableBody");
-       if ( this.gamesList.length > 0 )
-        {
-            //alert(tgbe.firstChild.nodeName);
-            tgbe.children[0].setAttribute( "class", "" );
-            this.gamesList[0].selected = false;
-        }
         this.gamesList.unshift( game );
-        game.selected = true;
-        //this.gameIndex++;
-        tgbe.insertBefore(game.getDomElement(), tgbe.firstChild);
+        //reindex();
        // this.gameDomList.unshift( tgbe.children[0]));
+    }
+    updateUI()
+    {
+        const tgbe = document.getElementById("gameTableBody");
+       // reindex();
+        tgbe.textContent ="";
+        for ( let i =0; i < this.gamesList.length; i++)
+        {
+            let gme = this.gamesList[i];
+            if ( i == 0 )
+            {
+                gme.selected=true;
+                //tgbe.children[0].setAttribute( "class", "bg-warning" );
+                //this.gamesList[0].selected = true;
+            } else {
+                //tgbe.children[0].setAttribute( "class", "" );
+                this.gamesList[0].selected = false;
+            }
+            tgbe.appendChild(gme.getDomElement( i ));
+        }
     }
     selectGameAtIndex( idx )
     {
         const tgbe = document.getElementById("gameTableBody");
-        document.getElementById("g"+ (this.gameIndex +1)).setAttribute( "class", "" );
+        document.getElementById("g"+ (this.gameIndex )).setAttribute( "class", "" );
         //tgbe.children[this.gameIndex].setAttribute( "class", "" );
         this.gameIndex = idx;
-        console.log("id = g" + (this.gameIndex +1 ));
-        document.getElementById("g"+ (this.gameIndex +1 )).setAttribute( "class", "bg-warning" );
+        //console.log("id = g" + (this.gameIndex  ));
+        document.getElementById("g"+ (this.gameIndex  )).setAttribute( "class", "bg-warning" );
         //tgbe.children[this.gameIndex].setAttribute( "class", "bg-warning" );
     }
+    /*
+    reindex()
+    {
+        for ( let i=0; i < gamesList.length; i++)
+        {
+            gamesList[i].listIndex = i;
+        }
+    }
+    */
 }
