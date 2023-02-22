@@ -15,6 +15,10 @@ function displayBoard( size )
        htmlout += "     </tr>\n";
     }
     htmlout += "   </table>\n";
-    document.getElementById("boarddiv").innerHTML = htmlout;
+    const boardiv =  document.getElementById("boarddiv");
+    let width = 42 * ( size + 2 );
+    boardiv.style.width = width + "px;";
+    boardiv.style.height = width + "px;";
+    boardiv.innerHTML = htmlout;
         
 }

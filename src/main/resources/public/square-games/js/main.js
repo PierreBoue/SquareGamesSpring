@@ -85,7 +85,7 @@ function newGameCreated( jsonAnswer )
     g = new Game( answ );
     
     gamesController.add( g );
-    
+    gamesController.updateUI();
 }
 function populateTypeList( jsonList)
 {
@@ -120,7 +120,7 @@ function populateGameList(jsonList)
     if ( apiController.getToken() != null )
     {
         toggleAuthForm( false );
-        displayMessage("success", "vous êtes identifié(e) en tant que " + apiController.userName)
+        displayMessage("success",  apiController.userName + ", vous êtes identifié(e)");
     }
     document.getElementById("avatar").src = apiController.getUserImage();
 }

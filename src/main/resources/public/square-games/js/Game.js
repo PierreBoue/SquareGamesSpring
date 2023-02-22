@@ -10,6 +10,7 @@ class Game
     gameID;
     sqlID;
     creation;
+    start2play;
     gameName;
     gameType;
     duration;
@@ -31,15 +32,17 @@ class Game
         this.gameName = dto["typeLocale"];
         //alert(dto);
     }
+    play()
+    {
+        this.start2play = new Date();
+        displayBoard(this.boardSize);
+    }
+    stop()
+    {
+        this.duration = new Date() - this.start2play;
+    }
     getDomElement( idx )
     {
-        /*
-                      <tr class="">
-                <td>4f54df4z5G4W6D4FG</td>
-                <td>Morpion</td>
-              </tr>
-
-        */
         const elt = document.createElement("tr");
         elt.addEventListener("click", selectGame );
         elt.setAttribute("title", this.gameID);
@@ -77,9 +80,15 @@ class GamesController
         //reindex();
        // this.gameDomList.unshift( tgbe.children[0]));
     }
+    currentGame()
+    {
+        return this.gamesList[this.gameIndex];
+    }
     updateUI()
     {
         const tgbe = document.getElementById("gameTableBody");
+        this.currentGame().selected = false;
+        this.gameIndex =0;
        // reindex();
         tgbe.textContent ="";
         for ( let i =0; i < this.gamesList.length; i++)
@@ -105,6 +114,8 @@ class GamesController
         this.gameIndex = idx;
         //console.log("id = g" + (this.gameIndex  ));
         document.getElementById("g"+ (this.gameIndex  )).setAttribute( "class", "bg-warning" );
+        const game = this.currentGame();
+        game.play();
         //tgbe.children[this.gameIndex].setAttribute( "class", "bg-warning" );
     }
     /*
