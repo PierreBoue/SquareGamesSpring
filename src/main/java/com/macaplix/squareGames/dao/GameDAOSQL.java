@@ -15,6 +15,8 @@ import java.time.Duration;
 import java.util.Date;
 import java.util.List;
 
+
+
 @Component
 public class GameDAOSQL implements GameDAOInterface {
     final String GAME_TABLE_NAME = "games";
@@ -83,7 +85,7 @@ public class GameDAOSQL implements GameDAOInterface {
     public ArrayList<GameSaveDTO> readGames( )
     {
         if ( ! ISACTIVE ) return (ArrayList<GameSaveDTO>) List.of( errorDTO("SQL is not active"));
-        String req ="SELECT id, gameuuid, gameType, currentPlayerID, gameStatus, boardSize, creation, duration FROM " + GAME_TABLE_NAME + " ORDER BY creation DESC;";
+        String req ="SELECT id, gameuuid, gameType, currentPlayerID, gameStatus, boardSize, creation, duration FROM " + GAME_TABLE_NAME + " ORDER BY  creation DESC;";
         ResultSet rezset = connector.selectStatment(req);
         ArrayList<GameSaveDTO> games = new ArrayList<GameSaveDTO>();
         if ( rezset == null ) return games;
@@ -107,7 +109,7 @@ public class GameDAOSQL implements GameDAOInterface {
                 return games;
             }
         }
-
+       // System.err.println(games);
         return games;
     }
 
@@ -126,8 +128,8 @@ public class GameDAOSQL implements GameDAOInterface {
         } else {
             return errorDTO("no valid key provided to get the game");
         }
-        where += " ORDER BY creation DESC;";
-        String req ="SELECT sqlid, gameKey, gameType, currentPlayerID, gameStatus, boardSize, creationDate, duration FROM " + GAME_TABLE_NAME + where;
+        where += " ;";
+        String req ="SELECT sqlid, gameKey, gameType, currentPlayerID, gameStatus, boardSize, creation, duration FROM " + GAME_TABLE_NAME + where;
         //SQLconnector connector = SQLconnector.getInstance();
         PreparedStatement stmt = connector.prepareStatment(req);
         try {
@@ -151,7 +153,8 @@ public class GameDAOSQL implements GameDAOInterface {
             return errorDTO("Parsing result failed");
             //throw new RuntimeException(e);
         }
-        return ret;
+        // return JSON.stringify(ret);
+       return ret;
     }
     private GameSaveDTO errorDTO( String message)
     {

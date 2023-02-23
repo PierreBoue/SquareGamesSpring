@@ -1,5 +1,5 @@
 // JavaScript Document
-var apiController = new ApiController();
+//var apiController = new ApiController();
 
 function sendUserData()
 {
@@ -16,6 +16,7 @@ function tokenReceive( jsn )
     displayMessage( "success", tokenDTO["username"] + " connecté le " + ( new Date()).toLocaleString("fr-FR",{ hour:'2-digit', minute:'2-digit', weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) );
    //apiController.setToken(tokenDTO["token"]);
     window.sessionStorage.setItem("user", jsn);
+    console.log("tokenreceive");
     apiController.setUser(tokenDTO);
     toggleAuthForm( false );
     if ( isIndexPage   && ( apiController.getToken() != null ))
@@ -25,6 +26,7 @@ function tokenReceive( jsn )
 }
 function logout()
 {
+    console.log("logout");
     apiController.setUser( null );
     sessionStorage.removeItem("user");
     toggleAuthForm( true );

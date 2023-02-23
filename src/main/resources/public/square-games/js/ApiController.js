@@ -24,6 +24,7 @@ class ApiController
         const ssusr = window.sessionStorage.getItem("user");
         if ((ssusr !== undefined) && (ssusr != null))
         {
+           // console.log("session storage");
             this.setUser( JSON.parse(ssusr));
         } else this._token = null;
         
@@ -71,12 +72,23 @@ class ApiController
         this._userimage = userdto["imgpath"];
         this.userName = userdto["username"];
         setTimeout( this.tokenIsAboutToExpire, this._tokenExpiration - new Date( )- 120000 );// 2 minutes avant
+        //console.log("setUser :" );
+        //console.log( userdto );
         //const imgsrc = ( this._userimage == null)?"https://www.selfstir.com/wp-content/uploads/2015/11/default-user.png": this._userimage;
        // if (  imgsrc != null ) document.getElementById("avatar").src = imgsrc;
      }
     tokenIsAboutToExpire()
     {
-        alert( "votre session expire dans 2 minutes");
+       
+        let msg; 
+        if (( new Date() - this._tokenExpiration) > 0)
+        {
+            msg = "Votre session a expiré";
+        } else {
+            msg = "Votre session expire dans moins de 2 minutes";
+        }
+        displayMessage( "warning", msg );
+       //alert( "votre session expire dans 2 minutes");
     }
     /*
     setToken( tkninfo )// inutilisée
@@ -90,7 +102,7 @@ class ApiController
         if (( new Date() - this._tokenExpiration) > 0 )
         {
             this._token = null;
-            console.log("expired token");
+            //console.log("expired token");
         }
         return this._token;
     }

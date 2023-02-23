@@ -103,10 +103,11 @@ function populateTypeList( jsonList)
 function populateGameList(jsonList)
 {
     gamesController = new GamesController();
+    console.log( jsonList );
     const games = JSON.parse(jsonList);
     for ( let g of games)
     {
-        //console.log(g);
+        console.log( "- " + g["creation"]);
         const game = new Game( g );
         gamesController.add( game);
     }

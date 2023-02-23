@@ -87,7 +87,7 @@ class GamesController
     updateUI()
     {
         const tgbe = document.getElementById("gameTableBody");
-        this.currentGame().selected = false;
+        if ( this.currentGame() !== undefined) this.currentGame().selected = false;
         this.gameIndex =0;
        // reindex();
         tgbe.textContent ="";
