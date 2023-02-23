@@ -15,10 +15,18 @@ function displayBoard( size )
        htmlout += "     </tr>\n";
     }
     htmlout += "   </table>\n";
-    const boardiv =  document.getElementById("boarddiv");
+    const boardesk =  document.getElementById("boarddesk");
+    //const  boardcard =  document.getElementById("boardcard");
+    const boardiv =document.getElementById("boarddiv");
     let width = 42 * ( size + 2 );
     boardiv.style.width = width + "px;";
     boardiv.style.height = width + "px;";
-    boardiv.innerHTML = htmlout;
+    width += 40;
+    boardesk.style.width = width + "px;";
+    boardesk.style.height = width + "px;";
+    console.log("displayBoard " + size);
+    //boardcard.style.width = width + "px;";
+    //boardcard.style.height = width + "px;";
+    //boardiv.innerHTML = htmlout;
         
 }

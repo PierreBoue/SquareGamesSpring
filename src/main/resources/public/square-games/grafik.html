@@ -17,6 +17,7 @@
 <body onLoad="initContent();">
     <script>
         var isIndexPage = true;
+        let count =3;
     </script>
      <svg xmlns="http://www.w3.org/2000/svg" style="display: none;"> 
           <symbol id="table" viewBox="0 0 16 16">
@@ -173,10 +174,8 @@
 
         </div>
         <div class="col">
-        <div class="card mb-4 rounded-3 shadow-sm">
-          <div class="card-body" id="boardcard">
               <div id="boarddesk" class="boarddesk">
-                <div id="boarddiv" class="boarddiv align-middle" onClick="displayBoard( 3 );">
+                <div id="boarddiv" class="boarddiv align-middle" onClick="displayBoard( count++ );">
                     <table class="table table-sm table-bordered border-3 border-dark m-auto p-0 mt-5 boardtable" style="width: 81px; height: 81px;">
                         <tr class="boardcell">
                             <td width="24" height="24" class="boardcell">&nbsp;
@@ -215,8 +214,6 @@
                 </div>
               </div>
 
-          </div>
-        </div>
 
             
         </div>

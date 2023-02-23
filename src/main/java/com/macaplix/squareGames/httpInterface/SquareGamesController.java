@@ -5,6 +5,7 @@ import com.macaplix.squareGames.security.Roles;
 import com.macaplix.squareGames.service.GameCatalog;
 import com.macaplix.squareGames.service.GameCatalogImpl;
 import com.macaplix.squareGames.service.GameService;
+import com.owlike.genson.Genson;
 import fr.le_campus_numerique.square_games.engine.CellPosition;
 import fr.le_campus_numerique.square_games.engine.Game;
 import jakarta.annotation.PostConstruct;
@@ -19,9 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 //import javax.xml.datatype.Duration;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.time.Duration;
 
 @RestController
@@ -66,6 +65,7 @@ public class SquareGamesController {
 
     // @Secured({Roles.ROLE_USER})
     //@PostConstruct
+/*
     @GetMapping("/games")
      private GameDescription[] getGames()
     {
@@ -79,32 +79,24 @@ public class SquareGamesController {
 
             //i++;
         }
-        return games;
+        //Genson genson = new Genson();
 
-    }
-/*
-    @RequestMapping("/")
-    public ModelAndView indexpage() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("index.html");
-        return modelAndView;
-    }
-    @RequestMapping(value="/api/public/login", method = RequestMethod.GET,
-            headers = "Accept=application/json")
-    public ModelAndView loginpage() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("login.html");
-        return modelAndView;
+        //return genson.serialize( games );
+        return games;
     }
 */
-/*
-    @GetMapping("login")
-    public ModelAndView getloginpage() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("login.html");
-        return modelAndView;
+    @GetMapping("/games")
+    private Collection<GameDescription> getGames()
+    {
+        HashMap<String,Game> activeGames = gameService.getAllGames();
+        Collection<GameDescription>  games = new ArrayList<GameDescription>();
+        for (Map.Entry<String,Game> set: activeGames.entrySet())
+        {
+            //games[i++] = gameService.getGameDescription(set.getKey());
+            games.add(gameService.getGameDescription(set.getKey()));
+        }
+        return games;
     }
-*/
 
     /**
      *
