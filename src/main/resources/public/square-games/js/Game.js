@@ -23,7 +23,7 @@ class Game
         this.gameID = dto["gameKey"];
         this.sqlID = dto["sqlid"];
         this.gameType = dto["typeName"];
-        this.creation = new Date( dto["creation"] );
+        this.creation = new Date( dto["creation"] * 1000);
         //console.log(dto["creation"] + " - " + this.creation);
         this.duration = dto["duration"];
         this.board = dto["board"];
