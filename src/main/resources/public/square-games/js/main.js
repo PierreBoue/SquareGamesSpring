@@ -65,6 +65,10 @@ function selectGame( event )
     //console.log("selected index: " +idx );
     gamesController.selectGameAtIndex( idx );
 }
+function selectCell( celltd )
+{
+    
+}
 function newGameCreated( jsonAnswer )
 {
     let answ = null;

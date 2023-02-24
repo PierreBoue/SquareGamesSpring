@@ -3,19 +3,23 @@
 
 .boarddesk
 {
+    /*
     width: 200px;
     height: 200px;
+    */
     margin: auto;
-    margin-top: 30px;
-    margin-bottom: 30px;
+    /*margin-top: 30px;
+    margin-bottom: 30px; */
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .boarddiv
 {
+    /*
     width: 200px;
     height: 200px;
+    */
     background-color: #D1D1D1;
     
 }

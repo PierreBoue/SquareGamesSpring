@@ -1,8 +1,8 @@
 // JavaScript Document
 
 function displayBoard( size )
-{
-    var htmlout = " <table class=\"table table-sm table-bordered border-3 border-dark m-auto p-0 mt-5 boardtable\" style=\"width: 81px; height: 81px;\">\n";
+{// style=\"width: 81px; height: 81px;\" p-0
+    var htmlout = " <table class=\"table table-sm table-bordered border-3 border-dark m-auto boardtable\">\n";
     for ( let y = 0; y < size; y++)
     {
        htmlout += "     <tr class='boardcell'>\n";
@@ -24,9 +24,9 @@ function displayBoard( size )
     width += 40;
     boardesk.style.width = width + "px;";
     boardesk.style.height = width + "px;";
-    console.log("displayBoard " + size);
+   // console.log("displayBoard " + size);
     //boardcard.style.width = width + "px;";
     //boardcard.style.height = width + "px;";
-    //boardiv.innerHTML = htmlout;
+    boardiv.innerHTML = htmlout;
         
 }

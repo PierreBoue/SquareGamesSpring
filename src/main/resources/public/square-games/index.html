@@ -17,6 +17,7 @@
 <body onLoad="initContent();">
     <script>
         var isIndexPage = true;
+        
     </script>
      <svg xmlns="http://www.w3.org/2000/svg" style="display: none;"> 
           <symbol id="table" viewBox="0 0 16 16">
@@ -95,17 +96,17 @@
             <ul class="list-unstyled mt-3 mb-4">
               <li>
                 <div class="row mb-3">
-                  <div class="col-3">
+                  <div class="col-4">
                       <input type="number" min="0" max="100" id="playerCount" name="playerCount" class="form-control col-sm-3" value="0">
                   </div>
-                  <div class="col-6">
+                  <div class="col-auto">
                       <label for="playerCount">nombre de joueurs</label>
                 </div>
                </div>
               </li>
               <li>
                <div class="row mb-3">
-                <div class="col-3">
+                <div class="col-4">
                     <input type="number" min="0" max="100" id="boardSize" name="boardSize" class="form-control col-sm-3"  value="0">
                 </div>
                  <div class="col-6">
@@ -161,7 +162,7 @@
         <a class="py-2 text-dark text-decoration-none text-nowrap" href="javascipt:void">Nouvelle Partie</a>
       </nav>
     </div>
-    <div class="row row-cols-1 row-cols-md-3 mb-3 text-start"> 
+    <div class="row mb-3 text-start"> <!-- row-cols-1 row-cols-md-3-->
         <div class="col">
          <div class="card mb-4 rounded-3 shadow-sm">
           <div class="card-header py-3">
@@ -173,11 +174,9 @@
 
         </div>
         <div class="col">
-        <div class="card mb-4 rounded-3 shadow-sm">
-          <div class="card-body" id="boardcard">
               <div id="boarddesk" class="boarddesk">
-                <div id="boarddiv" class="boarddiv align-middle" onClick="displayBoard( 3 );">
-                    <table class="table table-sm table-bordered border-3 border-dark m-auto p-0 mt-5 boardtable" style="width: 81px; height: 81px;">
+                <div id="boarddiv" class="boarddiv align-middle p-4" onClick="displayBoard( 3 );">
+                    <table class="table table-sm table-bordered border-3 border-dark m-auto p-0 boardtable" ><!--style="width: 81px; height: 81px;"-->
                         <tr class="boardcell">
                             <td width="24" height="24" class="boardcell">&nbsp;
                                 
@@ -215,8 +214,6 @@
                 </div>
               </div>
 
-          </div>
-        </div>
 
             
         </div>
