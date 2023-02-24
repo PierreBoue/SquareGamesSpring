@@ -31,12 +31,13 @@ function logout()
     sessionStorage.removeItem("user");
     toggleAuthForm( true );
 }
+
 function toggleAuthForm( ison )
 {
     const lgin = document.getElementById("login-form")
      lgin.style.visibility   = (ison)? "visible":"collapse";
     lgin.classList.toggle( "collapse");
-    
+    document.getElementById( "debugbut").disabled = ison;
     const lgd = document.getElementById("logged");
     lgd.style.visibility = (ison)?"collapse":"visible";
     lgd.classList.toggle( "collapse");

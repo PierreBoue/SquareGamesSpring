@@ -36,6 +36,8 @@ class Game
     {
         this.start2play = new Date();
         displayBoard(this.boardSize);
+        document.getElementById( "currentGameNameDiv" ).innerHTML = this.gameType;
+        
     }
     stop()
     {

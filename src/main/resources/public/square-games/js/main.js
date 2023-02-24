@@ -48,12 +48,21 @@ function askAPIforGames()
 {
     if ( apiController.getToken() == null)
     {
-        displayMessage("warning", "Attempt to get games with null token");
+        displayMessage("warning", "Vous devez être identifié pour pouvoir jouer");
+        toggleAuthForm( true );
         return;
     }
     const url = "/games";
     apiController.sendGetRequest( url, "games list request", populateGameList, true );
     
+}
+function toggleDebugBox( event )
+{
+   
+    //document.getElementById("currentGameNameDiv").disabled 
+    
+   const dbgbox = document.getElementById("debugbox");
+    dbgbox.classList.remove("visualy-hidden");
 }
 function selectGameType( idx )
 {
@@ -61,6 +70,7 @@ function selectGameType( idx )
 }
 function selectGame( event )
 {
+    if ( ! event.ctrlKey ) return;
     const idx = parseInt( event.currentTarget.id.slice(1));
     //console.log("selected index: " +idx );
     gamesController.selectGameAtIndex( idx );
@@ -116,11 +126,11 @@ function populateGameList(jsonList)
         gamesController.add( game);
     }
     gamesController.updateUI();
+    if (  games.length > 0 ) selectGame(0);
 }
- function initContent()
-{//sendPostRequest( url, requestNm, callbackFctn, body )
+function initContent()
+{
     const url ="/api/public/games/types";
-    //apiController.setToken( "Bearer " + window.localStorage.getItem("sgtoken"));
     apiController.sendGetRequest( url, "game types query", processGameTypeRequest, false);
     if ( apiController.getToken() != null )
     {
@@ -128,6 +138,7 @@ function populateGameList(jsonList)
         displayMessage("success",  apiController.userName + ", vous êtes identifié(e)");
     }
     document.getElementById("avatar").src = apiController.getUserImage();
+    document.getElementById("debugbut").addEventListener("click", toggleDebugBox );
 }
 function displayMessage( type, msg )
 {

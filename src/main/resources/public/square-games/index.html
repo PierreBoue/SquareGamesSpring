@@ -143,7 +143,7 @@
       <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
           <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#table"/></svg>
         
-        <span class="fs-4">Morpion</span>
+        <span class="fs-4" id="currentGameNameDiv">Morpion</span>
       </a>
       <span class="w-100 align-content-center ms-5 me-5">
          <div class="alert alert-secondary fade show w-auto" role="alert" id="alertbox">
@@ -152,7 +152,7 @@
       </span>
       <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
         <div class="me-3 py-2 text-dark text-decoration-none" >X</div>
-        <a class="py-2 text-dark text-decoration-none text-nowrap" href="javascipt:void">Nouvelle Partie</a>
+        <a class="py-2 text-dark text-decoration-none text-nowrap" href="javascipt:showDebugbox()" id="debugbut">Nouvelle Partie</a>
       </nav>
     </div>
     <div class="row mb-3 text-start"> <!-- row-cols-1 row-cols-md-3-->
@@ -167,48 +167,12 @@
 
         </div>
         <div class="col">
-              <div id="boarddesk" class="boarddesk">
-                <div id="boarddiv" class="boarddiv align-middle p-4" onClick="displayBoard( 3 );">
-                    <table class="table table-sm table-bordered border-3 border-dark m-auto p-0 boardtable" ><!--style="width: 81px; height: 81px;"-->
-                        <tr class="boardcell">
-                            <td width="24" height="24" class="boardcell">&nbsp;
-                                
-                            </td>
-                            <td width="24" height="24" class="boardcell">&nbsp;
-                                
-                            </td>
-                            <td width="24" height="24" class="boardcell">&nbsp;
-                                
-                            </td>
-                        </tr>
-                        <tr class="boardcell">
-                            <td width="24" height="24">&nbsp;
-                                
-                            </td>
-                            <td width="24" height="24">&nbsp;
-                                
-                            </td>
-                            <td width="24" height="24">&nbsp;
-                                
-                            </td>
-                        </tr>
-                        <tr class="boardcell">
-                            <td width="24" height="24">&nbsp;
-                                
-                            </td>
-                            <td width="24" height="24">&nbsp;
-                                
-                            </td>
-                            <td width="24" height="24">&nbsp;
-                                
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-              </div>
-
-
-            
+          <div id="boarddesk" class="boarddesk">
+            <div id="boarddiv" class="boarddiv align-middle p-4" onClick="displayBoard( 3 );">
+                <table class="table table-sm table-bordered border-3 border-dark m-auto p-0 boardtable" >
+                </table>
+            </div>
+          </div>
         </div>
         <div class="col">
         <div class="card mb-4 rounded-3 shadow-sm">
@@ -222,7 +186,7 @@
         </div>
     </div>
    <div class="mb-3 text-center"> 
-            <textarea id="debugbox" name="debugbox" disabled rows="8" style="width: 100%;" >
+            <textarea id="debugbox" name="debugbox" class="visually-hidden" disabled rows="8" style="width: 100%;" >
             </textarea>
     </div>
 
