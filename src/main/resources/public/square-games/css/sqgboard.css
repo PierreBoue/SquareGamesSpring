@@ -20,7 +20,6 @@
     width: 200px;
     height: 200px;
     */
-    background-color: #D1D1D1;
     
 }
 .boardtable
@@ -30,6 +29,7 @@
     height: 24px;!important;
    margin:auto;
     */
+    background-color: #D1D1D1;
  }
 .boardcell
 {

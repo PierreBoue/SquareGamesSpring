@@ -59,10 +59,11 @@ function askAPIforGames()
 function toggleDebugBox( event )
 {
    
-    //document.getElementById("currentGameNameDiv").disabled 
-    
+    //document.getElementById("currentGameNameDiv").disabled
+    if ( ! event.altKey ) return;
+    //console.log(event);
    const dbgbox = document.getElementById("debugbox");
-    dbgbox.classList.remove("visualy-hidden");
+    dbgbox.classList.remove("visually-hidden");
 }
 function selectGameType( idx )
 {
@@ -70,10 +71,14 @@ function selectGameType( idx )
 }
 function selectGame( event )
 {
-    if ( ! event.ctrlKey ) return;
-    const idx = parseInt( event.currentTarget.id.slice(1));
-    //console.log("selected index: " +idx );
-    gamesController.selectGameAtIndex( idx );
+   try
+    {
+        const idx = parseInt( event.currentTarget.id.slice(1));
+        //console.log("selected index: " +idx );
+        gamesController.selectGameAtIndex( idx );
+    } catch( e ) {
+        console.error(e);
+    }
 }
 function selectCell( celltd )
 {
@@ -126,7 +131,8 @@ function populateGameList(jsonList)
         gamesController.add( game);
     }
     gamesController.updateUI();
-    if (  games.length > 0 ) selectGame(0);
+    if (  games.length > 0 ) gamesController.selectGameAtIndex(0);
+    //console.log("UI updated");
 }
 function initContent()
 {

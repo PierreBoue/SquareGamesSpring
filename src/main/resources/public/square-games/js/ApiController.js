@@ -71,12 +71,19 @@ class ApiController
         this._tokenExpiration = new Date( userdto["expiration"]);
         this._userimage = userdto["imgpath"];
         this.userName = userdto["username"];
-        setTimeout( this.tokenIsAboutToExpire, this._tokenExpiration - new Date( )- 120000 );// 2 minutes avant
+        const timeDif = this._tokenExpiration - new Date( );
+        setTimeout( this.tokenIsAboutToExpire, timeDif - 120000 );// 2 minutes avant
+        setTimeout( this.tokenHasExpiredLogout, timeDif);
         //console.log("setUser :" );
         //console.log( userdto );
         //const imgsrc = ( this._userimage == null)?"https://www.selfstir.com/wp-content/uploads/2015/11/default-user.png": this._userimage;
        // if (  imgsrc != null ) document.getElementById("avatar").src = imgsrc;
      }
+    tokenHasExpiredLogout()
+    {
+        displayMessage( "warning", "Votre session a expiré, merci de vous identifier à nouveau" );
+        toggleAuthForm(true);
+    }
     tokenIsAboutToExpire()
     {
        

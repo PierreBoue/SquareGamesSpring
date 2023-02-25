@@ -36,7 +36,7 @@ class Game
     {
         this.start2play = new Date();
         displayBoard(this.boardSize);
-        document.getElementById( "currentGameNameDiv" ).innerHTML = this.gameType;
+        document.getElementById( "currentGameNameDiv" ).innerHTML = gameTypeController.getGameNameAtIndex( this.gameIndex );
         
     }
     stop()

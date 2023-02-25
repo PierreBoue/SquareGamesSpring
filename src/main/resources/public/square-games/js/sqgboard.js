@@ -8,7 +8,7 @@ function displayBoard( size )
        htmlout += "     <tr class='boardcell'>\n";
         for ( let x =0; x < size; x++)
         {
-            htmlout += "     <td align='center' width='26' height='26' id='bc" + x + "-" + y + "' onclick='selectCell( this );'>\n";
+            htmlout += "     <td align='center' width='29' height='29' id='bc" + x + "-" + y + "' onclick='selectCell( this );'>\n";
             htmlout += "      &nbsp;\n";
             htmlout += "     </td>\n";
         }

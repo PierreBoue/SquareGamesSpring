@@ -1,5 +1,14 @@
 class GameType
 {
+    index;
+    name;
+    localName;
+    defaultPlayerCount;
+    minPlayerCount;
+    maxPlayerCount;
+    defaultBoardSize;
+    minBoarSize;
+    maxBoardSize;
 // int index, String defaultName, String localName, int defaultPlayerCount, int defaultBoardSize
     constructor(  gameType )
     {
@@ -51,11 +60,11 @@ class GameType
 }
 class GameTypeController
 {
+    domElements = [];
+    index=0;
+    gameTypes = [];
     constructor(  )
     {
-        this.domElements = [];
-        this.index=0;
-        this.gameTypes = [];
         const gtls = document.getElementById("gametypelist");
         while ( gtls.lastElementChild ) gtls.removeChild( gtls.lastElementChild );
     }
@@ -72,5 +81,9 @@ class GameTypeController
         this.domElements[this.index].children[0].className ="nav-link active";
         this.gameTypes[this.index].updateUI();
         
+    }
+    getGameNameAtIndex( idx )
+    {
+        gameTypes[idx].localName;
     }
 }
