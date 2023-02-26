@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
@@ -43,7 +44,7 @@ public abstract class GamePluginBase implements GamePlugin {
             checkAnswer = checkPlayerCount( playerCount);
         }
         //int gameIndex, String gameKey, int sqlid, String typeLocale, String typeName, int playerCount, int boardSize, Map<CellPosition, Token> board, Date creation, int duration, String errorMessage, boolean isOk
-        if ( ! checkAnswer.isBlank()) return new GameDescription( params.gameIndex(), "",0, factory.getGameId(), factory.getGameId(), playerCount, params.boardSize(), new HashMap<CellPosition, Token>(), (new Date()).toInstant().getEpochSecond(), 0, "playerCount should be between " + factory.getPlayerCountRange().min() + " and " + factory.getPlayerCountRange().max(), false);
+        if ( ! checkAnswer.isBlank()) return new GameDescription( params.gameIndex(), "",0, factory.getGameId(), factory.getGameId(), playerCount, params.boardSize(), new HashMap<CellPosition, Token>(), new ArrayList<>(), new ArrayList<>(), (new Date()).toInstant().getEpochSecond(), 0, "playerCount should be between " + factory.getPlayerCountRange().min() + " and " + factory.getPlayerCountRange().max(), false);
         int boardSize = params.boardSize();
         if ( boardSize == 0)
         {
@@ -51,9 +52,9 @@ public abstract class GamePluginBase implements GamePlugin {
         } else {
             checkAnswer = checkBoardSize(boardSize, playerCount);
         }
-        if ( ! checkAnswer.isBlank()) return new GameDescription( params.gameIndex(), "",0, "","", playerCount, boardSize, new HashMap<CellPosition, Token>(), (new Date()).toInstant().getEpochSecond(),0,"board size should be between " + factory.getBoardSizeRange(params.playerCount()).min() +" and " +factory.getBoardSizeRange(params.playerCount()).max(), false);
+        if ( ! checkAnswer.isBlank()) return new GameDescription( params.gameIndex(), "",0, "","", playerCount, boardSize, new HashMap<CellPosition, Token>(), new ArrayList<Token>(), new ArrayList<Token>(), (new Date()).toInstant().getEpochSecond(),0,"board size should be between " + factory.getBoardSizeRange(params.playerCount()).min() +" and " +factory.getBoardSizeRange(params.playerCount()).max(), false);
         //int gameIndex, String gameKey, int sqlid, String typeLocale, String typeName, int playerCount, int boardSize, Map<CellPosition, Token> board, Date creation, int duration, String errorMessage, boolean isOk
-        return new GameDescription( params.gameIndex(), "", 0, factory.getGameId(), factory.getGameId(), playerCount, boardSize, new HashMap<CellPosition,Token>(), (new Date()).toInstant().getEpochSecond(), 0,"",true);
+        return new GameDescription( params.gameIndex(), "", 0, factory.getGameId(), factory.getGameId(), playerCount, boardSize, new HashMap<CellPosition,Token>(), new ArrayList<>(), new ArrayList<>(), (new Date()).toInstant().getEpochSecond(), 0,"",true);
     }
 
     @Override

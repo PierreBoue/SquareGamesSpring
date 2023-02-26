@@ -26,7 +26,10 @@ class ApiController
         {
            // console.log("session storage");
             this.setUser( JSON.parse(ssusr));
-        } else this._token = null;
+        } else {
+            this._token = null;
+            displayMessage("info","Vous devez être identifié pour pouvoir jouer");
+        } 
         
         //
     }

@@ -22,6 +22,7 @@ class Game
         this.gameIndex = dto["gameIndex"];
         this.gameID = dto["gameKey"];
         this.sqlID = dto["sqlid"];
+        //this.gameType = dto["localName"];
         this.gameType = dto["typeName"];
         this.creation = new Date( dto["creation"] * 1000);
         //console.log(dto["creation"] + " - " + this.creation);
@@ -36,7 +37,7 @@ class Game
     {
         this.start2play = new Date();
         displayBoard(this.boardSize);
-        document.getElementById( "currentGameNameDiv" ).innerHTML = gameTypeController.getGameNameAtIndex( this.gameIndex );
+        document.getElementById( "currentGameNameDiv" ).innerHTML = this.gameName;
         
     }
     stop()
