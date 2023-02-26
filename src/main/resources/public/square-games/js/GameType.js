@@ -84,6 +84,6 @@ class GameTypeController
     }
     getGameNameAtIndex( idx )
     {
-        gameTypes[idx].localName;
+        this.gameTypes[idx].localName;
     }
 }

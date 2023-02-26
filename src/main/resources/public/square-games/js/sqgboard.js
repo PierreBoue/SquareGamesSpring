@@ -8,8 +8,8 @@ function displayBoard( size )
        htmlout += "     <tr class='boardcell'>\n";
         for ( let x =0; x < size; x++)
         {
-            htmlout += "     <td align='center' width='29' height='29' id='bc" + x + "-" + y + "' onclick='selectCell( this );'>\n";
-            htmlout += "      &nbsp;\n";
+            htmlout += "     <td align='center' width='29' height='29' class='fs-6 fw-bold' id='bc" + x + "-" + y + "' onclick='selectCell( this );'>\n";
+            htmlout += "      "+ (((( x + y )%2) == 0)?"X":"O") +"\n";
             htmlout += "     </td>\n";
         }
        htmlout += "     </tr>\n";
