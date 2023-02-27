@@ -15,6 +15,8 @@ class Game
     gameType;
     duration;
     board;
+    remainingTokens;
+    lostTokens;
     selected = false;
     constructor( dto )
     {
@@ -27,7 +29,11 @@ class Game
         this.creation = new Date( dto["creation"] * 1000);
         //console.log(dto["creation"] + " - " + this.creation);
         this.duration = dto["duration"];
-        this.board = dto["board"];
+        this.board = new PionController( dto["board"] );
+        console.log("remaining:");
+        this.remainingTokens = new PionController( dto["remainingTokens"]);
+        console.log("lost:");
+        this.lostTokens = new PionController( dto["lostToken"] );
         this.playerCount = dto["playerCount"];
         this.boardSize = dto["boardSize"];
         this.gameName = dto["typeLocale"];
