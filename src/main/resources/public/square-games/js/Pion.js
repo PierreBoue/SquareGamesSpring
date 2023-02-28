@@ -15,7 +15,7 @@ class PionController
     listePions=[];
     constructor( apidat )
     {
-        this.listePions = apidat.map( this.apidat2Pion);
+        //this.listePions = apidat.map( this.apidat2Pion);
     }
     apidat2Pion( apidat )
     {
