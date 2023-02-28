@@ -24,10 +24,8 @@ class Game
         this.gameIndex = dto["gameIndex"];
         this.gameID = dto["gameKey"];
         this.sqlID = dto["sqlid"];
-        //this.gameType = dto["localName"];
         this.gameType = dto["typeName"];
         this.creation = new Date( dto["creation"] * 1000);
-        //console.log(dto["creation"] + " - " + this.creation);
         this.duration = dto["duration"];
         this.board = new PionController( dto["board"] );
         console.log("remaining:");
@@ -38,7 +36,6 @@ class Game
         this.playerCount = dto["playerCount"];
         this.boardSize = dto["boardSize"];
         this.gameName = dto["typeLocale"];
-        //alert(dto);
     }
     play()
     {
@@ -46,6 +43,14 @@ class Game
         displayBoard(this.boardSize);
         document.getElementById( "currentGameNameDiv" ).innerHTML = this.gameName;
         
+    }
+    displayPions()
+    {
+        let c = 0;
+        for ( let pion of this.remainingTokens )
+        {
+            pion
+        }
     }
     stop()
     {
@@ -58,11 +63,9 @@ class Game
         elt.setAttribute("title", this.gameID);
         elt.setAttribute("id","g" + idx);
         elt.setAttribute("role", "button");
-        //alert(this.gameName);
         const creat = this.creation.toLocaleString( undefined, { hour:'2-digit', minute:'2-digit', day: '2-digit', month: '2-digit', year: 'numeric' } );
         for ( let text of [creat, this.gameName])
         {
-            //alert(text);
             if ( this.selected ) elt.setAttribute("class","bg-warning");
             const td = document.createElement("td");
             //td.setAttribute("class", "col-md-auto");
