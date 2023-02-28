@@ -152,6 +152,12 @@ function displayMessage( type, msg )
    //alert-primary, alert-secondary, alert-success alert-danger, alert-warning, alert-info, alert-light, alert alert-dark
     let clss = "alert alert-" + type + " fade show w-auto" ;
     const alertbox = document.getElementById("alertbox");
+    if ( alertbox == null )
+    {
+        console.log("alertbox not found");
+        console.log(msg);
+        return;
+    }
     alertbox.setAttribute("class", clss );
     while (alertbox.firstChild) 
     {
