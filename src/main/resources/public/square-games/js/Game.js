@@ -32,6 +32,7 @@ class Game
         this.board = new PionController( dto["board"] );
         console.log("remaining:");
         this.remainingTokens = new PionController( dto["remainingTokens"]);
+        //if ( jsonobj == null ) jsonobj = dto["remainingTokens"];
         console.log("lost:");
         this.lostTokens = new PionController( dto["lostToken"] );
         this.playerCount = dto["playerCount"];

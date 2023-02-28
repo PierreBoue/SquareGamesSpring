@@ -1,12 +1,18 @@
 // JavaScript Document
 class Pion 
 {
+    ownerId;
     symbol;
     position;
     allowedMoves=[];
     constructor( apidat )
     {
-        console.log( apidat );
+        this.ownerId = apidat.ownerId;
+        this.symbol = apidat.name;
+        this.position = new Position( apidat.position.x, apidat.position.y);
+        this.allowedMoves = apidat.allowedMoves;
+        //console.log( "Pion :" );
+        //console.log( apidat );
     }
 }
 
@@ -15,9 +21,10 @@ class PionController
     listePions=[];
     constructor( apidat )
     {
-        //this.listePions = apidat.map( this.apidat2Pion);
+        if ( (apidat == undefined) || ( apidat == null ) || ( ! Array.isArray(apidat))) return;
+        this.listePions = apidat.map( this.api2Pion);
     }
-    apidat2Pion( apidat )
+    api2Pion( apidat )
     {
         return new Pion( apidat );
     }
