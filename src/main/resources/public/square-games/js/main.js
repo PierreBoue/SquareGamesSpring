@@ -56,14 +56,17 @@ function askAPIforGames()
     apiController.sendGetRequest( url, "games list request", populateGameList, true );
     
 }
+//var debugon = false;
 function toggleDebugBox( event )
 {
    
     //document.getElementById("currentGameNameDiv").disabled
     if ( ! event.altKey ) return;
     //console.log(event);
-   const dbgbox = document.getElementById("debugbox");
-    dbgbox.classList.remove("visually-hidden");
+    const dbgbox = document.getElementById("debugbox");
+    dbgbox.classList.toggle("visually-hidden");
+    
+    //debugon = ! debugon;
 }
 function selectGameType( idx )
 {

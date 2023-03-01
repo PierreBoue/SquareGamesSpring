@@ -11,7 +11,7 @@ class Pion
         this.index= idx;
         this.ownerId = apidat.ownerId;
         this.symbol = apidat.name;
-        this.position = new Position( apidat.position.x, apidat.position.y);
+        if ( apidat.position != null ) this.position = new Position( apidat.position.x, apidat.position.y);
         this.allowedMoves = apidat.allowedMoves;
         //console.log( "Pion :" );
         //console.log( apidat );
@@ -33,6 +33,7 @@ class Pion
     {
         const inp = document.createElement("span");
         inp.setAttribute("class", "pion" + this.symbol.toUpperCase());
+        
         const txtnde = document.createTextNode( this.symbol );
         inp.appendChild(txtnde);
         return inp;
@@ -46,24 +47,37 @@ class PionController
     constructor( apidat )
     {
         if ( (apidat == undefined) || ( apidat == null ) || ( ! Array.isArray(apidat))) return;
-        this.listePions = apidat.map( this.api2Pion);
+        //this.listePions = apidat.map( this.api2Pion);
+        for( let piondto of apidat )
+        {
+            const p = new Pion( piondto, this.index++ );
+            if ( p == undefined )
+            {
+                console.log("pion note created "+ piondto );
+                continue;
+            }
+            this.listePions.push( p );
+            
+        }
         this.index =0;
     }
+/*
     api2Pion( apidat )
     {
-       if ( this == undefined ) return null;
+       if ( this == undefined )
+       {
+           console.log("this api2pion is undefined");
+           return null;
+       } else 
         return new Pion( apidat, this.index++ );
     }
+    */
     displayPions( carpet )
     {
         document.getElementById(carpet).textContent = "";
         let c = 0;
-        if ( carpet == "board" )
-        {
-            for ( let pion of this.listePions ) pion.displayAtPosition();
-        } else {
-            for ( let pion of this.listePions ) pion.displayAtIndex( carpet, c++ );
-        }
+        for ( let pion of this.listePions ) pion.display( carpet );
+        
     }
 
 }
