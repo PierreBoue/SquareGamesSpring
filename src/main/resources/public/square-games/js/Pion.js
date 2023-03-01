@@ -21,9 +21,21 @@ class Pion
         if ( carpet == "board")
         {
             
-        } else ‘{
-            
+        } else {
+            const cardom = document.getElementById(carpet);
+            const piondom = document.createElement("div");
+            piondom.setAttribute("class", "col col-1 ps-1 pe-3 border border-dark border-3 ms-0 me-3 start-0 top-50 fs-6 fw-bold boardtable");
+            piondom.appendChild( this.innerPion());
+            cardom.appendChild( piondom );
         }
+    }
+    innerPion()
+    {
+        const inp = document.createElement("span");
+        inp.setAttribute("class", "pion" + this.symbol.toUpperCase());
+        const txtnde = document.createTextNode( this.symbol );
+        inp.appendChild(txtnde);
+        return inp;
     }
 }
 
@@ -39,14 +51,18 @@ class PionController
     }
     api2Pion( apidat )
     {
+       if ( this == undefined ) return null;
         return new Pion( apidat, this.index++ );
     }
     displayPions( carpet )
     {
+        document.getElementById(carpet).textContent = "";
         let c = 0;
-            for ( let pion of this.remainingTokens ) pion.displayAtPosition();
-        } else {}
-            for ( let pion of this.remainingTokens ) pion.displayAtIndex( carpet, c++ );
+        if ( carpet == "board" )
+        {
+            for ( let pion of this.listePions ) pion.displayAtPosition();
+        } else {
+            for ( let pion of this.listePions ) pion.displayAtIndex( carpet, c++ );
         }
     }
 

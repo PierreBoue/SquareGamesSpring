@@ -1,6 +1,6 @@
 // JavaScript Document
  
-var apiController = new ApiController();
+var apiController = null;//new ApiController();
 var gameTypeController = null;
 var gamesController = null;
 
@@ -136,6 +136,7 @@ function populateGameList(jsonList)
 }
 function initContent()
 {
+    apiController = new ApiController();
     const url ="/api/public/games/types";
     apiController.sendGetRequest( url, "game types query", processGameTypeRequest, false);
     if ( apiController.getToken() != null )
