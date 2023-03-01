@@ -28,10 +28,10 @@ class Game
         this.creation = new Date( dto["creation"] * 1000);
         this.duration = dto["duration"];
         this.board = new PionController( dto["board"] );
-        console.log("remaining:");
+        //console.log("remaining:");
         this.remainingTokens = new PionController( dto["remainingTokens"]);
         //if ( jsonobj == null ) jsonobj = dto["remainingTokens"];
-        console.log("lost:");
+        //console.log("lost:");
         this.lostTokens = new PionController( dto["lostToken"] );
         this.playerCount = dto["playerCount"];
         this.boardSize = dto["boardSize"];
