@@ -20,11 +20,18 @@ class Pion
     {
         if ( carpet == "board")
         {
-            
+            if ( this.position == undefined )
+            {
+                console.log("position undefined " + this.symbol);
+                return;
+            }
+            const cell = this.position.boardDiv();
+            cell.textContent = "";
+            cell.addChild( this.innerPion());
         } else {
             const cardom = document.getElementById(carpet);
             const piondom = document.createElement("div");
-            piondom.setAttribute("class", "col col-1 ps-1 pe-3 border border-dark border-3 m-2 start-0 top-50 fs-6 fw-bold boardtable");
+            piondom.setAttribute("class", "col col-1 ps-1 pe-1 border border-dark border-3 m-2 start-0 top-50 fs-6 fw-bold boardtable");
             piondom.setAttribute("role","button");
             piondom.appendChild( this.innerPion());
             cardom.appendChild( piondom );
@@ -54,7 +61,7 @@ class PionController
             const p = new Pion( piondto, this.index++ );
             if ( p == undefined )
             {
-                console.log("pion note created "+ piondto );
+                console.log("pion not created "+ piondto );
                 continue;
             }
             this.listePions.push( p );
@@ -75,10 +82,8 @@ class PionController
     */
     displayPions( carpet )
     {
-        document.getElementById(carpet).textContent = "";
-        let c = 0;
-        for ( let pion of this.listePions ) pion.display( carpet );
-        
+        //document.getElementById(carpet).textContent = "";
+        for ( let pion of this.listePions ) pion.display( carpet );   
     }
 
 }

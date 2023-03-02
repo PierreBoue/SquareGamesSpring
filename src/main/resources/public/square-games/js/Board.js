@@ -9,7 +9,7 @@ class Board
     }
     clear()
     {
-        const boardiv =document.getElementById("boarddiv");
+        const boardiv =document.getElementById("board");
         boardiv.textContent = "";
         const tabledom = document.createElement("table");
         tabledom.setAttribute("class", "table table-sm table-bordered border-3 border-dark m-auto boardtable");
@@ -53,7 +53,7 @@ class Board
         htmlout += "   </table>\n";
         //const boardesk =  document.getElementById("boarddesk");
         
-        const boardiv =document.getElementById("boarddiv");
+        const boardiv =document.getElementById("board");
         boardiv.innerHTML = htmlout;
     }
 }
