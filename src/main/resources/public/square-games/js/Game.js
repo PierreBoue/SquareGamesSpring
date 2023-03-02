@@ -15,6 +15,7 @@ class Game
     gameType;
     duration;
     board;
+    boardUI;
     remainingTokens;
     lostTokens;
     selected = false;
@@ -36,11 +37,14 @@ class Game
         this.playerCount = dto["playerCount"];
         this.boardSize = dto["boardSize"];
         this.gameName = dto["typeLocale"];
+        this.boardUI = new Board(this.boardSize);
     }
     play()
     {
         this.start2play = new Date();
-        displayBoard(this.boardSize);
+        //this.boardUI.clear();
+        this.boardUI.refresh();
+        //displayBoard(this.boardSize);
         document.getElementById( "currentGameNameDiv" ).innerHTML = this.gameName;
         //this.board.displayPions("board") ;
         this.remainingTokens.displayPions("remain") ;

@@ -1,9 +1,15 @@
 @charset "UTF-8";
 /* CSS Document */
 
-pionO {
+.pionO, .pion0 {
     color: mediumvioletred;
 }
-pionX {
+.pionX {
     color: green;
+}
+.pionR {
+    color: red;
+}
+.pionY {
+    color: yellow;
 }

@@ -24,7 +24,8 @@ class Pion
         } else {
             const cardom = document.getElementById(carpet);
             const piondom = document.createElement("div");
-            piondom.setAttribute("class", "col col-1 ps-1 pe-3 border border-dark border-3 ms-0 me-3 start-0 top-50 fs-6 fw-bold boardtable");
+            piondom.setAttribute("class", "col col-1 ps-1 pe-3 border border-dark border-3 m-2 start-0 top-50 fs-6 fw-bold boardtable");
+            piondom.setAttribute("role","button");
             piondom.appendChild( this.innerPion());
             cardom.appendChild( piondom );
         }
@@ -89,5 +90,9 @@ class Position
     {
         this.x = x;
         this.y = y;
+    }
+    boardDiv()
+    {
+        return  document.getElementById("bc"+ this.x + "-" + this.y);
     }
 }
