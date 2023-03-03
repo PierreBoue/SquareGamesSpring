@@ -80,6 +80,11 @@ class PionController
         return new Pion( apidat, this.index++ );
     }
     */
+    selectPion( idx )
+    {
+        this.index = idx;
+        
+    }
     displayPions( carpet )
     {
         if ( carpet != "board" ) document.getElementById(carpet).textContent = "";
