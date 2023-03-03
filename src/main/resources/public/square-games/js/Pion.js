@@ -82,7 +82,7 @@ class PionController
     */
     displayPions( carpet )
     {
-        //document.getElementById(carpet).textContent = "";
+        if ( carpet != "board" ) document.getElementById(carpet).textContent = "";
         for ( let pion of this.listePions ) pion.display( carpet );   
     }
 

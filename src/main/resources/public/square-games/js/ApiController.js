@@ -19,7 +19,9 @@ class ApiController
             alert( e.toString());
         }
         if ( this._ajaxRequest == undefined) console.assert("ajax not instanciated !!!!"); //else console.log( "opened ------> " + this._ajaxRequest.LOADING)
-        this.rootURL = document.location.origin;
+        let idx = window.location.pathname.indexOf("/square-games/");
+        if ( idx < 0 ) idx = 0;
+        this.rootURL = document.location.origin + window.location.pathname.slice(0,idx);
        // window.sessionStorage.clear();
         const ssusr = window.sessionStorage.getItem("user");
         if ((ssusr !== undefined) && (ssusr != null))
