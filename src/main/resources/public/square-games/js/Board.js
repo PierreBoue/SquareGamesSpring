@@ -25,6 +25,7 @@ class Board
                 tddom.setAttribute("class", "fs-6 fw-bold");
                 tddom.setAttribute("id", "bc" + x + "-" + y );
                 tddom.setAttribute("align","center");
+                tddom.setAttribute("role","button");
                 tddom.addEventListener("click", selectCell );
                 tddom.innerHTML = "&nbsp;";
                 //tddom.appendChild( document.createTextNode("&nbsp;"));
@@ -44,7 +45,7 @@ class Board
            htmlout += "     <tr class='boardcell'>\n";
             for ( let x =0; x < this.size; x++)
             {
-                htmlout += "     <td align='center' width='29' height='29' class='fs-6 fw-bold' id='bc" + x + "-" + y + "' onclick='selectCell( this );'>\n";
+                htmlout += "     <td align='center' width='29' height='29' class='fs-6 fw-bold' id='bc" + x + "-" + y + "' onclick='selectCell( this );' role='button'>\n";
                 htmlout += "      &nbsp;\n";//"+ (((( x + y )%2) == 0)?"X":"O") +"
                 htmlout += "     </td>\n";
             }

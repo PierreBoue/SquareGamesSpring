@@ -28,11 +28,12 @@ class Pion
             const cell = this.position.boardDiv();
             cell.textContent = "";
             cell.addChild( this.innerPion());
+            //cell.setAttribute("role","button");
         } else {
             const cardom = document.getElementById(carpet);
             const piondom = document.createElement("div");
-            piondom.setAttribute("class", "col col-1 ps-1 pe-1 border border-dark border-3 m-2 start-0 top-50 fs-6 fw-bold boardtable");
-            piondom.setAttribute("role","button");
+            piondom.setAttribute("class", "col col-1 ps-1 pe-1 border " + ((this.index == 0)?"border-danger":"border-dark") + " border-3 m-2 start-0 top-50 fs-6 fw-bold boardtable");
+            //piondom.setAttribute("role","button");
             piondom.appendChild( this.innerPion());
             cardom.appendChild( piondom );
         }
@@ -104,5 +105,18 @@ class Position
     boardDiv()
     {
         return  document.getElementById("bc"+ this.x + "-" + this.y);
+    }
+    static positionFromid( cid )
+    {
+        const compo = cid.split("-");
+        if (( ! Array.isArray( compo)) || ( compo.length < 2 ))
+        {
+            console.log("compo:");
+            console.log( compo );
+            return null;
+        }
+        x = parseInt(compo[0].slice(2));
+        y = parseInt( compo[1]);
+        return new Position( x, y );
     }
 }
