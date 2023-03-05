@@ -515,7 +515,7 @@ public class AuthenticationApi {
 
 ````
 trouver quels sont les ports écoutés:
-``netstat -tunlp``    
+``netstat -tunlp``  ``lsof -i:8081`` 
 launch mysql on a specific port:
 
 ``mysql -P 6603 --protocol tcp`
@@ -524,3 +524,4 @@ launch mysql on a specific port:
 
 CREATE USER 'sammy'@'localhost' IDENTIFIED BY 'password';
 GRANT CREATE, ALTER, DROP, INSERT, UPDATE, DELETE, SELECT, REFERENCES, RELOAD on *.* TO 'sammy'@'localhost' WITH GRANT OPTION;
+
