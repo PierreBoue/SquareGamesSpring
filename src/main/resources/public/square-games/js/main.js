@@ -85,7 +85,7 @@ function selectGame( event )
 }
 function selectCell( celltd )
 {
-    
+    const position = Position.positionFromid( celltd.id );
 }
 function newGameCreated( jsonAnswer )
 {
