@@ -86,6 +86,13 @@ function selectGame( event )
 function selectCell( celltd )
 {
     const position = Position.positionFromid( celltd.id );
+    const url = "/games/" + gamesController.currentGame().gameID + "/tokens/0";
+    const body = {"xdest", position.x, "ydest", position.y };
+    apiController.sendPostRequest( url, "move token", concludeMove, body );
+}
+function concludeMove( jsonstr )
+{
+    const moverez = JSON.parse( jsonstr );
 }
 function newGameCreated( jsonAnswer )
 {
