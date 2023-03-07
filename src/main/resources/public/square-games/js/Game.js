@@ -48,6 +48,16 @@ class Game
         this.lostTokens.displayPions("lost");
         
     }
+    showMove( movedTrez )
+    {
+        //MovedTokenResult( String gameid, int tokenid, int newx, int newy, boolean success, String errorMessage)
+        if ( ! movedTrez.success )
+        {
+            displayMessage("danger",movedTrez.errorMessage );
+            return;
+        }
+        const piondep = this.remainingTokens[ movedTrez.tokenid ];
+    }
     playNext()
     {
         
@@ -57,12 +67,12 @@ class Game
         let c = 0;
         for ( let pion of this.remainingTokens )
         {
-            pion
+            pion.display("remain");
         }
     }
     stop()
     {
-        this.duration = new Date() - this.start2play;
+        this.duration += new Date() - this.start2play;
     }
     getDomElement( idx )
     {
@@ -138,6 +148,13 @@ class GamesController
         const game = this.currentGame();
         game.play();
         //tgbe.children[this.gameIndex].setAttribute( "class", "bg-warning" );
+    }
+    getGameByID( gid )
+    {
+        const game = this.gamesList.find( function ( g ) {
+           return ( g.gameID == gid );
+        });
+        return game;
     }
     /*
     reindex()

@@ -93,6 +93,14 @@ function selectCell( celltd )
 function concludeMove( jsonstr )
 {
     const moverez = JSON.parse( jsonstr );
+    //MovedTokenResult( String gameid, int tokenid, int newx, int newy, boolean success, String errorMessage)
+    let game = gamesController.currentGame();
+    
+    if ( moverez.gameid != game.gameID  )
+    {
+        game = gamesController.getGameByID( moverez.gameid );
+    }
+    game.showMove( moverez );
 }
 function newGameCreated( jsonAnswer )
 {

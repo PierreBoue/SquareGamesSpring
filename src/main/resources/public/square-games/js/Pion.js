@@ -86,6 +86,14 @@ class PionController
         this.index = idx;
         
     }
+/*
+    findPionByID( pid, rmv )
+    {
+        const tkn = this.listePions.find( function ( p ) {
+            return ( pid == p.
+        });
+    }
+*/
     displayPions( carpet )
     {
         if ( carpet != "board" ) document.getElementById(carpet).textContent = "";
