@@ -514,11 +514,26 @@ public class AuthenticationApi {
 }
 
 ````
-trouver quels sont les ports écoutés:
-``netstat -tunlp``  ``lsof -i:8081`` 
-launch mysql on a specific port:
+### connection ssh sans mot de passe :  
+#### créer la clef   
 
-``mysql -P 6603 --protocol tcp`
+````shell
+ % mkdir ~/.ssh    
+ % cd ~/.ssh   
+ % ssh-keygen   
+ % eval "$(ssh-agent -s)"
+
+ % ssh-add ~/.ssh/id_ed25519
+ ````
+
+#### copie sur le serveur :    
+``~/.ssh % ssh-copy-id -i id_ed25519.pub root@51.158.65.173``
+### trouver quels sont les ports écoutés:
+``netstat -tunlp`` ou ``lsof -i:8081`` 
+### launch mysql on a specific port:
+
+``mysql -P 6603 --protocol tcp``   
+`` mysql  --protocol tcp -uuserlogin -puserpassword -h localhost --port=3603 database name``
 
 /usr/bin/mysql_secure_installation
 
