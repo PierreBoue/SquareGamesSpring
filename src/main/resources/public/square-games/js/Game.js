@@ -53,10 +53,12 @@ class Game
         //MovedTokenResult( String gameid, int tokenid, int newx, int newy, boolean success, String errorMessage)
         if ( ! movedTrez.success )
         {
-            displayMessage("danger",movedTrez.errorMessage );
+            displayMessage("danger",  movedTrez.errorMessage );
             return;
         }
         const piondep = this.remainingTokens[ movedTrez.tokenid ];
+        piondep.position = new Position( movedTrez.newx, movedTrez.newy );
+        piondep.display( "board");
     }
     playNext()
     {

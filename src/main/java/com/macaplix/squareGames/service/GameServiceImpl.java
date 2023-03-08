@@ -204,6 +204,7 @@ public class GameServiceImpl implements GameService {
     public MovedTokenResult moveToken(String gameid, int tokenIndex, CellPosition newpos)
     {
         Game game = activeGames.get(gameid);
+        System.out.println("movetoken "+ gameid + " " + tokenIndex );
         TokenInfo tokenInfo = gameTokens.get(gameid)[tokenIndex];
         Token token = (tokenInfo.onBoard())?game.getBoard().get(tokenInfo.position()):(Token) game.getRemainingTokens().toArray()[tokenInfo.tokenIndex()-game.getBoard().size()];
         MovedTokenResult result=null;

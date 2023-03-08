@@ -4,7 +4,7 @@ class Pion
    index;
     ownerId;
     symbol;
-    position;
+    position = null;
     allowedMoves=[];
     constructor( apidat, idx )
     {
@@ -123,8 +123,8 @@ class Position
             console.log( compo );
             return null;
         }
-        x = parseInt(compo[0].slice(2));
-        y = parseInt( compo[1]);
+        const x = parseInt(compo[0].slice(2));
+        const y = parseInt( compo[1]);
         return new Position( x, y );
     }
 }
