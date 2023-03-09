@@ -43,20 +43,27 @@ class Game
         this.boardUI.refresh();
         //displayBoard(this.boardSize);
         document.getElementById( "currentGameNameDiv" ).innerHTML = this.gameName;
+        const url = "/games/" +this.gameID + "/tokens";
+        apiController.sendGetRequest( url, "ask for tokens", this.receivedPionsData, true );
         this.board.displayPions("board") ;
         this.remainingTokens.displayPions("remain") ;
         this.lostTokens.displayPions("lost");
         
     }
+    receivedPionsData( psjson )
+    {
+        console.log( psjson );
+    }
     showMove( movedTrez )
     {
         //MovedTokenResult( String gameid, int tokenid, int newx, int newy, boolean success, String errorMessage)
-        if ( ! movedTrez.success )
+        if (( movedTrez == undefined) || ( ! movedTrez.success ))
         {
-            displayMessage("danger",  movedTrez.errorMessage );
+            displayMessage("danger",  ( movedTrez == undefined)?"moveTrez undefined":movedTrez.errorMessage );
             return;
         }
         const piondep = this.remainingTokens[ movedTrez.tokenid ];
+        //pas bon remainingToken n'est pas une liste mais un controller
         piondep.position = new Position( movedTrez.newx, movedTrez.newy );
         piondep.display( "board");
     }
