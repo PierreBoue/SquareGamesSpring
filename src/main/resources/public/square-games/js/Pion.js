@@ -70,6 +70,10 @@ class PionController
         }
         this.index =0;
     }
+    get ( pionid )
+    {
+        return this.listePions[pionid];
+    }
 /*
     api2Pion( apidat )
     {

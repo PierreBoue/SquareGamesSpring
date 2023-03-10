@@ -62,7 +62,7 @@ class Game
             displayMessage("danger",  ( movedTrez == undefined)?"moveTrez undefined":movedTrez.errorMessage );
             return;
         }
-        const piondep = this.remainingTokens[ movedTrez.tokenid ];
+        const piondep = this.remainingTokens.get( movedTrez.tokenid );
         //pas bon remainingToken n'est pas une liste mais un controller
         piondep.position = new Position( movedTrez.newx, movedTrez.newy );
         piondep.display( "board");
