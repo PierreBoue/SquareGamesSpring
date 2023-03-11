@@ -52,7 +52,7 @@ class Game
     }
     receivedPionsData( psjson )
     {
-        console.log( psjson );
+        //console.log( psjson );
     }
     showMove( movedTrez )
     {
@@ -66,6 +66,7 @@ class Game
         //pas bon remainingToken n'est pas une liste mais un controller
         piondep.position = new Position( movedTrez.newx, movedTrez.newy );
         piondep.display( "board");
+        this.remainingTokens.shift("remain");
     }
     playNext()
     {

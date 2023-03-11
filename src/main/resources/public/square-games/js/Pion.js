@@ -26,8 +26,9 @@ class Pion
                 return;
             }
             const cell = this.position.boardDiv();
+            if (( cell == undefined ) || ( cell == null )) console.log("*** no cell ***");
             cell.textContent = "";
-            cell.addChild( this.innerPion());
+            cell.appendChild( this.innerPion());
             //cell.setAttribute("role","button");
         } else {
             const cardom = document.getElementById(carpet);
@@ -73,6 +74,22 @@ class PionController
     get ( pionid )
     {
         return this.listePions[pionid];
+    }
+    shift( carpet )
+    {
+        this.listePions.shift();
+        //this.reindex();
+        const carptdom = document.getElementById(carpet);
+        carptdom.removeChild( carptdom.firstChild );
+        carptdom.firstChild.classList.add("border-danger");
+    }
+    reindex()
+    {
+        let i = 0;
+        for ( let pion of this.listePions )
+        {
+            pion.index = i++;
+        }
     }
 /*
     api2Pion( apidat )
