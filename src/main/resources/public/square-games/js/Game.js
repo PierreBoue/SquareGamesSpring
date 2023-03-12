@@ -67,6 +67,7 @@ class Game
         piondep.position = new Position( movedTrez.newx, movedTrez.newy );
         piondep.display( "board");
         this.remainingTokens.shift("remain");
+        this.board.add( piondep );
     }
     playNext()
     {
