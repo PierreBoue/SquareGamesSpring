@@ -211,7 +211,7 @@ public class GameServiceImpl implements GameService {
         Game game = activeGames.get(gameid);
         System.out.println("movetoken "+ gameid + " " + tokenIndex );
         TokenInfo tokenInfo = gameTokens.get(gameid)[tokenIndex];
-        Token token = (tokenInfo.onBoard())?game.getBoard().get(tokenInfo.position()):(Token) game.getRemainingTokens().toArray()[tokenInfo.tokenIndex()-game.getBoard().size()];
+        Token token = (tokenInfo.onBoard())?game.getBoard().get(tokenInfo.position()):(Token) game.getRemainingTokens().toArray()[tokenInfo.tokenIndex()];//-game.getBoard().size()
         MovedTokenResult result=null;
         if (token.canMove())
         {
