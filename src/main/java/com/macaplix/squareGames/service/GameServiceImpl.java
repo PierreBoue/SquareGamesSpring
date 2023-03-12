@@ -11,11 +11,14 @@ import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.*;
 import java.util.logging.Level;
 
@@ -32,6 +35,8 @@ public class GameServiceImpl implements GameService {
     private TokenDAO tokenDAO;
     @Autowired
     private GameDAOSQL gameDAOSQL;
+    @Value("${stats.local.url}")
+    private String rootURL;
     @Autowired
     public RestTemplate restTemplate(RestTemplateBuilder builder) {
         return builder.build();
@@ -292,6 +297,31 @@ public class GameServiceImpl implements GameService {
             }
         }
         return rep;
+    }
+    private String postScore2statsApi( StatsDTO statsDTO)
+    {
+        URI uri = null;
+        RestTemplate restTemplate = new RestTemplate();
+        try {
+            uri = new URI( rootURL + "/stats/" + statsDTO.playerID());
+        } catch (URISyntaxException e) {
+            System.err.println("uri error:"+e.toString());
+            return e.toString();
+        }
+        return restTemplate.postForObject( uri, statsDTO, String.class );
+    }
+    @Override
+    public StatsSummaryDTO getStatSummaryForPlayer( int playerid )
+    {
+        RestTemplate restTemplate = new RestTemplate();
+        URI uri = null;
+        try {
+            uri = new URI( rootURL + "/stats/summary/" + playerid );
+        } catch (URISyntaxException e) {
+            System.err.println(e);
+            return null;
+        }
+        return restTemplate.getForObject(uri,StatsSummaryDTO.class);
     }
 
     private String checkPlayerCount(GameFactory factory, int playerCount )

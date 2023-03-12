@@ -67,6 +67,8 @@ public interface GameService
      */
     public GamePlugin pluginForGame(String gameName );
     public String mockWriteStats();
-     public Locale getEndUserLocale();
+
+    public StatsSummaryDTO getStatSummaryForPlayer( int playerid );
+    public Locale getEndUserLocale();
     //public GameDescription[] getAllGameDescription();
 }
