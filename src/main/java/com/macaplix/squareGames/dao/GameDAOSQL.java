@@ -4,7 +4,6 @@ import com.macaplix.squareGames.dto.GameSaveDTO;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestParam;
 
 //import javax.xml.datatype.Duration;
 import java.sql.PreparedStatement;
@@ -46,7 +45,7 @@ public class GameDAOSQL implements GameDAOInterface {
        final String req = "CREATE TABLE IF NOT EXISTS `GAMES` (  id int PRIMARY KEY NOT NULL , gameuuid VARCHAR( 36 ) UNIQUE, gametype INT, currentPlayerID INT, gameStatus ENUM('SETUP', 'ONGOING', 'TERMINATED') DEFAULT 'SETUP', boardSize INT, creation DATETIME DEFAULT date(), duration INT DEFAULT 0 );";
         h2 -> final String req = "CREATE TABLE IF NOT EXISTS GAMES (  id int PRIMARY KEY NOT NULL AUTO_INCREMENT, gameuuid VARCHAR( 36 ) UNIQUE, gametype INT, currentPlayerID INT, gameStatus ENUM('SETUP', 'ONGOING', 'TERMINATED') DEFAULT 'SETUP', boardSize INT, creation DATETIME DEFAULT NOW(), duration INT DEFAULT 0 );";
  */
-        connector.updateStatment(req);
+        connector.updateStatement(req);
 
         return true;
     }
@@ -86,7 +85,7 @@ public class GameDAOSQL implements GameDAOInterface {
     {
         if ( ! ISACTIVE ) return (ArrayList<GameSaveDTO>) List.of( errorDTO("SQL is not active"));
         String req ="SELECT id, gameuuid, gameType, currentPlayerID, gameStatus, boardSize, creation, duration FROM " + GAME_TABLE_NAME + " ORDER BY  creation DESC;";
-        ResultSet rezset = connector.selectStatment(req);
+        ResultSet rezset = connector.selectStatement(req);
         ArrayList<GameSaveDTO> games = new ArrayList<GameSaveDTO>();
         if ( rezset == null ) return games;
         while(true) {

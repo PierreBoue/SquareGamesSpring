@@ -35,7 +35,7 @@ public class SQLconnector {
         return INSTANCE;
     }
 */
-    public ResultSet selectStatment( String query )
+    public ResultSet selectStatement(String query)
     {
         Statement stmt= null;
         try {
@@ -55,7 +55,7 @@ public class SQLconnector {
         }
         return ret;
     }
-    public int insertStatment( String query)
+    public int insertStatment(String query)
     {
         Statement stmt= null;
         try {
@@ -77,13 +77,13 @@ public class SQLconnector {
         }
         return ret;
     }
-    public int updateStatment(String query)
+    public int updateStatement(String query)
     {
         Statement stmt= null;
         try {
             stmt = connection.createStatement();
         } catch (SQLException e) {
-            System.err.println("statment creation failed: " + e.toString());
+            System.err.println("statement creation failed: " + e.toString());
             return 0;
             //throw new RuntimeException(e);
         }
