@@ -9,7 +9,7 @@ import java.util.Locale;
 public interface GamePlugin
 {
     //public int defaultPlayerCount=0;
-    //public int defaultBoradSize = 0;
+    //public int defaultBoardSize = 0;
     public String getName(Locale locale, GamePluginBase pluginBase);
     public String getType();
     public GameDescription checkParams(GameParams params);
