@@ -134,7 +134,6 @@ public class SquareGamesController {
     @GetMapping("/admin")
     private String admin()
     {
-
         return "<h1 align='center'>You are in a safe place</h1>\n";
     }
     /**
@@ -148,8 +147,11 @@ public class SquareGamesController {
     @GetMapping("/games/{gameid}/tokens")
     private TokenInfo[] getTokenInfo(@PathVariable(value = "gameid") String gameid, @RequestParam( required = false, defaultValue = "-1" ) int x, @RequestParam( required = false, defaultValue = "-1") int y)
     {
-      if ((x < 0) && ( y <0 )) return gameService.getTokenList(gameid);
-       return new TokenInfo[] {gameService.getTokenInfo(gameid, new CellPosition(x, y))};
+        if ((x < 0) && ( y <0 )) {
+            return gameService.getTokenList(gameid);
+        }else{
+            return new TokenInfo[]{gameService.getTokenInfo(gameid, new CellPosition(x, y))};
+        }
     }
 
     /**
