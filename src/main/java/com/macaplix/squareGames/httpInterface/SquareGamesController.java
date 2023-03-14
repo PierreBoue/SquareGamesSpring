@@ -142,7 +142,7 @@ public class SquareGamesController {
      * @param x optional
      * @param y optional
      * @return the game token list
-     * if x and y are omitted it returns all the tokens of the game, otherwise the token at position x, y on the board
+     * if x and y are omitted it returns all the tokens of the game, otherwise the token at position x, y on the board 
      */
     @GetMapping("/games/{gameid}/tokens")
     private TokenInfo[] getTokenInfo(@PathVariable(value = "gameid") String gameid, @RequestParam( required = false, defaultValue = "-1" ) int x, @RequestParam( required = false, defaultValue = "-1") int y)
