@@ -7,7 +7,7 @@ import com.macaplix.squaregames.entities.TokenEntity;
 import com.macaplix.squaregames.plugin.*;
 import fr.le_campus_numerique.square_games.engine.*;
 import jakarta.annotation.PostConstruct;
-//import ch.qos.logback.classic.LoggerFactory;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
