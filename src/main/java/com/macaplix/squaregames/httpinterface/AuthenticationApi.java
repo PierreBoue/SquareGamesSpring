@@ -32,6 +32,12 @@ public class AuthenticationApi {
         this.authenticationManager = authenticationManager;
     }
 
+    //    @Autowired
+    //    JwtUtils jwtUtils;
+
+    //    @Autowired
+    //    RefreshTokenService refreshTokenService;
+
     @PostMapping("refresh")
     public ResponseEntity<UserDTO> refresh() {
         return null;
