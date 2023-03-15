@@ -126,7 +126,6 @@ public class SquareGamesController {
     @GetMapping("/admin")
     private String admin()
     {
-
         return "<h1 align='center'>You are in a safe place</h1>\n";
     }
     /**
@@ -135,13 +134,16 @@ public class SquareGamesController {
      * @param x optional
      * @param y optional
      * @return the game token list
-     * if x and y are omitted it returns all the tokens of the game, otherwise the token at position x, y on the board
+     * if x and y are omitted it returns all the tokens of the game, otherwise the token at position x, y on the board 
      */
     @GetMapping("/games/{gameid}/tokens")
     private TokenInfo[] getTokenInfo(@PathVariable(value = "gameid") String gameid, @RequestParam( required = false, defaultValue = "-1" ) int x, @RequestParam( required = false, defaultValue = "-1") int y)
     {
-      if ((x < 0) && ( y <0 )) return gameService.getTokenList(gameid);
-       return new TokenInfo[] {gameService.getTokenInfo(gameid, new CellPosition(x, y))};
+        if ((x < 0) && ( y <0 )) {
+            return gameService.getTokenList(gameid);
+        }else{
+            return new TokenInfo[]{gameService.getTokenInfo(gameid, new CellPosition(x, y))};
+        }
     }
 
     /**
