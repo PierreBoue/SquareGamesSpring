@@ -20,12 +20,4 @@ public class HtmlInterface {
         modelAndView.setViewName("login.html");
         return modelAndView;
     }
-
-    @RequestMapping("errorHtml")
-    private ModelAndView errorHtml() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("error.html");
-        return modelAndView;
-    }
-
 }

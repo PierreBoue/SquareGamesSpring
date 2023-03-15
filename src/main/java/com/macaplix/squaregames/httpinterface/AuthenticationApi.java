@@ -76,7 +76,6 @@ public class AuthenticationApi {
                             "fakeAgent".getBytes()).compact();
 
 // Ajoute le token à la réponse dans l’entête http
-// TODO : conversion du user en UserDTO
             return ResponseEntity.ok()
 
                     .header(
